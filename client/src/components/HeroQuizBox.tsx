@@ -1,30 +1,22 @@
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { scrollToElement } from '@/lib/utils';
-
-const QuizOptions = [
-  { value: 1, label: "Bajo" },
-  { value: 2, label: "Básico" },
-  { value: 3, label: "Medio" },
-  { value: 4, label: "Alto" }
-];
+import { QuizQuestion } from '@/types/quiz';
 
 interface HeroQuizBoxProps {
   onGetFullDiagnostic?: () => void;
 }
 
 const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ onGetFullDiagnostic }) => {
-  const [selectedValue, setSelectedValue] = useState<string | undefined>();
-  const [submitted, setSubmitted] = useState(false);
+  const [expandedQuestion, setExpandedQuestion] = useState<number | null>(null);
 
-  const handleSubmit = () => {
-    if (selectedValue) {
-      setSubmitted(true);
-    }
-  };
+  // Fetch quiz questions
+  const { data: questions, isLoading } = useQuery<QuizQuestion[]>({
+    queryKey: ['/api/quiz-questions'],
+  });
 
   const handleGetFullDiagnostic = () => {
     if (onGetFullDiagnostic) {
@@ -34,69 +26,65 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ onGetFullDiagnostic }) => {
     }
   };
 
+  const toggleQuestion = (id: number) => {
+    setExpandedQuestion(expandedQuestion === id ? null : id);
+  };
+
   return (
     <Card className="shadow-lg border-2 border-secondary w-full max-w-md bg-white">
       <CardHeader className="bg-accent text-white pb-4">
         <CardTitle className="text-xl text-center">
-          {submitted ? "Tu Respuesta" : "Evaluación Rápida"}
+          Auto-Evaluación
         </CardTitle>
       </CardHeader>
-      <CardContent className="pt-6 pb-4">
-        {!submitted ? (
-          <>
-            <p className="mb-4 text-foreground font-medium">
-              ¿Qué tan seguro/a te sientes con tu nivel de noruego para desenvolverte en situaciones cotidianas?
-            </p>
-            <RadioGroup 
-              value={selectedValue} 
-              onValueChange={setSelectedValue}
-              className="space-y-2 mt-4"
-            >
-              {QuizOptions.map((option) => (
-                <div 
-                  key={option.value}
-                  className="flex items-center space-x-2 p-2 border border-secondary/30 rounded-md hover:border-primary hover:bg-neutral-50 cursor-pointer"
-                >
-                  <RadioGroupItem value={option.value.toString()} id={`quick-q-${option.value}`} />
-                  <Label htmlFor={`quick-q-${option.value}`}>{option.label}</Label>
-                </div>
-              ))}
-            </RadioGroup>
-          </>
-        ) : (
-          <div className="text-center">
-            <div className="mb-4">
-              <p className="text-lg mb-1 font-semibold">
-                Este es sólo el comienzo
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Completa el diagnóstico completo para descubrir tu potencial migrante en todas las áreas clave.
-              </p>
+      <CardContent className="p-0">
+        <ScrollArea className="h-[400px]">
+          {isLoading ? (
+            <div className="flex justify-center items-center h-[200px]">
+              <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
             </div>
-            
-            <div className="my-6 p-4 bg-secondary/20 rounded-lg text-center">
-              <p className="font-medium">El dominio del idioma es sólo una de las 11 áreas que componen tu capital migrante</p>
+          ) : (
+            <div className="p-4">
+              <p className="mb-4 text-sm text-foreground font-medium">
+                Explora las 11 áreas que componen tu capital migrante en Noruega:
+              </p>
+              <div className="space-y-2">
+                {questions?.map((question) => (
+                  <div 
+                    key={question.id} 
+                    className="border border-secondary/30 rounded-md overflow-hidden"
+                  >
+                    <div 
+                      className="p-3 bg-secondary/10 flex justify-between items-center cursor-pointer hover:bg-secondary/20"
+                      onClick={() => toggleQuestion(question.id)}
+                    >
+                      <div className="font-medium text-sm">{question.category}</div>
+                      <div className="text-primary text-lg">
+                        {expandedQuestion === question.id ? '−' : '+'}
+                      </div>
+                    </div>
+                    {expandedQuestion === question.id && (
+                      <div className="p-3 bg-white text-sm">
+                        {question.question}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <div className="my-4 p-3 bg-secondary/20 rounded-lg text-center text-sm">
+                <p className="font-medium">Evalúa estas 11 áreas para descubrir y potenciar tu capital migrante</p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </ScrollArea>
       </CardContent>
       <CardFooter className="flex justify-center px-6 pt-2 pb-6">
-        {!submitted ? (
-          <Button 
-            className="w-full" 
-            onClick={handleSubmit}
-            disabled={!selectedValue}
-          >
-            Ver resultado
-          </Button>
-        ) : (
-          <Button 
-            className="w-full" 
-            onClick={handleGetFullDiagnostic}
-          >
-            Diagnóstico completo
-          </Button>
-        )}
+        <Button 
+          className="w-full" 
+          onClick={handleGetFullDiagnostic}
+        >
+          Iniciar Diagnóstico Completo
+        </Button>
       </CardFooter>
     </Card>
   );
