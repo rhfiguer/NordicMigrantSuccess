@@ -83,7 +83,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
 
   return (
     <Card className="shadow-lg border w-full max-w-lg bg-white rounded-xl overflow-hidden">
-      <CardHeader className="bg-secondary text-primary pb-2">
+      <CardHeader className="bg-primary text-white pb-2">
         <CardTitle className="text-lg text-center font-bold">
           Evalúa tu Capital Migrante
         </CardTitle>
@@ -122,7 +122,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                   
                   <Button
                     onClick={handleCompleteQuiz}
-                    className="w-full rounded-lg shadow-sm"
+                    className="w-full rounded-lg shadow-sm bg-primary text-white hover:bg-primary-dark"
                   >
                     Ver diagnóstico detallado
                   </Button>
