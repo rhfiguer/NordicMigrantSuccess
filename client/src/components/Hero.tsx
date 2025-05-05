@@ -10,7 +10,7 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
   return (
     <section className="relative py-28 text-white" style={{
-      backgroundImage: `linear-gradient(to bottom right, hsla(var(--primary), 0.95), hsla(var(--primary-dark), 0.95)), url('/hero-background.jpg')`,
+      backgroundImage: `linear-gradient(to bottom right, hsla(var(--primary), 0.85), hsla(var(--primary-dark), 0.85)), url('/hero-background.jpg')`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
     }}>
@@ -38,7 +38,7 @@ const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
           />
         </svg>
       </div>
-      
+
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="lg:pr-6">
@@ -58,7 +58,7 @@ const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
               </Button>
             </div>
           </div>
-          
+
           <div className="w-full flex justify-center lg:justify-end">
             <div className="w-full lg:max-w-xl">
               <HeroQuizBox 
