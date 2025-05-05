@@ -104,7 +104,7 @@ const DiagnosticQuiz: React.FC<QuizProps> = ({ questions }) => {
                   {showResults ? (
                     <div className="text-center py-6">
                       <h3 className="font-poppins font-bold text-xl md:text-2xl mb-4 text-primary">
-                        Tu Diagnóstico de Capital Migrante
+                        Tu Diagnóstico de Capital MAAS
                       </h3>
                       <div className="mx-auto w-32 h-32 rounded-full border-8 border-secondary flex items-center justify-center mb-6">
                         <span id="quiz-score" className="text-3xl font-bold text-primary">

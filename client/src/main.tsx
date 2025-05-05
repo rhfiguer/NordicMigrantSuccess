@@ -10,7 +10,7 @@ document.head.appendChild(link);
 
 // Add a title to the page
 const title = document.createElement("title");
-title.textContent = "Despliega tu Capital Migrante | Taller Virtual";
+title.textContent = "Despliega tu Capital MAAS | Taller Virtual";
 document.head.appendChild(title);
 
 // Font Awesome

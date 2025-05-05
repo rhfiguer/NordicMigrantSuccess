@@ -78,7 +78,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-neutral-700 mt-8 pt-8 text-center text-neutral-400 text-sm">
-          <p>&copy; {new Date().getFullYear()} Capital Migrante. Todos los derechos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} Capital MAAS. Todos los derechos reservados.</p>
         </div>
       </div>
     </footer>

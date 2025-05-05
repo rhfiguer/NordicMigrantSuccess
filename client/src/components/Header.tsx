@@ -53,7 +53,7 @@ const Header = () => {
   return (
     <header className={`bg-primary text-white py-4 sticky top-0 z-50 shadow-md transition-all ${isScrolled ? 'py-3' : 'py-4'}`}>
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <h1 className="font-poppins font-bold text-lg md:text-2xl">Capital Migrante</h1>
+        <h1 className="font-poppins font-bold text-lg md:text-2xl">Capital MAAS</h1>
         
         {isMobile ? (
           <Sheet>

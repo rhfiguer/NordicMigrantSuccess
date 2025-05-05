@@ -8,7 +8,7 @@ const Overview = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-poppins font-bold text-2xl md:text-3xl text-center mb-3 text-primary">
-            Despliega tu Capital Migrante
+            Despliega tu Capital MAAS
           </h2>
           <p className="text-center text-neutral-600 mb-10">
             Un taller virtual de 5 encuentros diseñado específicamente para inmigrantes ambiciosos como tú
