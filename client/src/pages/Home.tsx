@@ -1,0 +1,64 @@
+import { useEffect } from "react";
+import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+import Overview from "@/components/Overview";
+import WorkshopSessions from "@/components/WorkshopSessions";
+import ForWhoSection from "@/components/ForWhoSection";
+import DiagnosticQuiz from "@/components/DiagnosticQuiz";
+import Testimonials from "@/components/Testimonials";
+import RegistrationForm from "@/components/RegistrationForm";
+import FAQ from "@/components/FAQ";
+import Footer from "@/components/Footer";
+import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
+
+const Home = () => {
+  const [location] = useLocation();
+
+  // Prefetch all data needed for the page
+  const { data: faqs } = useQuery({
+    queryKey: ['/api/faqs'],
+  });
+
+  const { data: testimonials } = useQuery({
+    queryKey: ['/api/testimonials'],
+  });
+
+  const { data: quizQuestions } = useQuery({
+    queryKey: ['/api/quiz-questions'],
+  });
+
+  // Handle hash navigation 
+  useEffect(() => {
+    // After page load, check if there's a hash in the URL and scroll to that section
+    const hash = window.location.hash;
+    if (hash) {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location]);
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Header />
+      <Hero />
+      <Overview />
+      <WorkshopSessions />
+      <ForWhoSection />
+      <DiagnosticQuiz questions={quizQuestions || []} />
+      <Testimonials testimonials={testimonials || []} />
+      <div id="inscripcion" className="scroll-mt-20">
+        <RegistrationForm />
+      </div>
+      <FAQ faqs={faqs || []} />
+      <Footer />
+    </div>
+  );
+};
+
+export default Home;
