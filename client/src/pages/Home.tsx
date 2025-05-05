@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Overview from "@/components/Overview";
+import Presenters from "@/components/Presenters";
 import WorkshopSessions from "@/components/WorkshopSessions";
 import ForWhoSection from "@/components/ForWhoSection";
 import DiagnosticQuiz from "@/components/DiagnosticQuiz";
@@ -66,6 +67,7 @@ const Home = () => {
       <Header />
       <Hero quizQuestions={quizQuestions} />
       <Overview />
+      <Presenters />
       <WorkshopSessions />
       <ForWhoSection />
       <DiagnosticQuiz questions={quizQuestions} />
