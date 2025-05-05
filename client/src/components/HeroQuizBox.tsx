@@ -1,24 +1,79 @@
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { scrollToElement } from '@/lib/utils';
+import { useState, useEffect } from 'react';
+import { useQuiz } from '@/hooks/use-quiz';
 import { QuizQuestion } from '@/types/quiz';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { scrollToElement } from '@/lib/utils';
 
 interface HeroQuizBoxProps {
+  questions: QuizQuestion[];
   onGetFullDiagnostic?: () => void;
 }
 
-const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ onGetFullDiagnostic }) => {
-  const [expandedQuestion, setExpandedQuestion] = useState<number | null>(null);
+const QuizOptions = [
+  { value: 1, label: "Bajo" },
+  { value: 2, label: "Básico" },
+  { value: 3, label: "Medio" },
+  { value: 4, label: "Alto" }
+];
 
-  // Fetch quiz questions
-  const { data: questions, isLoading } = useQuery<QuizQuestion[]>({
-    queryKey: ['/api/quiz-questions'],
+const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnostic }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (questions.length > 0) {
+      setIsLoaded(true);
+    }
+  }, [questions]);
+
+  const {
+    currentStep,
+    totalSteps,
+    currentQuestion,
+    responses,
+    isSubmitting,
+    result,
+    isLastStep,
+    showResults,
+    updateResponse,
+    goToNext,
+    goToPrevious,
+    submitQuiz,
+    reset
+  } = useQuiz({
+    questions: isLoaded ? questions : Array(11).fill({ id: 0, question: '', category: '', order: 0 }) 
   });
 
-  const handleGetFullDiagnostic = () => {
+  const progress = Math.floor((currentStep / totalSteps) * 100);
+
+  const handleOptionChange = (value: string) => {
+    if (currentQuestion) {
+      updateResponse(currentQuestion.order, Number(value));
+    }
+  };
+
+  const handleNextClick = () => {
+    if (isLastStep) {
+      submitQuiz();
+    } else {
+      goToNext();
+    }
+  };
+
+  // Determine if next button should be enabled
+  const isNextDisabled = () => {
+    if (currentQuestion) {
+      const responseKey = `q${currentQuestion.order}` as keyof typeof responses;
+      return !responses[responseKey] && !showResults;
+    }
+    return false;
+  };
+
+  const handleCompleteQuiz = () => {
     if (onGetFullDiagnostic) {
       onGetFullDiagnostic();
     } else {
@@ -26,66 +81,109 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ onGetFullDiagnostic }) => {
     }
   };
 
-  const toggleQuestion = (id: number) => {
-    setExpandedQuestion(expandedQuestion === id ? null : id);
-  };
-
   return (
     <Card className="shadow-lg border-2 border-secondary w-full max-w-md bg-white">
-      <CardHeader className="bg-accent text-white pb-4">
-        <CardTitle className="text-xl text-center">
-          Auto-Evaluación
+      <CardHeader className="bg-accent text-white pb-2">
+        <CardTitle className="text-lg text-center">
+          Evalúa tu Capital Migrante
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-0">
-        <ScrollArea className="h-[400px]">
-          {isLoading ? (
-            <div className="flex justify-center items-center h-[200px]">
-              <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+      <CardContent className="p-4">
+        {!isLoaded ? (
+          <div className="flex justify-center items-center h-[200px]">
+            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
+          </div>
+        ) : (
+          <div id="hero-quiz-container">
+            <div className="quiz-progress mb-3">
+              <Progress value={progress} className="h-1.5 w-full bg-neutral-200 rounded-full overflow-hidden" />
+              <div className="flex justify-between text-xs text-neutral-500 mt-1">
+                <span>
+                  {showResults ? 'Resultados' : `Pregunta ${currentStep + 1}/${totalSteps}`}
+                </span>
+                <span>{progress}% Completado</span>
+              </div>
             </div>
-          ) : (
-            <div className="p-4">
-              <p className="mb-4 text-sm text-foreground font-medium">
-                Explora las 11 áreas que componen tu capital migrante en Noruega:
-              </p>
-              <div className="space-y-2">
-                {questions?.map((question) => (
-                  <div 
-                    key={question.id} 
-                    className="border border-secondary/30 rounded-md overflow-hidden"
-                  >
-                    <div 
-                      className="p-3 bg-secondary/10 flex justify-between items-center cursor-pointer hover:bg-secondary/20"
-                      onClick={() => toggleQuestion(question.id)}
-                    >
-                      <div className="font-medium text-sm">{question.category}</div>
-                      <div className="text-primary text-lg">
-                        {expandedQuestion === question.id ? '−' : '+'}
-                      </div>
-                    </div>
-                    {expandedQuestion === question.id && (
-                      <div className="p-3 bg-white text-sm">
-                        {question.question}
-                      </div>
-                    )}
+
+            <ScrollArea className="h-[320px]">
+              {showResults ? (
+                <div className="text-center py-4">
+                  <h3 className="font-semibold text-lg mb-3 text-primary">
+                    Tu Diagnóstico
+                  </h3>
+                  <div className="mx-auto w-24 h-24 rounded-full border-4 border-secondary flex items-center justify-center mb-4">
+                    <span className="text-2xl font-bold text-primary">
+                      {result?.score || 0}%
+                    </span>
                   </div>
-                ))}
+                  <div className="mb-4 p-3 bg-secondary/20 rounded-lg">
+                    <p className="text-sm">{result?.recommendation || 'Completa el diagnóstico completo.'}</p>
+                  </div>
+                  
+                  <Button
+                    onClick={handleCompleteQuiz}
+                    className="w-full"
+                  >
+                    Ver diagnóstico detallado
+                  </Button>
+                </div>
+              ) : (
+                <div>
+                  <h3 className="font-semibold text-sm mb-2">
+                    {currentQuestion?.category}
+                  </h3>
+                  <p className="mb-4 text-sm">{currentQuestion?.question}</p>
+                  
+                  <RadioGroup 
+                    value={currentQuestion ? responses[`q${currentQuestion.order}` as keyof typeof responses]?.toString() : undefined}
+                    onValueChange={handleOptionChange}
+                    className="space-y-2"
+                  >
+                    {QuizOptions.map((option) => (
+                      <div 
+                        key={option.value}
+                        className="flex items-center space-x-2 p-2 border border-neutral-300 rounded-md hover:border-primary hover:bg-neutral-50 cursor-pointer"
+                      >
+                        <RadioGroupItem value={option.value.toString()} id={`hero-q${currentQuestion?.order}-${option.value}`} />
+                        <Label htmlFor={`hero-q${currentQuestion?.order}-${option.value}`}>{option.label}</Label>
+                      </div>
+                    ))}
+                  </RadioGroup>
+                </div>
+              )}
+            </ScrollArea>
+
+            {!showResults && (
+              <div className="flex justify-between mt-4">
+                <Button
+                  variant="outline"
+                  className="px-4 py-1 text-sm border border-primary text-primary rounded-md hover:bg-primary hover:text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  onClick={goToPrevious}
+                  disabled={currentStep === 0}
+                >
+                  Anterior
+                </Button>
+                <Button
+                  className="px-4 py-1 text-sm bg-primary text-white rounded-md hover:bg-primary-dark transition"
+                  onClick={handleNextClick}
+                  disabled={isNextDisabled() || isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <div className="flex items-center">
+                      <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white mr-1"></div>
+                      Procesando...
+                    </div>
+                  ) : isLastStep ? (
+                    'Ver resultados'
+                  ) : (
+                    'Siguiente'
+                  )}
+                </Button>
               </div>
-              <div className="my-4 p-3 bg-secondary/20 rounded-lg text-center text-sm">
-                <p className="font-medium">Evalúa estas 11 áreas para descubrir y potenciar tu capital migrante</p>
-              </div>
-            </div>
-          )}
-        </ScrollArea>
+            )}
+          </div>
+        )}
       </CardContent>
-      <CardFooter className="flex justify-center px-6 pt-2 pb-6">
-        <Button 
-          className="w-full" 
-          onClick={handleGetFullDiagnostic}
-        >
-          Iniciar Diagnóstico Completo
-        </Button>
-      </CardFooter>
     </Card>
   );
 };

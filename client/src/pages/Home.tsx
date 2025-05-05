@@ -11,20 +11,38 @@ import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
+import { QuizQuestion } from "@/types/quiz";
+
+// Tipos para los datos de las APIs
+interface Testimonial {
+  id: number;
+  name: string;
+  countryOrigin: string;
+  city: string;
+  testimonial: string;
+  imageUrl?: string;
+}
+
+interface FAQItem {
+  id: number;
+  question: string;
+  answer: string;
+  order: number;
+}
 
 const Home = () => {
   const [location] = useLocation();
 
   // Prefetch all data needed for the page
-  const { data: faqs } = useQuery({
+  const { data: faqs = [] } = useQuery<FAQItem[]>({
     queryKey: ['/api/faqs'],
   });
 
-  const { data: testimonials } = useQuery({
+  const { data: testimonials = [] } = useQuery<Testimonial[]>({
     queryKey: ['/api/testimonials'],
   });
 
-  const { data: quizQuestions } = useQuery({
+  const { data: quizQuestions = [] } = useQuery<QuizQuestion[]>({
     queryKey: ['/api/quiz-questions'],
   });
 
@@ -46,16 +64,16 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <Hero />
+      <Hero quizQuestions={quizQuestions} />
       <Overview />
       <WorkshopSessions />
       <ForWhoSection />
-      <DiagnosticQuiz questions={quizQuestions || []} />
-      <Testimonials testimonials={testimonials || []} />
+      <DiagnosticQuiz questions={quizQuestions} />
+      <Testimonials testimonials={testimonials} />
       <div id="inscripcion" className="scroll-mt-20">
         <RegistrationForm />
       </div>
-      <FAQ faqs={faqs || []} />
+      <FAQ faqs={faqs} />
       <Footer />
     </div>
   );

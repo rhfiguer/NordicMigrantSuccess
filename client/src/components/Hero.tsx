@@ -1,8 +1,13 @@
 import { scrollToElement } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import HeroQuizBox from './HeroQuizBox';
+import { QuizQuestion } from '@/types/quiz';
 
-const Hero = () => {
+interface HeroProps {
+  quizQuestions: QuizQuestion[];
+}
+
+const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
   return (
     <section className="relative py-24 bg-gradient-to-br from-primary to-primary-dark text-white">
       <div className="absolute inset-0 opacity-10">
@@ -57,7 +62,10 @@ const Hero = () => {
           </div>
           
           <div className="w-full lg:w-auto mt-6 lg:mt-0 flex justify-center">
-            <HeroQuizBox onGetFullDiagnostic={() => scrollToElement('diagnostico')} />
+            <HeroQuizBox 
+              questions={quizQuestions} 
+              onGetFullDiagnostic={() => scrollToElement('diagnostico')} 
+            />
           </div>
         </div>
       </div>
