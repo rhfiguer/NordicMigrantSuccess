@@ -41,7 +41,7 @@ const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="lg:pr-6">
             <h1 className="font-poppins font-bold text-3xl md:text-5xl leading-tight mb-6">
-              CAPITALIZA TU POTENCIAL COMO MIGRANTE DE ALTA AMBICION Y SUPERACION (MAAS)
+              CAPITALIZA TU POTENCIAL COMO MIGRANTE DE <span className="relative">ALTA AMBICION<span className="absolute bottom-1 left-0 w-full h-[6px] bg-accent transform -skew 3deg"></span></span> Y SUPERACION (MAAS)
             </h1>
             <p className="text-lg md:text-xl mb-8">
               ¿Sueñas con construir una vida plena y exitosa, superando los desafíos iniciales y floreciendo en tu nuevo hogar?
