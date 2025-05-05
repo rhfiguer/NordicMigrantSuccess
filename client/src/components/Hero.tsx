@@ -9,7 +9,9 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
   return (
-    <section className="relative py-28 text-white bg-gradient-to-br from-primary to-primary-dark">
+    <section className="relative py-28 text-white bg-cover bg-center" style={{
+      backgroundImage: `linear-gradient(to right, hsla(var(--primary) / 0.95), hsla(var(--primary-dark) / 0.85)), url('/hero-background.jpg')`
+    }}>
       <div className="absolute inset-0 opacity-10">
         <svg
           className="w-full h-full"
