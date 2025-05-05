@@ -44,13 +44,7 @@ const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
             <p className="text-lg md:text-xl mb-8">
               ¿Sueñas con construir una vida plena y exitosa, superando los desafíos iniciales y floreciendo en tu nuevo hogar?
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                onClick={() => scrollToElement('diagnostico')}
-                className="bg-secondary hover:bg-secondary-dark text-primary font-semibold px-8 py-6 rounded-lg shadow-lg text-center transition transform hover:-translate-y-1 h-auto"
-              >
-                Evalúa tu capital migrante
-              </Button>
+            <div className="flex justify-center">
               <Button
                 onClick={() => scrollToElement('inscripcion')}
                 variant="outline"
