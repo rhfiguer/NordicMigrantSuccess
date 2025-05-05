@@ -42,7 +42,7 @@ const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="lg:pr-6">
             <h1 className="font-poppins font-bold text-3xl md:text-5xl leading-tight mb-6">
-              CAPITALIZA TU POTENCIAL COMO MIGRANTE DE <span className="relative">ALTA AMBICION<span className="absolute bottom-0 left-0 w-full h-[25px] bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 500 20\' height=\'25\' preserveAspectRatio=\'none\'%3e%3cpath d=\'M 0 15 Q 125 5, 250 15 T 500 15\' stroke=\'hsl(15, 80%, 55%)\' stroke-width=\'6\' fill=\'none\' stroke-linecap=\'round\'/%3e%3c/svg%3e')] bg-no-repeat bg-cover opacity-40"></span></span> Y SUPERACION (MAAS)
+              CAPITALIZA TU POTENCIAL COMO MIGRANTE DE <span className="relative">ALTA AMBICION<span className="absolute bottom-0 left-0 w-full h-[25px] bg-[url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 500 20\' height=\'25\' preserveAspectRatio=\'none\'%3e%3cpath d=\'M 0 15 Q 125 5, 250 15 T 500 15\' stroke=\'hsl(15, 80%, 55%)\' stroke-width=\'8\' fill=\'none\' stroke-linecap=\'round\'/%3e%3c/svg%3e')] bg-no-repeat bg-cover opacity-60"></span></span> Y SUPERACION (MAAS)
             </h1>
             <p className="text-lg md:text-xl mb-8">
               ¿Sueñas con construir una vida plena y exitosa, superando los desafíos iniciales y floreciendo en tu nuevo hogar?
