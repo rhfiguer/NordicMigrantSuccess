@@ -82,7 +82,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
   };
 
   return (
-    <Card className="shadow-lg border-2 border-secondary w-full max-w-md bg-white">
+    <Card className="shadow-lg border-2 border-secondary w-full max-w-lg bg-white rounded-xl overflow-hidden">
       <CardHeader className="bg-accent text-white pb-2">
         <CardTitle className="text-lg text-center">
           Evalúa tu Capital Migrante
@@ -116,13 +116,13 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                       {result?.score || 0}%
                     </span>
                   </div>
-                  <div className="mb-4 p-3 bg-secondary/20 rounded-lg">
+                  <div className="mb-4 p-3 bg-secondary/20 rounded-lg shadow-sm">
                     <p className="text-sm">{result?.recommendation || 'Completa el diagnóstico completo.'}</p>
                   </div>
                   
                   <Button
                     onClick={handleCompleteQuiz}
-                    className="w-full"
+                    className="w-full rounded-lg shadow-sm"
                   >
                     Ver diagnóstico detallado
                   </Button>
@@ -142,7 +142,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                     {QuizOptions.map((option) => (
                       <div 
                         key={option.value}
-                        className="flex items-center space-x-2 p-2 border border-neutral-300 rounded-md hover:border-primary hover:bg-neutral-50 cursor-pointer"
+                        className="flex items-center space-x-2 p-3 border border-neutral-300 rounded-lg hover:border-primary hover:bg-neutral-50 cursor-pointer shadow-sm"
                       >
                         <RadioGroupItem value={option.value.toString()} id={`hero-q${currentQuestion?.order}-${option.value}`} />
                         <Label htmlFor={`hero-q${currentQuestion?.order}-${option.value}`}>{option.label}</Label>
@@ -157,14 +157,14 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
               <div className="flex justify-between mt-4">
                 <Button
                   variant="outline"
-                  className="px-4 py-1 text-sm border border-primary text-primary rounded-md hover:bg-primary hover:text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-1 text-sm border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
                   onClick={goToPrevious}
                   disabled={currentStep === 0}
                 >
                   Anterior
                 </Button>
                 <Button
-                  className="px-4 py-1 text-sm bg-primary text-white rounded-md hover:bg-primary-dark transition"
+                  className="px-4 py-1 text-sm bg-primary text-white rounded-lg hover:bg-primary-dark transition shadow-sm"
                   onClick={handleNextClick}
                   disabled={isNextDisabled() || isSubmitting}
                 >
