@@ -6,7 +6,6 @@ import Presenters from "@/components/Presenters";
 import WorkshopSessions from "@/components/WorkshopSessions";
 import ForWhoSection from "@/components/ForWhoSection";
 import DiagnosticQuiz from "@/components/DiagnosticQuiz";
-import Testimonials from "@/components/Testimonials";
 import RegistrationForm from "@/components/RegistrationForm";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
@@ -39,9 +38,6 @@ const Home = () => {
     queryKey: ['/api/faqs'],
   });
 
-  const { data: testimonials = [] } = useQuery<Testimonial[]>({
-    queryKey: ['/api/testimonials'],
-  });
 
   const { data: quizQuestions = [] } = useQuery<QuizQuestion[]>({
     queryKey: ['/api/quiz-questions'],
@@ -71,7 +67,6 @@ const Home = () => {
       <WorkshopSessions />
       <ForWhoSection />
       <DiagnosticQuiz questions={quizQuestions} />
-      <Testimonials testimonials={testimonials} />
       <div id="inscripcion" className="scroll-mt-20">
         <RegistrationForm />
       </div>
