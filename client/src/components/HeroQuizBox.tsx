@@ -135,6 +135,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                   <p className="mb-4 text-sm">{currentQuestion?.question}</p>
                   
                   <RadioGroup 
+                    key={currentQuestion?.order}
                     value={currentQuestion ? responses[`q${currentQuestion.order}` as keyof typeof responses]?.toString() : undefined}
                     onValueChange={handleOptionChange}
                     className="space-y-2"
