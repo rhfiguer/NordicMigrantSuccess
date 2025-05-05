@@ -9,7 +9,7 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
   return (
-    <section className="relative py-24 bg-gradient-to-br from-primary to-primary-dark text-white">
+    <section className="relative py-28 bg-gradient-to-br from-primary to-primary-dark text-white">
       <div className="absolute inset-0 opacity-10">
         <svg
           className="w-full h-full"
@@ -36,8 +36,8 @@ const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col lg:flex-row justify-between items-center gap-10">
-          <div className="max-w-3xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="lg:pr-6">
             <h1 className="font-poppins font-bold text-3xl md:text-5xl leading-tight mb-6">
               Descubre y capitaliza tu potencial Migrante en Noruega
             </h1>
@@ -47,25 +47,27 @@ const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button
                 onClick={() => scrollToElement('diagnostico')}
-                className="bg-secondary hover:bg-secondary-dark text-primary font-semibold px-8 py-6 rounded-md shadow-lg text-center transition transform hover:-translate-y-1 h-auto"
+                className="bg-secondary hover:bg-secondary-dark text-primary font-semibold px-8 py-6 rounded-lg shadow-lg text-center transition transform hover:-translate-y-1 h-auto"
               >
                 Evalúa tu capital migrante
               </Button>
               <Button
                 onClick={() => scrollToElement('inscripcion')}
                 variant="outline"
-                className="bg-white hover:bg-neutral-200 text-primary font-semibold px-8 py-6 rounded-md shadow-lg text-center transition transform hover:-translate-y-1 h-auto"
+                className="bg-white hover:bg-neutral-200 text-primary font-semibold px-8 py-6 rounded-lg shadow-lg text-center transition transform hover:-translate-y-1 h-auto"
               >
                 Inscríbete al taller
               </Button>
             </div>
           </div>
           
-          <div className="w-full lg:w-auto mt-6 lg:mt-0 flex justify-center">
-            <HeroQuizBox 
-              questions={quizQuestions} 
-              onGetFullDiagnostic={() => scrollToElement('diagnostico')} 
-            />
+          <div className="w-full flex justify-center lg:justify-end">
+            <div className="w-full lg:max-w-xl">
+              <HeroQuizBox 
+                questions={quizQuestions} 
+                onGetFullDiagnostic={() => scrollToElement('diagnostico')} 
+              />
+            </div>
           </div>
         </div>
       </div>
