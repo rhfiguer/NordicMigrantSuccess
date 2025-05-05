@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sky background -->
+  <rect width="1200" height="600" fill="#003D73" />
+  
+  <!-- Sun/Moon -->
+  <circle cx="900" cy="100" r="60" fill="#FFFFFF" opacity="0.8" />
+  
+  <!-- Distant mountains -->
+  <path d="M0,220 L100,180 L200,250 L300,200 L400,230 L500,180 L600,220 L700,190 L800,250 L900,200 L1000,230 L1100,190 L1200,210 L1200,600 L0,600 Z" fill="#002855" />
+  
+  <!-- Mid mountains -->
+  <path d="M0,250 L150,200 L250,280 L350,230 L450,260 L550,210 L650,250 L750,220 L850,280 L950,230 L1050,260 L1150,220 L1200,240 L1200,600 L0,600 Z" fill="#00234B" />
+  
+  <!-- Close mountains -->
+  <path d="M0,300 L120,260 L200,320 L300,270 L400,310 L500,260 L600,300 L700,270 L800,320 L900,270 L1000,310 L1100,260 L1200,290 L1200,600 L0,600 Z" fill="#001A38" />
+  
+  <!-- Fjord water -->
+  <path d="M0,400 L1200,400 L1200,600 L0,600 Z" fill="#0074B7" opacity="0.7" />
+  
+  <!-- Northern lights effect -->
+  <path d="M0,100 Q300,150 600,50 T1200,120" stroke="#BFD7ED" fill="none" stroke-width="4" opacity="0.3" />
+  <path d="M0,130 Q300,80 600,130 T1200,80" stroke="#BFD7ED" fill="none" stroke-width="3" opacity="0.2" />
+  <path d="M0,70 Q300,120 600,60 T1200,100" stroke="#BFD7ED" fill="none" stroke-width="5" opacity="0.2" />
+  
+  <!-- Foreground silhouettes - trees and cabins -->
+  <!-- Pine trees -->
+  <polygon points="100,390 120,350 140,390" fill="#001A38" />
+  <polygon points="140,390 160,340 180,390" fill="#001A38" />
+  <polygon points="300,390 320,350 340,390" fill="#001A38" />
+  <polygon points="340,390 360,340 380,390" fill="#001A38" />
+  <polygon points="800,390 820,350 840,390" fill="#001A38" />
+  <polygon points="840,390 860,340 880,390" fill="#001A38" />
+  <polygon points="880,390 900,360 920,390" fill="#001A38" />
+  
+  <!-- Cabin silhouettes -->
+  <rect x="500" y="360" width="60" height="30" fill="#001A38" />
+  <polygon points="490,360 570,360 530,340" fill="#001A38" />
+  
+  <rect x="650" y="370" width="40" height="20" fill="#001A38" />
+  <polygon points="645,370 695,370 670,355" fill="#001A38" />
+  
+  <!-- Reflection in water (subtle) -->
+  <path d="M0,450 Q300,470 600,450 T1200,470" stroke="#FFFFFF" fill="none" stroke-width="1" opacity="0.1" />
+  <path d="M0,480 Q300,460 600,480 T1200,460" stroke="#FFFFFF" fill="none" stroke-width="1" opacity="0.1" />
+  
+  <!-- Overlay to darken for text readability -->
+  <rect width="1200" height="600" fill="#000000" opacity="0.3" />
+</svg>
