@@ -85,7 +85,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
     <Card className="shadow-lg border w-full max-w-lg bg-white rounded-xl overflow-hidden">
       <CardHeader className="bg-primary text-white pb-2">
         <CardTitle className="text-lg text-center font-bold">
-          EVALUA TU CAPITAL DE MIGRANTE DE ALTA AMBICION SOCIAL
+          EVALUA TU CAPITAL DE MIGRANTE MAAS
         </CardTitle>
       </CardHeader>
       <CardContent className="p-4">
