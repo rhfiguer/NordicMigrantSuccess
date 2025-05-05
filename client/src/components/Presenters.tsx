@@ -12,44 +12,40 @@ const Presenters = () => {
           Expertos en integración cultural y desarrollo personal que te acompañarán en tu transformación
         </p>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <Card className="overflow-hidden border-none shadow-lg">
-            <CardContent className="p-0">
-              <div className="aspect-video relative overflow-hidden">
-                <img 
-                  src="/EPDN Marcela.png" 
-                  alt="Marcela"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-              </div>
-              <div className="p-6">
-                <h3 className="font-poppins font-bold text-xl mb-2">Marcela</h3>
-                <p className="text-neutral-600">
-                  Especialista en integración cultural y desarrollo personal, con amplia experiencia ayudando a inmigrantes a prosperar en Noruega.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+        <div className="flex flex-col gap-12 max-w-6xl mx-auto">
+          {/* Marcela */}
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="w-full md:w-1/2">
+              <img 
+                src="/EPDN Marcela.png" 
+                alt="Marcela"
+                className="w-full h-[400px] object-cover rounded-lg shadow-lg"
+              />
+            </div>
+            <div className="w-full md:w-1/2 p-6">
+              <h3 className="font-poppins font-bold text-2xl mb-4">Marcela</h3>
+              <p className="text-neutral-600 text-lg leading-relaxed">
+                Especialista en integración cultural y desarrollo personal, con amplia experiencia ayudando a inmigrantes a prosperar en Noruega. Su enfoque único combina el entendimiento profundo de ambas culturas con estrategias prácticas para el éxito.
+              </p>
+            </div>
+          </div>
 
-          <Card className="overflow-hidden border-none shadow-lg">
-            <CardContent className="p-0">
-              <div className="aspect-video relative overflow-hidden">
-                <img 
-                  src="/EPDN Rodrigo.png" 
-                  alt="Rodrigo"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-              </div>
-              <div className="p-6">
-                <h3 className="font-poppins font-bold text-xl mb-2">Rodrigo</h3>
-                <p className="text-neutral-600">
-                  Coach especializado en desarrollo profesional y adaptación cultural, dedicado a potenciar el éxito de inmigrantes en Noruega.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Rodrigo */}
+          <div className="flex flex-col md:flex-row-reverse items-center gap-8">
+            <div className="w-full md:w-1/2">
+              <img 
+                src="/EPDN Rodrigo.png" 
+                alt="Rodrigo"
+                className="w-full h-[400px] object-cover rounded-lg shadow-lg"
+              />
+            </div>
+            <div className="w-full md:w-1/2 p-6">
+              <h3 className="font-poppins font-bold text-2xl mb-4">Rodrigo</h3>
+              <p className="text-neutral-600 text-lg leading-relaxed">
+                Coach especializado en desarrollo profesional y adaptación cultural, dedicado a potenciar el éxito de inmigrantes en Noruega. Con años de experiencia, Rodrigo ha desarrollado metodologías efectivas para ayudar a otros a alcanzar su máximo potencial en su nuevo país.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
