@@ -109,7 +109,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
               {showResults ? (
                 <div className="text-center py-4">
                   <h3 className="font-semibold text-lg mb-3 text-primary">
-                    Tu Diagnóstico
+                    Resultados Preliminares
                   </h3>
                   <div className="mx-auto w-24 h-24 rounded-full border-4 border-secondary flex items-center justify-center mb-4">
                     <span className="text-2xl font-bold text-primary">
@@ -117,14 +117,20 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                     </span>
                   </div>
                   <div className="mb-4 p-3 bg-secondary/20 rounded-lg shadow-sm">
-                    <p className="text-sm">{result?.recommendation || 'Completa el diagnóstico completo.'}</p>
+                    <p className="text-sm font-medium">¡Tu diagnóstico está listo!</p>
+                    <p className="text-sm mt-2">Regístrate para recibir:</p>
+                    <ul className="text-sm mt-2 text-left list-disc list-inside">
+                      <li>Tu diagnóstico completo</li>
+                      <li>Recomendaciones personalizadas</li>
+                      <li>Plan de acción sugerido</li>
+                    </ul>
                   </div>
                   
                   <Button
-                    onClick={handleCompleteQuiz}
-                    className="w-full rounded-lg shadow-sm bg-primary text-white hover:bg-primary-dark"
+                    onClick={() => scrollToElement('inscripcion')}
+                    className="w-full rounded-lg shadow-sm bg-accent text-white hover:bg-accent-dark"
                   >
-                    Ver diagnóstico detallado
+                    Obtener mi diagnóstico completo
                   </Button>
                 </div>
               ) : (
