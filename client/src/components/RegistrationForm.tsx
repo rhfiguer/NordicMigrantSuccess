@@ -122,7 +122,7 @@ const RegistrationForm = () => {
                 <Calendar className="text-2xl text-white mr-4 h-8 w-8" />
                 <div>
                   <p className="font-semibold text-white text-lg">Próximas fechas:</p>
-                  <p className="text-white text-base">Inicia el 15 de Julio - 5 sesiones (una por semana)</p>
+                  <p className="text-white text-base">Inicia el Jueves 5 de junio. 4 sesiones totales (una por semana, los jueves)</p>
                 </div>
               </div>
             </div>
