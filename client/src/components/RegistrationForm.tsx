@@ -82,7 +82,7 @@ const RegistrationForm = () => {
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <h2 className="font-poppins font-bold text-2xl md:text-3xl mb-3 text-primary">
-                ¡Invierte en tu futuro en Noruega!
+                ¡Invierte en tu futuro MAAS en Noruega!
               </h2>
               <p className="text-lg text-neutral-700 mb-6">
                 Únete al taller "Despliega tu Capital Migrante" y comienza a construir la vida que siempre has soñado.
