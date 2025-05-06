@@ -17,16 +17,16 @@ const Presenters = () => {
           <div className="relative">
             <div className="flex items-start gap-4">
               <div className="relative">
-                <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 border-4 border-blue-100">
+                <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 border-4 border-secondary">
                   <img 
                     src="/EPDN Rodrigo.png" 
                     alt="Rodrigo"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-6 h-6 bg-blue-50 transform rotate-45"></div>
+                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-6 h-6 bg-secondary/10 transform rotate-45"></div>
               </div>
-              <div className="bg-blue-50 rounded-2xl p-6 relative before:content-[''] before:absolute before:w-4 before:h-4 before:bg-blue-50 before:-left-2 before:top-8 before:rotate-45">
+              <div className="bg-secondary/10 rounded-2xl p-6 relative before:content-[''] before:absolute before:w-4 before:h-4 before:bg-secondary/10 before:-left-2 before:top-8 before:rotate-45">
                 <h3 className="font-poppins font-bold text-xl text-primary mb-1">Rodrigo Figueroa</h3>
                 <p className="text-primary font-medium mb-1">MSc in Management & Softwareutvikler</p>
                 <p className="text-rose-600 font-medium mb-4">STAVANGER</p>
@@ -41,16 +41,16 @@ const Presenters = () => {
           <div className="relative">
             <div className="flex items-start gap-4 flex-row-reverse">
               <div className="relative">
-                <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 border-4 border-rose-100">
+                <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 border-4 border-primary">
                   <img 
                     src="/EPDN Marcela.png" 
                     alt="Marcela"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-6 h-6 bg-rose-50 transform rotate-45"></div>
+                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-6 h-6 bg-primary/10 transform rotate-45"></div>
               </div>
-              <div className="bg-rose-50 rounded-2xl p-6 relative before:content-[''] before:absolute before:w-4 before:h-4 before:bg-rose-50 before:-right-2 before:top-8 before:rotate-45">
+              <div className="bg-primary/10 rounded-2xl p-6 relative before:content-[''] before:absolute before:w-4 before:h-4 before:bg-primary/10 before:-right-2 before:top-8 before:rotate-45">
                 <h3 className="font-poppins font-bold text-xl text-primary mb-1">Marcela Nürnberg</h3>
                 <p className="text-primary font-medium mb-1">Utdannet jurist, tekstforfatter, kulturaktivist</p>
                 <p className="text-rose-600 font-medium mb-4">KOPPANG</p>
