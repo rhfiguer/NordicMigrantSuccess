@@ -29,6 +29,21 @@ const PodcastSection = () => {
       title: "Superando Desafíos",
       videoId: "PWpColjoWKo",
       description: "Herramientas para enfrentar los retos de la migración.",
+    },
+    {
+      title: "Construyendo tu Futuro",
+      videoId: "dknVxRK1YR4",
+      description: "Pasos clave para construir tu futuro en Noruega.",
+    },
+    {
+      title: "El Camino del Éxito",
+      videoId: "ipucJGlXZbk",
+      description: "Experiencias y consejos para alcanzar el éxito.",
+    },
+    {
+      title: "Adaptación e Integración",
+      videoId: "PLWF_j3s4zc",
+      description: "Estrategias efectivas para adaptarte a tu nueva vida.",
     }
   ];
 
