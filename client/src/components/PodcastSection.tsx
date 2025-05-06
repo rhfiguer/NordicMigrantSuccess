@@ -81,14 +81,7 @@ const PodcastSection = () => {
                         className="absolute inset-0"
                       ></iframe>
                     </div>
-                    <div className="p-6">
-                      <h3 className="font-poppins font-bold text-xl text-primary mb-2">
-                        {episode.title}
-                      </h3>
-                      <p className="text-neutral-600">
-                        {episode.description}
-                      </p>
-                    </div>
+                    
                   </Card>
                 </CarouselItem>
               ))}
