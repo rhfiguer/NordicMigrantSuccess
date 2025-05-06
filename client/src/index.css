@@ -1,14 +1,14 @@
 
-@keyframes draw {
+.dry-brush {
+  stroke-dasharray: 2,2;
+  stroke-dashoffset: 6;
+  animation: drawDryBrush 2s ease forwards;
+}
+
+@keyframes drawDryBrush {
   to {
     stroke-dashoffset: 0;
   }
-}
-
-path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: draw 1.5s ease forwards;
 }
 
 @tailwind base;
