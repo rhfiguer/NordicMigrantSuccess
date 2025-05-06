@@ -1,4 +1,3 @@
-
 import { scrollToElement } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import HeroQuizBox from './HeroQuizBox';
@@ -42,13 +41,16 @@ const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="lg:pr-6">
             <h1 className="font-poppins font-bold text-3xl md:text-5xl leading-tight mb-6">
-              CAPITALIZA TU POTENCIAL COMO MIGRANTE DE <span className="relative">ALTA AMBICION<span className="absolute -bottom-1 left-0 w-full">
+              CAPITALIZA TU POTENCIAL COMO MIGRANTE DE <span className="relative inline-block">ALTA AMBICION<span className="absolute -bottom-1 left-0 w-full">
                 <svg className="w-full h-3" viewBox="0 0 100 10" preserveAspectRatio="none">
-                  <path className="watercolor" d="M0,8 Q25,0 50,0 T100,8" stroke="#FFD700" strokeWidth="6" fill="none" strokeLinecap="round" opacity="0.6">
+                  <path className="watercolor" d="M0,8 Q25,0 50,0 T100,8" stroke="#FFD700" strokeWidth="3" fill="none" strokeLinecap="round" opacity="0.4">
+                    <animate attributeName="stroke-dashoffset" from="1" to="0" dur="2s" fill="freeze"/>
+                  </path>
+                  <path className="watercolor" d="M0,8 Q25,0 50,0 T100,8" stroke="#FFD700" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.3" transform="translate(0, 0.5)">
                     <animate attributeName="stroke-dashoffset" from="1" to="0" dur="2s" fill="freeze"/>
                   </path>
                 </svg>
-              </span></span> Y SUPERACION (MAAS)
+              </span></span><br className="md:hidden"/> Y SUPERACION (MAAS)
             </h1>
             <p className="text-lg md:text-xl mb-8">
               ¿Sueñas con construir una vida plena y exitosa, superando los desafíos iniciales y floreciendo en tu nuevo hogar?
