@@ -3,32 +3,28 @@ import { Card } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const PodcastSection = () => {
-  const episodes = [
-    {
-      title: "Despliega tu Capital Migrante",
-      description: "Descubre el poder del capital migrante y cómo aprovecharlo en tu proceso de integración en Noruega.",
-      url: "https://www.youtube.com/embed/R0qrRxH9pS4",
-      image: "/EPDN Marcela.png",
-    },
-    {
-      title: "Claves para la Integración",
-      description: "Estrategias prácticas y consejos para una integración exitosa en la sociedad noruega.",
-      url: "https://www.youtube.com/embed/QlnXVugnimw",
-      image: "/EPDN Rodrigo.png",
-    },
-    {
-      title: "Construyendo Redes en Noruega",
-      description: "Aprende cómo establecer conexiones significativas y construir una red de apoyo en tu nueva vida.",
-      url: "https://www.youtube.com/embed/QlnXVugnimw",
-      image: "/EPDN Rodrigo.png",
-    },
-    {
-      title: "Navegando el Sistema Laboral",
-      description: "Tips y estrategias para entender y adaptarte al mercado laboral noruego.",
-      url: "https://www.youtube.com/embed/R0qrRxH9pS4",
-      image: "/EPDN Marcela.png",
-    },
-  ];
+  // Reemplaza PLAYLIST_ID con el ID de tu playlist de YouTube
+  const playlistId = "PLAYLIST_ID";
+  const [episodes, setEpisodes] = React.useState([]);
+
+  React.useEffect(() => {
+    // Aquí podemos cargar los videos de la playlist
+    // Por ahora mantenemos los episodios de ejemplo
+    setEpisodes([
+      {
+        title: "Despliega tu Capital Migrante",
+        description: "Descubre el poder del capital migrante y cómo aprovecharlo en tu proceso de integración en Noruega.",
+        url: "https://www.youtube.com/embed/R0qrRxH9pS4",
+        image: "/EPDN Marcela.png",
+      },
+      {
+        title: "Claves para la Integración",
+        description: "Estrategias prácticas y consejos para una integración exitosa en la sociedad noruega.",
+        url: "https://www.youtube.com/embed/QlnXVugnimw",
+        image: "/EPDN Rodrigo.png",
+      },
+    ]);
+  }, []);
 
   return (
     <section className="py-16 bg-neutral-50">
