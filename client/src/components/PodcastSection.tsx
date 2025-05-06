@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from "react";
+
+import React from "react";
 import { Card } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const PodcastSection = () => {
-  const playlistId = "";
-  const [episodes, setEpisodes] = useState([
+  const episodes = [
     {
       title: "Despliega tu Capital Migrante",
       description: "Descubre el poder del capital migrante y cómo aprovecharlo en tu proceso de integración en Noruega.",
       videoId: "R0qrRxH9pS4",
-      image: "/EPDN Marcela.png",
     },
     {
       title: "Claves para la Integración",
       description: "Estrategias prácticas y consejos para una integración exitosa en la sociedad noruega.",
       videoId: "QlnXVugnimw",
-      image: "/EPDN Rodrigo.png",
     },
-  ]);
+  ];
 
   return (
     <section className="py-16 bg-neutral-50">
@@ -43,11 +41,14 @@ const PodcastSection = () => {
                   <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
                     <div className="aspect-video relative">
                       <iframe
-                        src={`https://www.youtube.com/embed/${episode.videoId}?list=${playlistId}`}
+                        width="100%"
+                        height="100%"
+                        src={`https://www.youtube.com/embed/${episode.videoId}`}
                         title={episode.title}
-                        className="w-full h-full absolute inset-0"
+                        frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
+                        className="absolute inset-0"
                       ></iframe>
                     </div>
                     <div className="p-6">
