@@ -6,24 +6,24 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 const PodcastSection = () => {
   const episodes = [
     {
-      title: "El ADN del Inmigrante",
-      videoId: "lBs3KqTwRXE",
-      description: "Descubre el poder del ADN migrante y cómo aprovecharlo en tu proceso de integración.",
+      title: "Despliega tu Capital Migrante",
+      videoId: "CPJZZ5rX8a0",
+      description: "Aprende cómo desplegar tu capital migrante de manera efectiva.",
     },
     {
-      title: "Capital Migrante",
-      videoId: "Mzh-cRXu_K8",
-      description: "Aprende sobre el capital migrante y su importancia en tu proceso de integración.",
+      title: "Experiencias de Integración",
+      videoId: "3pYNd0MSVXg",
+      description: "Historias reales de integración exitosa en Noruega.",
     },
     {
-      title: "El Camino del Inmigrante",
-      videoId: "6ykbliexLmM",
-      description: "Conoce el camino que todo inmigrante debe recorrer para alcanzar sus metas.",
+      title: "Claves del Éxito Migratorio",
+      videoId: "R0qrRxH9pS4",
+      description: "Descubre las claves fundamentales para el éxito en tu proceso migratorio.",
     },
     {
-      title: "Consejos para Inmigrantes",
-      videoId: "gNZm_pF-T_M",
-      description: "Tips prácticos para tu proceso de integración en Noruega.",
+      title: "Navegando la Cultura Noruega",
+      videoId: "QlnXVugnimw",
+      description: "Guía práctica para entender y adaptarte a la cultura noruega.",
     }
   ];
 
