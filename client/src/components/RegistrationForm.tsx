@@ -128,7 +128,10 @@ const RegistrationForm = () => {
             </div>
             
             <Card className="bg-neutral-100 p-6 md:p-8 rounded-xl shadow-lg">
-              <h3 className="font-poppins font-semibold text-xl mb-6 text-center">Regístrate y recibe información completa</h3>
+              <h3 className="font-poppins font-semibold text-xl mb-4 text-center">Regístrate y recibe información completa</h3>
+              <p className="text-sm text-neutral-600 mb-6 text-center">
+                Tus datos serán tratados con confidencialidad y únicamente para gestionar tu inscripción al taller.
+              </p>
               
               {isSuccess ? (
                 <div className="p-4 bg-green-100 text-green-800 rounded-md text-center">
@@ -286,7 +289,28 @@ const RegistrationForm = () => {
                           </FormControl>
                           <div className="space-y-1 leading-none">
                             <FormLabel className="text-sm text-neutral-600">
-                              Acepto recibir información sobre el taller y la política de privacidad*
+                              He leído y acepto la <a href="/privacy" className="text-primary hover:underline">política de privacidad</a>*
+                            </FormLabel>
+                            <FormMessage />
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="acceptedMarketing"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0 pt-2">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                          <div className="space-y-1 leading-none">
+                            <FormLabel className="text-sm text-neutral-600">
+                              Acepto recibir información sobre el taller y futuros eventos (opcional)
                             </FormLabel>
                             <FormMessage />
                           </div>
