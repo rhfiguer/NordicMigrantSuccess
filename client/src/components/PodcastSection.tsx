@@ -1,30 +1,23 @@
-
+import React, { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const PodcastSection = () => {
-  // Reemplaza PLAYLIST_ID con el ID de tu playlist de YouTube
-  const playlistId = "PLAYLIST_ID";
-  const [episodes, setEpisodes] = React.useState([]);
-
-  React.useEffect(() => {
-    // Aquí podemos cargar los videos de la playlist
-    // Por ahora mantenemos los episodios de ejemplo
-    setEpisodes([
-      {
-        title: "Despliega tu Capital Migrante",
-        description: "Descubre el poder del capital migrante y cómo aprovecharlo en tu proceso de integración en Noruega.",
-        url: "https://www.youtube.com/embed/R0qrRxH9pS4",
-        image: "/EPDN Marcela.png",
-      },
-      {
-        title: "Claves para la Integración",
-        description: "Estrategias prácticas y consejos para una integración exitosa en la sociedad noruega.",
-        url: "https://www.youtube.com/embed/QlnXVugnimw",
-        image: "/EPDN Rodrigo.png",
-      },
-    ]);
-  }, []);
+  const playlistId = "PL-KYEmHUPb-01pAuGWY-mCu5LypebYORA";
+  const [episodes, setEpisodes] = useState([
+    {
+      title: "Despliega tu Capital Migrante",
+      description: "Descubre el poder del capital migrante y cómo aprovecharlo en tu proceso de integración en Noruega.",
+      videoId: "R0qrRxH9pS4",
+      image: "/EPDN Marcela.png",
+    },
+    {
+      title: "Claves para la Integración",
+      description: "Estrategias prácticas y consejos para una integración exitosa en la sociedad noruega.",
+      videoId: "QlnXVugnimw",
+      image: "/EPDN Rodrigo.png",
+    },
+  ]);
 
   return (
     <section className="py-16 bg-neutral-50">
@@ -49,21 +42,13 @@ const PodcastSection = () => {
                 <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2">
                   <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
                     <div className="aspect-video relative">
-                      <img
-                        src={episode.image}
-                        alt={episode.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="w-12 h-12 text-white"
-                        >
-                          <path d="M8 4.5a1 1 0 0 0-1 1v13a1 1 0 0 0 1.524.852l11-6.5a1 1 0 0 0 0-1.704l-11-6.5A1 1 0 0 0 8 4.5Z" />
-                        </svg>
-                      </div>
+                      <iframe
+                        src={`https://www.youtube.com/embed/${episode.videoId}?list=${playlistId}`}
+                        title={episode.title}
+                        className="w-full h-full absolute inset-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
                     </div>
                     <div className="p-6">
                       <h3 className="font-poppins font-bold text-xl text-primary mb-2">
