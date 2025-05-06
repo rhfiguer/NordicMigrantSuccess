@@ -11,9 +11,9 @@ const Overview = () => {
             Despliega tu Capital MAAS
           </h2>
           <p className="text-center text-neutral-600 mb-10">
-            Un taller virtual de 5 encuentros diseñado específicamente para inmigrantes ambiciosos como tú
+            Un taller virtual de 4 encuentros diseñado específicamente para inmigrantes ambiciosos como tú
           </p>
-          
+
           <div className="bg-neutral-100 p-6 rounded-lg mb-10">
             <p className="mb-4">
               Basándonos en las poderosas teorías del capital social, cultural, económico y erótico de Pierre Bourdieu y Catherine Hakim, te proporcionaremos un marco de comprensión profundo sobre:
@@ -35,27 +35,27 @@ const Overview = () => {
           </div>
 
           <div className="grid md:grid-cols-4 gap-6 mb-12">
-            <div className="bg-primary text-white rounded-lg flex items-center justify-center p-6">
+            <div className="bg-secondary text-white rounded-lg flex items-center justify-center p-6">
               <div className="text-center">
-                <i className="fas fa-users text-4xl mb-3 text-secondary"></i>
-                <h3 className="font-poppins font-semibold">5 Encuentros</h3>
+                <i className="fas fa-users text-4xl mb-3 text-primary"></i>
+                <h3 className="font-poppins font-semibold">4 Encuentros</h3>
               </div>
             </div>
-            <div className="bg-primary text-white rounded-lg flex items-center justify-center p-6">
+            <div className="bg-secondary text-white rounded-lg flex items-center justify-center p-6">
               <div className="text-center">
-                <i className="fas fa-globe text-4xl mb-3 text-secondary"></i>
+                <i className="fas fa-globe text-4xl mb-3 text-primary"></i>
                 <h3 className="font-poppins font-semibold">100% Virtual</h3>
               </div>
             </div>
-            <div className="bg-primary text-white rounded-lg flex items-center justify-center p-6">
+            <div className="bg-secondary text-white rounded-lg flex items-center justify-center p-6">
               <div className="text-center">
-                <i className="fas fa-file-alt text-4xl mb-3 text-secondary"></i>
+                <i className="fas fa-file-alt text-4xl mb-3 text-primary"></i>
                 <h3 className="font-poppins font-semibold">Material Exclusivo</h3>
               </div>
             </div>
-            <div className="bg-primary text-white rounded-lg flex items-center justify-center p-6">
+            <div className="bg-secondary text-white rounded-lg flex items-center justify-center p-6">
               <div className="text-center">
-                <i className="fas fa-certificate text-4xl mb-3 text-secondary"></i>
+                <i className="fas fa-certificate text-4xl mb-3 text-primary"></i>
                 <h3 className="font-poppins font-semibold">Certificado</h3>
               </div>
             </div>
