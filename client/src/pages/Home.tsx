@@ -66,6 +66,7 @@ const Home = () => {
       <Hero quizQuestions={quizQuestions} />
       <Overview />
       <VideoSection />
+      <PodcastSection />
       <Presenters />
       <WorkshopSessions />
       <ForWhoSection />
