@@ -16,12 +16,15 @@ const Presenters = () => {
           {/* Rodrigo */}
           <div className="relative">
             <div className="flex items-start gap-4">
-              <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 border-4 border-blue-100">
-                <img 
-                  src="/EPDN Rodrigo.png" 
-                  alt="Rodrigo"
-                  className="w-full h-full object-cover"
-                />
+              <div className="relative">
+                <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 border-4 border-blue-100">
+                  <img 
+                    src="/EPDN Rodrigo.png" 
+                    alt="Rodrigo"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-6 h-6 bg-blue-50 transform rotate-45"></div>
               </div>
               <div className="bg-blue-50 rounded-2xl p-6 relative before:content-[''] before:absolute before:w-4 before:h-4 before:bg-blue-50 before:-left-2 before:top-8 before:rotate-45">
                 <h3 className="font-poppins font-bold text-xl text-primary mb-1">Rodrigo Figueroa</h3>
@@ -37,12 +40,15 @@ const Presenters = () => {
           {/* Marcela */}
           <div className="relative">
             <div className="flex items-start gap-4 flex-row-reverse">
-              <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 border-4 border-rose-100">
-                <img 
-                  src="/EPDN Marcela.png" 
-                  alt="Marcela"
-                  className="w-full h-full object-cover"
-                />
+              <div className="relative">
+                <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 border-4 border-rose-100">
+                  <img 
+                    src="/EPDN Marcela.png" 
+                    alt="Marcela"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-6 h-6 bg-rose-50 transform rotate-45"></div>
               </div>
               <div className="bg-rose-50 rounded-2xl p-6 relative before:content-[''] before:absolute before:w-4 before:h-4 before:bg-rose-50 before:-right-2 before:top-8 before:rotate-45">
                 <h3 className="font-poppins font-bold text-xl text-primary mb-1">Marcela Nürnberg</h3>
