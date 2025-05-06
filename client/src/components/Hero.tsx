@@ -44,7 +44,7 @@ const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
             <h1 className="font-poppins font-bold text-3xl md:text-5xl leading-tight mb-6">
               CAPITALIZA TU POTENCIAL COMO MIGRANTE DE <span className="relative">ALTA AMBICION<span className="absolute -bottom-1 left-0 w-full">
                 <svg className="w-full h-3" viewBox="0 0 100 10" preserveAspectRatio="none">
-                  <path className="watercolor" d="M0,8 Q25,0 50,0 T100,8" stroke="#FFD700" strokeWidth="4" fill="none" strokeLinecap="round" opacity="0.6">
+                  <path className="watercolor" d="M0,8 Q25,0 50,0 T100,8" stroke="#FFD700" strokeWidth="6" fill="none" strokeLinecap="round" opacity="0.6">
                     <animate attributeName="stroke-dashoffset" from="1" to="0" dur="2s" fill="freeze"/>
                   </path>
                 </svg>
