@@ -1,4 +1,3 @@
-
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
@@ -17,16 +16,16 @@ const VideoSection = () => {
           {/* Rodrigo's Video Section */}
           <Dialog>
             <DialogTrigger asChild>
-              <Card className="overflow-hidden shadow-lg border-2 border-secondary/20 hover:border-secondary/40 transition-all cursor-pointer">
+              <Card className="overflow-hidden shadow-lg border-2 border-secondary/20 hover:border-secondary/40 transition-all cursor-pointer group">
                 <div className="aspect-video relative">
                   <img
                     src="/EPDN Rodrigo.png"
                     alt="Rodrigo Figueroa - Video"
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
-                      <div className="w-0 h-0 border-l-[20px] border-l-primary border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent ml-1"></div>
+                  <div className="absolute inset-0 bg-black/20 flex items-center justify-center transition-all group-hover:bg-black/40">
+                    <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center transform transition-transform group-hover:scale-110">
+                      <div className="w-0 h-0 border-l-[14px] border-l-primary border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent ml-1"></div>
                     </div>
                   </div>
                 </div>
@@ -56,16 +55,16 @@ const VideoSection = () => {
           {/* Marcela's Video Section */}
           <Dialog>
             <DialogTrigger asChild>
-              <Card className="overflow-hidden shadow-lg border-2 border-primary/20 hover:border-primary/40 transition-all cursor-pointer">
+              <Card className="overflow-hidden shadow-lg border-2 border-primary/20 hover:border-primary/40 transition-all cursor-pointer group">
                 <div className="aspect-video relative">
                   <img
                     src="/EPDN Marcela.png"
                     alt="Marcela Nürnberg - Video"
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
-                      <div className="w-0 h-0 border-l-[20px] border-l-primary border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent ml-1"></div>
+                  <div className="absolute inset-0 bg-black/20 flex items-center justify-center transition-all group-hover:bg-black/40">
+                    <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center transform transition-transform group-hover:scale-110">
+                      <div className="w-0 h-0 border-l-[14px] border-l-primary border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent ml-1"></div>
                     </div>
                   </div>
                 </div>
