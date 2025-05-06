@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Overview from "@/components/Overview";
 import VideoSection from "@/components/VideoSection";
+import PodcastSection from "@/components/PodcastSection";
 import Presenters from "@/components/Presenters";
 import WorkshopSessions from "@/components/WorkshopSessions";
 import ForWhoSection from "@/components/ForWhoSection";
