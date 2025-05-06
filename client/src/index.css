@@ -1,11 +1,12 @@
 
-.dry-brush {
-  stroke-dasharray: 2,2;
-  stroke-dashoffset: 6;
-  animation: drawDryBrush 2s ease forwards;
+.watercolor {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: url(#water);
+  animation: drawWatercolor 2s ease forwards;
 }
 
-@keyframes drawDryBrush {
+@keyframes drawWatercolor {
   to {
     stroke-dashoffset: 0;
   }

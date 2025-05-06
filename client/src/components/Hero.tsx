@@ -44,8 +44,8 @@ const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
             <h1 className="font-poppins font-bold text-3xl md:text-5xl leading-tight mb-6">
               CAPITALIZA TU POTENCIAL COMO MIGRANTE DE <span className="relative">ALTA AMBICION<span className="absolute -bottom-2 left-0 w-full">
                 <svg className="w-full h-4" viewBox="0 0 100 10" preserveAspectRatio="none">
-                  <path className="dry-brush" d="M0,5 Q25,8 50,2 T100,5 M0,5 Q35,2 65,8 T100,5" stroke="#FFD700" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeDasharray="2,2">
-                    <animate attributeName="stroke-dashoffset" from="6" to="0" dur="2s" fill="freeze"/>
+                  <path className="watercolor" d="M0,5 C20,8 30,2 45,5 C60,8 70,2 85,5 C95,7 100,4 100,5" stroke="#FFD700" strokeWidth="3" fill="none" strokeLinecap="round" opacity="0.6">
+                    <animate attributeName="stroke-dashoffset" from="1" to="0" dur="2s" fill="freeze"/>
                   </path>
                 </svg>
               </span></span> Y SUPERACION (MAAS)
