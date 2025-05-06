@@ -69,21 +69,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const validatedData = quizResponsesInsertSchema.parse(req.body);
       
       // Calculate score based on answers
-      const answers = [
-        req.body.q1, req.body.q2, req.body.q3, 
-        req.body.q4, req.body.q5, req.body.q6,
-        req.body.q7, req.body.q8, req.body.q9,
-        req.body.q10, req.body.q11
-      ].filter(Boolean);
-      
-      if (answers.length === 0) {
+      const responses = {
+        economic: [req.body.q1, req.body.q2],
+        cultural: [req.body.q3, req.body.q4, req.body.q5],
+        social: [req.body.q6, req.body.q7, req.body.q8],
+        erotic: [req.body.q9, req.body.q10, req.body.q11]
+      };
+
+      // Calculate scores by category
+      const categoryScores = {};
+      let totalAnswers = 0;
+      let totalSum = 0;
+
+      for (const [category, answers] of Object.entries(responses)) {
+        const validAnswers = answers.filter(Boolean);
+        if (validAnswers.length > 0) {
+          const categoryAvg = validAnswers.reduce((sum, val) => sum + val, 0) / validAnswers.length;
+          categoryScores[category] = Math.round((categoryAvg - 1) / 3 * 100);
+          totalAnswers += validAnswers.length;
+          totalSum += validAnswers.reduce((sum, val) => sum + val, 0);
+        }
+      }
+
+      if (totalAnswers === 0) {
         return res.status(400).json({ 
           message: "Debes responder al menos una pregunta" 
         });
       }
-      
-      // Calculate average score (1-4) and convert to percentage (0-100)
-      const avgScore = answers.reduce((sum, val) => sum + val, 0) / answers.length;
+
+      const avgScore = totalSum / totalAnswers;
       const percentageScore = Math.round((avgScore - 1) / 3 * 100);
       
       // Add score to validatedData
@@ -105,8 +119,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       res.status(201).json({ 
-        message: "Respuestas guardadas exitosamente", 
+        message: "Respuestas guardadas exitosamente",
         score: percentageScore,
+        categoryScores,
         recommendation
       });
     } catch (error) {

@@ -22,5 +22,11 @@ export interface QuizResponse {
 
 export interface QuizResult {
   score: number;
+  categoryScores: {
+    economic: number;
+    cultural: number;
+    social: number;
+    erotic: number;
+  };
   recommendation: string;
 }
