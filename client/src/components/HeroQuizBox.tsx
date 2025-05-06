@@ -129,24 +129,24 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                 </div>
               ) : (
                 <div>
-                  <h3 className="font-semibold text-sm mb-2">
+                  <h3 className="font-semibold text-xs mb-1">
                     {currentQuestion?.category}
                   </h3>
-                  <p className="mb-4 text-sm">{currentQuestion?.question}</p>
+                  <p className="mb-2 text-sm leading-snug">{currentQuestion?.question}</p>
                   
                   <RadioGroup 
                     key={currentQuestion?.order}
                     value={currentQuestion ? responses[`q${currentQuestion.order}` as keyof typeof responses]?.toString() : undefined}
                     onValueChange={handleOptionChange}
-                    className="space-y-2"
+                    className="space-y-1.5"
                   >
                     {QuizOptions.map((option) => (
                       <div 
                         key={option.value}
-                        className="flex items-center space-x-2 p-3 border border-neutral-300 rounded-lg hover:border-primary hover:bg-neutral-50 cursor-pointer shadow-sm"
+                        className="flex items-center space-x-2 py-2 px-3 border border-neutral-300 rounded-lg hover:border-primary hover:bg-neutral-50 cursor-pointer shadow-sm"
                       >
                         <RadioGroupItem value={option.value.toString()} id={`hero-q${currentQuestion?.order}-${option.value}`} />
-                        <Label htmlFor={`hero-q${currentQuestion?.order}-${option.value}`}>{option.label}</Label>
+                        <Label className="text-sm" htmlFor={`hero-q${currentQuestion?.order}-${option.value}`}>{option.label}</Label>
                       </div>
                     ))}
                   </RadioGroup>
