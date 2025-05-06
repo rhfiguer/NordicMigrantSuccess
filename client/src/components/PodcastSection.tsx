@@ -6,24 +6,29 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 const PodcastSection = () => {
   const episodes = [
     {
-      title: "Despliega tu Capital Migrante",
-      videoId: "CPJZZ5rX8a0",
-      description: "Aprende cómo desplegar tu capital migrante de manera efectiva.",
+      title: "Cómo Aprovechar tu Capital Migrante",
+      videoId: "Z5D5xh4i1z4",
+      description: "Estrategias para maximizar tu potencial como inmigrante.",
     },
     {
-      title: "Experiencias de Integración",
-      videoId: "3pYNd0MSVXg",
-      description: "Historias reales de integración exitosa en Noruega.",
+      title: "Integración Cultural en Noruega",
+      videoId: "TbdmDMgVm-I",
+      description: "Claves para una adaptación exitosa a la cultura noruega.",
     },
     {
-      title: "Claves del Éxito Migratorio",
-      videoId: "R0qrRxH9pS4",
-      description: "Descubre las claves fundamentales para el éxito en tu proceso migratorio.",
+      title: "Desarrollo Profesional",
+      videoId: "hBIDdcpG7gI",
+      description: "Consejos para tu crecimiento profesional en Noruega.",
     },
     {
-      title: "Navegando la Cultura Noruega",
-      videoId: "QlnXVugnimw",
-      description: "Guía práctica para entender y adaptarte a la cultura noruega.",
+      title: "Networking Efectivo",
+      videoId: "1r5DcASE8hs",
+      description: "Cómo construir una red de contactos valiosa.",
+    },
+    {
+      title: "Superando Desafíos",
+      videoId: "PWpColjoWKo",
+      description: "Herramientas para enfrentar los retos de la migración.",
     }
   ];
 
