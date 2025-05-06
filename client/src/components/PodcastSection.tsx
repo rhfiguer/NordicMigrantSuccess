@@ -6,15 +6,25 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 const PodcastSection = () => {
   const episodes = [
     {
-      title: "Despliega tu Capital Migrante",
-      description: "Descubre el poder del capital migrante y cómo aprovecharlo en tu proceso de integración en Noruega.",
-      videoId: "R0qrRxH9pS4",
+      title: "El ADN del Inmigrante",
+      videoId: "lBs3KqTwRXE",
+      description: "Descubre el poder del ADN migrante y cómo aprovecharlo en tu proceso de integración.",
     },
     {
-      title: "Claves para la Integración",
-      description: "Estrategias prácticas y consejos para una integración exitosa en la sociedad noruega.",
-      videoId: "QlnXVugnimw",
+      title: "Capital Migrante",
+      videoId: "Mzh-cRXu_K8",
+      description: "Aprende sobre el capital migrante y su importancia en tu proceso de integración.",
     },
+    {
+      title: "El Camino del Inmigrante",
+      videoId: "6ykbliexLmM",
+      description: "Conoce el camino que todo inmigrante debe recorrer para alcanzar sus metas.",
+    },
+    {
+      title: "Consejos para Inmigrantes",
+      videoId: "gNZm_pF-T_M",
+      description: "Tips prácticos para tu proceso de integración en Noruega.",
+    }
   ];
 
   return (
