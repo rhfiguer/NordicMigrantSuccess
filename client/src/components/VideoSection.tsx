@@ -1,0 +1,63 @@
+
+import { Card } from "@/components/ui/card";
+
+const VideoSection = () => {
+  return (
+    <section className="py-16 bg-white">
+      <div className="container mx-auto px-4">
+        <h2 className="font-poppins font-bold text-2xl md:text-3xl text-center mb-3 text-primary">
+          Conoce a tus mentores en acción
+        </h2>
+        <p className="text-center text-neutral-600 mb-12 max-w-2xl mx-auto">
+          Descubre cómo nuestros expertos te guiarán en tu proceso de integración
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {/* Rodrigo's Video Section */}
+          <Card className="overflow-hidden shadow-lg border-2 border-secondary/20 hover:border-secondary/40 transition-all">
+            <div className="aspect-video relative">
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                src="TU_URL_DE_VIDEO_RODRIGO"
+                title="Rodrigo Figueroa - Taller de Integración"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+            <div className="p-6 bg-gradient-to-b from-secondary/5 to-transparent">
+              <h3 className="font-poppins font-bold text-xl text-primary mb-2">
+                Rodrigo Figueroa
+              </h3>
+              <p className="text-neutral-600">
+                "Descubre cómo transformar tu experiencia migratoria en una historia de éxito"
+              </p>
+            </div>
+          </Card>
+
+          {/* Marcela's Video Section */}
+          <Card className="overflow-hidden shadow-lg border-2 border-primary/20 hover:border-primary/40 transition-all">
+            <div className="aspect-video relative">
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                src="TU_URL_DE_VIDEO_MARCELA"
+                title="Marcela Nürnberg - Taller de Integración"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+            <div className="p-6 bg-gradient-to-b from-primary/5 to-transparent">
+              <h3 className="font-poppins font-bold text-xl text-primary mb-2">
+                Marcela Nürnberg
+              </h3>
+              <p className="text-neutral-600">
+                "Aprende las claves para una integración cultural exitosa en Noruega"
+              </p>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default VideoSection;
