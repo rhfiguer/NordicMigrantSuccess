@@ -322,7 +322,7 @@ const RegistrationForm = () => {
                       <Button 
                         type="submit" 
                         disabled={isSubmitting}
-                        className="w-full bg-accent hover:bg-accent-dark text-white font-semibold py-3 px-6 rounded-md shadow-md transition transform hover:-translate-y-1 h-auto"
+                        className="w-full bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-semibold py-3 px-6 rounded-md shadow-md transition transform hover:-translate-y-1 h-auto"
                       >
                         {isSubmitting ? 'Procesando...' : 'Reservar mi lugar'}
                       </Button>
