@@ -105,7 +105,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
               </div>
             </div>
 
-            <ScrollArea className={`${showResults ? 'h-[320px]' : 'h-[280px]'}`}>
+            <ScrollArea className={`${showResults ? 'h-[360px]' : 'h-[280px]'}`}>
               {showResults ? (
                 <div className="text-center py-4">
                   <h3 className="font-semibold text-lg mb-3 text-primary">
@@ -128,7 +128,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                   
                   <Button
                     onClick={() => scrollToElement('inscripcion')}
-                    className="w-full rounded-lg shadow-sm bg-accent text-white hover:bg-accent-dark"
+                    className="w-full rounded-lg shadow-sm bg-[#FFD700] text-primary hover:bg-[#E6C200] font-semibold"
                   >
                     Obtener mi diagnóstico completo
                   </Button>
