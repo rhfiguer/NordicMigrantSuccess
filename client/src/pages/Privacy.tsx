@@ -41,11 +41,15 @@ const Privacy = () => {
             <p>Utilizamos tu información personal para:</p>
             <ul className="list-disc pl-6 mb-4">
               <li>Gestionar tu inscripción al taller</li>
-              <li>Enviarte información relevante sobre el taller</li>
+              <li>Enviarte información relevante sobre el taller actual</li>
               <li>Proporcionarte tu diagnóstico personalizado</li>
-              <li>Mejorar nuestros servicios y contenidos</li>
-              <li>Si has dado tu consentimiento, enviarte información sobre futuros eventos y recursos</li>
+              <li>Informarte sobre futuros eventos y recursos relevantes</li>
+              <li>Mejorar nuestros servicios y contenidos para la comunidad</li>
             </ul>
+            <p className="mt-4">
+              Nos comprometemos a no vender ni comercializar tu información personal a terceros.
+              Tu información será utilizada exclusivamente para los propósitos mencionados anteriormente.
+            </p>
           </section>
 
           <section className="mb-8">
@@ -94,7 +98,7 @@ const Privacy = () => {
             <h2 className="text-2xl font-semibold mb-4">7. Contacto</h2>
             <p>
               Para ejercer tus derechos o realizar consultas sobre el tratamiento de tus datos,
-              puedes contactarnos a través de [tu-email@dominio.com]
+              puedes contactarnos a través de elpodcastdenoruega@gmail.com
             </p>
           </section>
         </div>
