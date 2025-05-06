@@ -7,6 +7,7 @@ import WorkshopSessions from "@/components/WorkshopSessions";
 import ForWhoSection from "@/components/ForWhoSection";
 import DiagnosticQuiz from "@/components/DiagnosticQuiz";
 import RegistrationForm from "@/components/RegistrationForm";
+import PricingSection from "@/components/PricingSection";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import { useQuery } from "@tanstack/react-query";
@@ -70,6 +71,7 @@ const Home = () => {
       <div id="inscripcion" className="scroll-mt-20">
         <RegistrationForm />
       </div>
+      <PricingSection />
       <FAQ faqs={faqs} />
       <Footer />
     </div>
