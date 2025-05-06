@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const PodcastSection = () => {
-  const playlistId = "PL-KYEmHUPb-01pAuGWY-mCu5LypebYORA";
+  const playlistId = "";
   const [episodes, setEpisodes] = useState([
     {
       title: "Despliega tu Capital Migrante",
