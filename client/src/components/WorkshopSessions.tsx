@@ -108,7 +108,7 @@ const WorkshopSessions = () => {
         <div className="text-center mt-10">
           <Button 
             onClick={() => scrollToElement('inscripcion')}
-            className="bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-md shadow-lg transition transform hover:-translate-y-1"
+            className="bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-semibold px-8 py-3 rounded-md shadow-lg transition transform hover:-translate-y-1"
           >
             Reserva tu lugar ahora
           </Button>

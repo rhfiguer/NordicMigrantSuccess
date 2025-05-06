@@ -59,7 +59,7 @@ const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
               <Button
                 onClick={() => scrollToElement('inscripcion')}
                 variant="outline"
-                className="bg-white hover:bg-neutral-200 text-primary font-semibold px-8 py-6 rounded-lg shadow-lg text-center transition transform hover:-translate-y-1 h-auto"
+                className="bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-semibold px-8 py-6 rounded-lg shadow-lg text-center transition transform hover:-translate-y-1 h-auto"
               >
                 Inscríbete al taller
               </Button>

@@ -173,7 +173,7 @@ const DiagnosticQuiz: React.FC<QuizProps> = ({ questions }) => {
                       Anterior
                     </Button>
                     <Button
-                      className="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition"
+                      className="px-6 py-2 bg-[#D4AF37] hover:bg-[#C09F2F] text-white rounded-md transition"
                       onClick={handleNextClick}
                       disabled={isNextDisabled() || isSubmitting}
                     >
