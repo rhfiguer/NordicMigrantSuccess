@@ -118,11 +118,11 @@ const RegistrationForm = () => {
                 </ul>
               </div>
               
-              <div className="flex items-center p-4 bg-primary bg-opacity-10 rounded-lg">
-                <Calendar className="text-2xl text-primary mr-4 h-6 w-6" />
+              <div className="flex items-center p-6 bg-blue-600 rounded-lg">
+                <Calendar className="text-2xl text-white mr-4 h-8 w-8" />
                 <div>
-                  <p className="font-semibold">Próximas fechas:</p>
-                  <p>Inicia el 15 de Julio - 5 sesiones (una por semana)</p>
+                  <p className="font-semibold text-white text-lg">Próximas fechas:</p>
+                  <p className="text-white text-base">Inicia el 15 de Julio - 5 sesiones (una por semana)</p>
                 </div>
               </div>
             </div>
