@@ -65,9 +65,21 @@ const PricingSection = () => {
                   <Check className="text-secondary mt-1 mr-2 h-5 w-5" />
                   <span className="text-neutral-700">Red de apoyo entre participantes</span>
                 </div>
-                <div className="flex items-start text-green-600">
-                  <Shield className="mt-1 mr-2 h-5 w-5" />
-                  <span className="font-semibold">100% Garantía de satisfacción</span>
+                <div className="flex items-start bg-green-50 p-4 rounded-lg border-2 border-green-200">
+                  <div className="flex-shrink-0 mr-4">
+                    <div className="relative">
+                      <div className="w-12 h-12 flex items-center justify-center rounded-full bg-green-600 text-white">
+                        <Shield className="h-6 w-6" />
+                      </div>
+                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center">
+                        <Check className="h-3 w-3 text-green-600" />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <span className="font-bold text-green-700 block mb-1">100% Garantía de satisfacción</span>
+                    <span className="text-green-600 text-sm">Si no quedas satisfecho/a, te devolvemos tu dinero</span>
+                  </div>
                 </div>
               </div>
 
