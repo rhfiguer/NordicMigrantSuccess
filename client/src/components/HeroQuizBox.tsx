@@ -88,7 +88,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
           EVALUA TU CAPITAL DE MIGRANTE MAAS
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-4">
+      <CardContent className="p-3">
         {!isLoaded ? (
           <div className="flex justify-center items-center h-[200px]">
             <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
@@ -105,7 +105,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
               </div>
             </div>
 
-            <ScrollArea className="h-[320px]">
+            <ScrollArea className="h-[280px]">
               {showResults ? (
                 <div className="text-center py-4">
                   <h3 className="font-semibold text-lg mb-3 text-primary">
