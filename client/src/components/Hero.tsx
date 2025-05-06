@@ -66,8 +66,8 @@ const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
             </div>
           </div>
 
-          <div className="w-full flex justify-center lg:justify-end">
-            <div className="w-full lg:max-w-xl">
+          <div className="w-full flex justify-center">
+            <div className="w-full max-w-lg">
               <HeroQuizBox 
                 questions={quizQuestions} 
                 onGetFullDiagnostic={() => scrollToElement('diagnostico')} 
