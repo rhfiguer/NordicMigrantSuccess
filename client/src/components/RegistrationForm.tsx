@@ -85,7 +85,7 @@ const RegistrationForm = () => {
                 ¡Invierte en tu futuro MAAS en Noruega!
               </h2>
               <p className="text-lg text-neutral-700 mb-6">
-                Únete al taller "Despliega tu Capital Migrante" y comienza a construir la vida que siempre has soñado.
+                Únete al taller "Despliega tu Capital Migrante MAAS" y comienza a construir la vida que siempre has soñado.
               </p>
               
               <div className="bg-neutral-100 p-6 rounded-lg mb-8">
