@@ -1,9 +1,9 @@
 
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "wouter";
+import { useLocation } from "wouter";
 
 const Privacy = () => {
-  const navigate = useNavigate();
+  const [, navigate] = useLocation();
 
   return (
     <div className="min-h-screen bg-background py-16">
