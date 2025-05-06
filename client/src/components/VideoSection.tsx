@@ -44,7 +44,7 @@ const VideoSection = () => {
               <div className="aspect-video">
                 <iframe
                   className="w-full h-full"
-                  src="https://youtu.be/QlnXVugnimw"
+                  src="https://www.youtube.com/embed/QlnXVugnimw"
                   title="Rodrigo Figueroa - Taller de Integración"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -83,7 +83,7 @@ const VideoSection = () => {
               <div className="aspect-video">
                 <iframe
                   className="w-full h-full"
-                  src="https://youtu.be/R0qrRxH9pS4"
+                  src="https://www.youtube.com/embed/R0qrRxH9pS4"
                   title="Marcela Nürnberg - Taller de Integración"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
