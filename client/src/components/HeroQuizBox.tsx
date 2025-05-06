@@ -105,7 +105,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
               </div>
             </div>
 
-            <ScrollArea className="h-[280px]">
+            <ScrollArea className={`${showResults ? 'h-[320px]' : 'h-[280px]'}`}>
               {showResults ? (
                 <div className="text-center py-4">
                   <h3 className="font-semibold text-lg mb-3 text-primary">
@@ -116,10 +116,10 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                       {result?.score || 0}%
                     </span>
                   </div>
-                  <div className="mb-4 p-3 bg-secondary/20 rounded-lg shadow-sm">
+                  <div className="mb-3 p-3 bg-secondary/20 rounded-lg shadow-sm">
                     <p className="text-sm font-medium">¡Tu diagnóstico está listo!</p>
-                    <p className="text-sm mt-2">Regístrate para recibir:</p>
-                    <ul className="text-sm mt-2 text-left list-disc list-inside">
+                    <p className="text-sm mt-1">Regístrate para recibir:</p>
+                    <ul className="text-sm mt-1 text-left list-disc list-inside">
                       <li>Tu diagnóstico completo</li>
                       <li>Recomendaciones personalizadas</li>
                       <li>Plan de acción sugerido</li>
