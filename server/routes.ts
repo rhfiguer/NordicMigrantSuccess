@@ -43,6 +43,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Register a new lead
+  // Endpoint de prueba para email
+  app.get(`${apiPrefix}/test-email`, async (req, res) => {
+    try {
+      const emailService = EmailService.initialize({
+        user: process.env.EMAIL_USER || '',
+        pass: process.env.EMAIL_APP_PASSWORD || ''
+      });
+
+      await emailService.sendEmail(
+        process.env.EMAIL_USER || '',
+        "Prueba de Email",
+        "Este es un correo de prueba del sistema."
+      );
+
+      res.json({ message: "Correo de prueba enviado" });
+    } catch (error) {
+      console.error("Error sending test email:", error);
+      res.status(500).json({ message: "Error al enviar correo de prueba" });
+    }
+  });
+
   app.post(`${apiPrefix}/register`, async (req, res) => {
     try {
       const validatedData = leadsInsertSchema.parse(req.body);
