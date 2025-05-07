@@ -132,7 +132,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                         const quizResults = {
                           score: result.score,
                           categoryScores: {
-                            economic: 75, // Estos valores deberían venir del backend
+                            economic: 75,
                             cultural: 65,
                             social: 70,
                             erotic: 80
@@ -141,7 +141,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                         };
                         localStorage.setItem('quizResults', JSON.stringify(quizResults));
                       }
-                      scrollToElement('inscripcion');
+                      scrollToElement('quiz-results');
                     }}
                     className="w-full rounded-lg shadow-sm bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-semibold"
                   >
