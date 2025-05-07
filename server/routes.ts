@@ -70,6 +70,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       try {
         const lead = await storage.createLead(validatedData);
+        
+        try {
+          const emailService = EmailService.initialize({
+            user: process.env.EMAIL_USER || '',
+            pass: process.env.EMAIL_APP_PASSWORD || ''
+          });
+
+          await emailService.sendEmail(
+            validatedData.email,
+            "¡Bienvenido al Taller de Capital MAAS!",
+            `<h1>¡Gracias por registrarte, ${validatedData.name}!</h1>
+             <p>Pronto recibirás más información sobre el taller.</p>`
+          );
+          
+          console.log("Confirmation email sent to:", validatedData.email);
+        } catch (emailError) {
+          console.error("Error sending email:", emailError);
+        }
+
         res.status(201).json({ 
           message: "Registro exitoso", 
           leadId: lead.id 
