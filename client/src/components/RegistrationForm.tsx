@@ -46,7 +46,6 @@ const RegistrationForm = () => {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
-      setIsSubmitting(true);
       const response = await apiRequest('POST', '/api/register', {
         name: data.name,
         email: data.email,
@@ -59,7 +58,6 @@ const RegistrationForm = () => {
       const result = await response.json();
       
       if (!response.ok) {
-        setIsSubmitting(false);
         if (response.status === 409) {
           form.setError('email', { 
             type: 'manual',
@@ -68,17 +66,13 @@ const RegistrationForm = () => {
           form.setFocus('email');
           toast({
             title: 'Email ya registrado',
-            description: 'Por favor utiliza otro email o contacta con nosotros si crees que es un error.',
+            description: 'Por favor utiliza otro email para registrarte',
             variant: 'destructive',
           });
-        } else {
-          toast({
-            title: 'Error en el registro',
-            description: result.message || 'Ha ocurrido un error. Por favor intenta nuevamente.',
-            variant: 'destructive',
-          });
+          setIsSubmitting(false);
+          return;
         }
-        return;
+        throw new Error(result.message || 'Error en el registro');
       }
       
       setIsSuccess(true);
