@@ -78,9 +78,10 @@ const RegistrationForm = () => {
       setIsSuccess(true);
       form.reset();
       toast({
-        title: '¡Registro exitoso!',
-        description: 'Te hemos enviado un correo con más información sobre el taller. Si no lo recibes en unos segundos, por favor revisa tu carpeta de spam.',
+        title: '¡Registro exitoso! 🎉',
+        description: 'Te hemos enviado un correo con más información sobre el taller.\n⚠️ IMPORTANTE: Si no lo recibes en unos segundos, por favor revisa tu carpeta de spam.',
         variant: 'default',
+        className: 'bg-green-100 border-green-400 text-green-900 font-medium',
       });
     } catch (error) {
       console.error('Error registering:', error);
