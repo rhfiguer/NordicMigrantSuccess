@@ -91,21 +91,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
           `;
 
           if (validatedData.quizResults) {
+            console.log('Quiz results received:', validatedData.quizResults);
             const { score, categoryScores, recommendation } = validatedData.quizResults;
             emailContent += `
-              <h2>Resultados de tu Diagnóstico de Capital MAAS</h2>
-              <p><strong>Tu puntuación general:</strong> ${score}%</p>
-              
-              <h3>Desglose por categorías:</h3>
-              <ul>
-                <li>Capital Económico: ${categoryScores.economic}%</li>
-                <li>Capital Cultural: ${categoryScores.cultural}%</li>
-                <li>Capital Social: ${categoryScores.social}%</li>
-                <li>Capital Erótico: ${categoryScores.erotic}%</li>
-              </ul>
+              <h2 style="color: #2C3E50; margin-top: 30px;">Resultados de tu Diagnóstico de Capital MAAS</h2>
+              <div style="background-color: #F8F9FA; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <p style="font-size: 18px;"><strong>Tu puntuación general:</strong> ${score}%</p>
+                
+                <h3 style="color: #34495E; margin-top: 20px;">Desglose por categorías:</h3>
+                <ul style="list-style-type: none; padding: 0;">
+                  <li style="margin: 10px 0;">
+                    <strong>Capital Económico:</strong> 
+                    <div style="background-color: #E8E8E8; height: 20px; border-radius: 10px; margin-top: 5px;">
+                      <div style="background-color: #4CAF50; width: ${categoryScores.economic}%; height: 100%; border-radius: 10px;"></div>
+                    </div>
+                    <span>${categoryScores.economic}%</span>
+                  </li>
+                  <li style="margin: 10px 0;">
+                    <strong>Capital Cultural:</strong>
+                    <div style="background-color: #E8E8E8; height: 20px; border-radius: 10px; margin-top: 5px;">
+                      <div style="background-color: #2196F3; width: ${categoryScores.cultural}%; height: 100%; border-radius: 10px;"></div>
+                    </div>
+                    <span>${categoryScores.cultural}%</span>
+                  </li>
+                  <li style="margin: 10px 0;">
+                    <strong>Capital Social:</strong>
+                    <div style="background-color: #E8E8E8; height: 20px; border-radius: 10px; margin-top: 5px;">
+                      <div style="background-color: #FF9800; width: ${categoryScores.social}%; height: 100%; border-radius: 10px;"></div>
+                    </div>
+                    <span>${categoryScores.social}%</span>
+                  </li>
+                  <li style="margin: 10px 0;">
+                    <strong>Capital Erótico:</strong>
+                    <div style="background-color: #E8E8E8; height: 20px; border-radius: 10px; margin-top: 5px;">
+                      <div style="background-color: #9C27B0; width: ${categoryScores.erotic}%; height: 100%; border-radius: 10px;"></div>
+                    </div>
+                    <span>${categoryScores.erotic}%</span>
+                  </li>
+                </ul>
 
-              <h3>Recomendación personalizada:</h3>
-              <p>${recommendation}</p>
+                <h3 style="color: #34495E; margin-top: 20px;">Recomendación personalizada:</h3>
+                <p style="background-color: #FFFFFF; padding: 15px; border-left: 4px solid #2196F3; margin: 10px 0;">${recommendation}</p>
+              </div>
+              
+              <h3 style="color: #2C3E50;">Próximos pasos:</h3>
+              <p>Durante el taller, profundizaremos en cada una de estas áreas y desarrollaremos estrategias específicas para mejorar tu capital migrante.</p>
               
               <h3>Próximos pasos:</h3>
               <p>Durante el taller, profundizaremos en cada una de estas áreas y desarrollaremos estrategias específicas para mejorar tu capital migrante.</p>
