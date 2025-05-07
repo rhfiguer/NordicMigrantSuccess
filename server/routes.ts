@@ -67,11 +67,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post(`${apiPrefix}/register`, async (req, res) => {
     try {
       const validatedData = leadsInsertSchema.parse(req.body);
-      const lead = await storage.createLead(validatedData);
-      res.status(201).json({ 
-        message: "Registro exitoso", 
-        leadId: lead.id 
-      });
+      
+      try {
+        const lead = await storage.createLead(validatedData);
+        res.status(201).json({ 
+          message: "Registro exitoso", 
+          leadId: lead.id 
+        });
+      } catch (dbError: any) {
+        console.error("Database error:", dbError);
+        
+        if (dbError.code === '23505' && dbError.constraint === 'leads_email_unique') {
+          return res.status(409).json({ 
+            message: "Este email ya está registrado" 
+          });
+        }
+        
+        throw dbError;
+      }
     } catch (error: any) {
       if (error instanceof z.ZodError) {
         return res.status(400).json({ 
