@@ -72,13 +72,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: "Registro exitoso", 
         leadId: lead.id 
       });
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof z.ZodError) {
         return res.status(400).json({ 
           message: "Datos de registro inválidos", 
           errors: error.errors 
         });
       }
+      
+      // Check for duplicate email error
+      if (error.code === '23505' && error.constraint === 'leads_email_unique') {
+        return res.status(409).json({ 
+          message: "Este email ya está registrado" 
+        });
+      }
+      
       console.error("Error creating lead:", error);
       res.status(500).json({ message: "Error en el registro" });
     }
