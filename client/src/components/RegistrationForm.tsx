@@ -49,7 +49,16 @@ const RegistrationForm = () => {
     setIsSubmitting(true);
     try {
       const storedResults = localStorage.getItem('quizResults');
-      const quizResults = storedResults ? JSON.parse(storedResults) : null;
+      let quizResults = null;
+      
+      if (storedResults) {
+        const parsedResults = JSON.parse(storedResults);
+        quizResults = {
+          score: parsedResults.score,
+          categoryScores: parsedResults.categoryScores,
+          recommendation: parsedResults.recommendation
+        };
+      }
 
       const response = await apiRequest('POST', '/api/register', {
         name: data.name,
