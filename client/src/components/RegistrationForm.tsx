@@ -54,9 +54,9 @@ const RegistrationForm = () => {
         timeInNorway: data.timeInNorway || undefined,
         acceptedPrivacy: data.acceptedPrivacy,
       });
-      
+
       const result = await response.json();
-      
+
       if (!response.ok) {
         if (response.status === 409) {
           form.setError('email', { 
@@ -74,12 +74,12 @@ const RegistrationForm = () => {
         }
         throw new Error(result.message || 'Error en el registro');
       }
-      
+
       setIsSuccess(true);
       form.reset();
       toast({
         title: '¡Registro exitoso!',
-        description: 'Te hemos enviado un correo con más información sobre el taller.',
+        description: 'Te hemos enviado un correo con más información sobre el taller. Si no lo recibes en unos segundos, por favor revisa tu carpeta de spam.',
         variant: 'default',
       });
     } catch (error) {
@@ -106,7 +106,7 @@ const RegistrationForm = () => {
               <p className="text-lg text-neutral-700 mb-6">
                 Únete al taller "Despliega tu Capital Migrante MAAS" y comienza a construir la vida que siempre has soñado.
               </p>
-              
+
               <div className="bg-neutral-100 p-6 rounded-lg mb-8">
                 <h3 className="font-poppins font-semibold text-lg mb-4">¿Qué te llevarás de este taller?</h3>
                 <ul className="space-y-3">
@@ -136,7 +136,7 @@ const RegistrationForm = () => {
                   </li>
                 </ul>
               </div>
-              
+
               <div className="flex items-center p-6 bg-blue-600 rounded-lg">
                 <Calendar className="text-2xl text-white mr-4 h-8 w-8" />
                 <div>
@@ -145,13 +145,13 @@ const RegistrationForm = () => {
                 </div>
               </div>
             </div>
-            
+
             <Card className="bg-neutral-100 p-6 md:p-8 rounded-xl shadow-lg">
               <h3 className="font-poppins font-semibold text-xl mb-4 text-center">Regístrate y recibe información completa</h3>
               <p className="text-sm text-neutral-600 mb-6 text-center">
                 Tus datos serán tratados con confidencialidad y únicamente para gestionar tu inscripción al taller.
               </p>
-              
+
               {isSuccess ? (
                 <div className="p-4 bg-green-100 text-green-800 rounded-md text-center">
                   <Check className="h-8 w-8 mx-auto mb-2" />
