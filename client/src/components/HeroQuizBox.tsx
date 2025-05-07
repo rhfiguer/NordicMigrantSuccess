@@ -127,7 +127,12 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                   </div>
                   
                   <Button
-                    onClick={() => scrollToElement('inscripcion')}
+                    onClick={() => {
+                      if (result) {
+                        localStorage.setItem('quizResults', JSON.stringify(result));
+                      }
+                      scrollToElement('inscripcion');
+                    }}
                     className="w-full rounded-lg shadow-sm bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-semibold"
                   >
                     Obtener mi diagnóstico completo

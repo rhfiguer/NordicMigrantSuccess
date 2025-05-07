@@ -78,11 +78,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
             pass: process.env.EMAIL_APP_PASSWORD || ''
           });
 
+          let emailContent = `
+            <h1>¡Gracias por registrarte, ${validatedData.name}!</h1>
+          `;
+
+          if (validatedData.quizResults) {
+            const { score, categoryScores, recommendation } = validatedData.quizResults;
+            emailContent += `
+              <h2>Resultados de tu Diagnóstico de Capital MAAS</h2>
+              <p><strong>Tu puntuación general:</strong> ${score}%</p>
+              
+              <h3>Desglose por categorías:</h3>
+              <ul>
+                <li>Capital Económico: ${categoryScores.economic}%</li>
+                <li>Capital Cultural: ${categoryScores.cultural}%</li>
+                <li>Capital Social: ${categoryScores.social}%</li>
+                <li>Capital Erótico: ${categoryScores.erotic}%</li>
+              </ul>
+
+              <h3>Recomendación personalizada:</h3>
+              <p>${recommendation}</p>
+              
+              <h3>Próximos pasos:</h3>
+              <p>Durante el taller, profundizaremos en cada una de estas áreas y desarrollaremos estrategias específicas para mejorar tu capital migrante.</p>
+            `;
+          } else {
+            emailContent += `
+              <p>Pronto recibirás más información sobre el taller.</p>
+              <p>¿Sabías que puedes realizar un diagnóstico gratuito de tu Capital MAAS? Visita nuestra página nuevamente y completa el autodiagnóstico.</p>
+            `;
+          }
+
           await emailService.sendEmail(
             validatedData.email,
             "¡Bienvenido al Taller de Capital MAAS!",
-            `<h1>¡Gracias por registrarte, ${validatedData.name}!</h1>
-             <p>Pronto recibirás más información sobre el taller.</p>`
+            emailContent
           );
           
           console.log("Confirmation email sent to:", validatedData.email);

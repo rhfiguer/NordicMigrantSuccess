@@ -21,6 +21,7 @@ const formSchema = z.object({
   acceptedPrivacy: z.boolean().refine(val => val === true, {
     message: 'Debes aceptar la política de privacidad',
   }),
+  quizResults: z.any().optional(), // Added quizResults field
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -40,6 +41,7 @@ const RegistrationForm = () => {
       countryOrigin: '',
       timeInNorway: '',
       acceptedPrivacy: false,
+      quizResults: null, // Added default value
     },
   });
 
@@ -53,6 +55,7 @@ const RegistrationForm = () => {
         countryOrigin: data.countryOrigin || undefined,
         timeInNorway: data.timeInNorway || undefined,
         acceptedPrivacy: data.acceptedPrivacy,
+        quizResults: data.quizResults, // Include quizResults in the request
       });
 
       const result = await response.json();
@@ -337,6 +340,29 @@ const RegistrationForm = () => {
                         </FormItem>
                       )}
                     />
+
+                    {/* Added field for quiz results */}
+                    <FormField
+                      control={form.control}
+                      name="quizResults"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-sm font-medium text-neutral-700">
+                            Resultados del Autodiagnóstico
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              type="text"
+                              className="w-full px-4 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary"
+                              placeholder="Pega los resultados aquí (opcional)"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
 
                     <div className="pt-2">
                       <Button 
