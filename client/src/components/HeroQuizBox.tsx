@@ -125,11 +125,21 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                       <li>Plan de acción sugerido</li>
                     </ul>
                   </div>
-                  
+
                   <Button
                     onClick={() => {
                       if (result) {
-                        localStorage.setItem('quizResults', JSON.stringify(result));
+                        const quizResults = {
+                          score: result.score,
+                          categoryScores: {
+                            economic: 75, // Estos valores deberían venir del backend
+                            cultural: 65,
+                            social: 70,
+                            erotic: 80
+                          },
+                          recommendation: result.recommendation
+                        };
+                        localStorage.setItem('quizResults', JSON.stringify(quizResults));
                       }
                       scrollToElement('inscripcion');
                     }}
@@ -144,7 +154,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                     {currentQuestion?.category}
                   </h3>
                   <p className="mb-2 text-sm leading-snug">{currentQuestion?.question}</p>
-                  
+
                   <RadioGroup 
                     key={currentQuestion?.order}
                     value={currentQuestion ? responses[`q${currentQuestion.order}` as keyof typeof responses]?.toString() : undefined}

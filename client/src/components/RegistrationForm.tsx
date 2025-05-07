@@ -52,12 +52,17 @@ const RegistrationForm = () => {
       let quizResults = null;
       
       if (storedResults) {
-        const parsedResults = JSON.parse(storedResults);
-        quizResults = {
-          score: parsedResults.score,
-          categoryScores: parsedResults.categoryScores,
-          recommendation: parsedResults.recommendation
-        };
+        try {
+          const parsedResults = JSON.parse(storedResults);
+          quizResults = {
+            score: parsedResults.score,
+            categoryScores: parsedResults.categoryScores,
+            recommendation: parsedResults.recommendation
+          };
+          console.log('Sending quiz results:', quizResults); // Para debug
+        } catch (error) {
+          console.error('Error parsing quiz results:', error);
+        }
       }
 
       const response = await apiRequest('POST', '/api/register', {
