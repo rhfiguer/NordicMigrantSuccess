@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -7,19 +6,20 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { apiRequest } from '@/lib/queryClient';
 import { Check } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { apiRequest } from '@/lib/queryClient';
+import {useToast} from '@/hooks/use-toast';
+
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'El nombre debe tener al menos 2 caracteres' }),
   email: z.string().email({ message: 'Por favor, introduce un email válido' }),
 });
 
-const QuizResultForm = () => {
+const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added prop type for quizResults
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const { toast } = useToast();
+  const { toast } = useToast(); //Re-added useToast
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -32,21 +32,18 @@ const QuizResultForm = () => {
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
-      const storedResults = localStorage.getItem('quizResults');
-      const quizResults = storedResults ? JSON.parse(storedResults) : null;
-
-      const response = await apiRequest('POST', '/api/quiz-results', {
+      const response = await apiRequest('POST', '/api/register', { // Changed API endpoint
         ...data,
-        quizResults,
+        quizResults
       });
 
       if (!response.ok) {
-        throw new Error('Error al enviar los resultados');
+        throw new Error('Error en el registro');
       }
 
       setIsSuccess(true);
       form.reset();
-      toast({
+      toast({ //Re-added success toast
         title: '¡Resultados enviados! 🎉',
         description: 'Te hemos enviado un correo con tu diagnóstico completo.',
         variant: 'default',
@@ -54,7 +51,7 @@ const QuizResultForm = () => {
       });
     } catch (error) {
       console.error('Error:', error);
-      toast({
+      toast({ //Re-added error toast
         title: 'Error al enviar',
         description: 'Ha ocurrido un error. Por favor intenta nuevamente.',
         variant: 'destructive',
@@ -67,7 +64,7 @@ const QuizResultForm = () => {
   return (
     <Card className="p-6 md:p-8 rounded-xl shadow-lg max-w-md mx-auto">
       <h3 className="font-poppins font-semibold text-xl mb-4 text-center">Recibe tu diagnóstico completo</h3>
-      
+
       {isSuccess ? (
         <div className="p-4 bg-green-100 text-green-800 rounded-md text-center">
           <Check className="h-8 w-8 mx-auto mb-2" />
@@ -105,12 +102,12 @@ const QuizResultForm = () => {
               )}
             />
 
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               disabled={isSubmitting}
-              className="w-full bg-primary hover:bg-primary-dark"
+              className="w-full"
             >
-              {isSubmitting ? 'Enviando...' : 'Recibir diagnóstico completo'}
+              {isSubmitting ? 'Enviando...' : 'Recibir diagnóstico'}
             </Button>
           </form>
         </Form>
