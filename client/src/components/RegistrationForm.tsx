@@ -56,6 +56,19 @@ const RegistrationForm = () => {
       
       const result = await response.json();
       
+      if (response.status === 409) {
+        form.setError('email', { 
+          type: 'manual',
+          message: 'Este email ya está registrado. Por favor utiliza otro email.'
+        });
+        toast({
+          title: 'Email ya registrado',
+          description: 'Este email ya está registrado. Por favor utiliza otro email.',
+          variant: 'destructive',
+        });
+        return;
+      }
+      
       setIsSuccess(true);
       form.reset();
       toast({
