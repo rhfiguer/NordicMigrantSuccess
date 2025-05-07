@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { z } from "zod";
 import { leadsInsertSchema, quizResponsesInsertSchema } from "@shared/schema";
 import { ZodError } from "zod-validation-error";
+import { EmailService } from "./email";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API prefix
