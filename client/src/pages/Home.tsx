@@ -8,6 +8,7 @@ import Presenters from "@/components/Presenters";
 import WorkshopSessions from "@/components/WorkshopSessions";
 import ForWhoSection from "@/components/ForWhoSection";
 import DiagnosticQuiz from "@/components/DiagnosticQuiz";
+import QuizResultForm from "@/components/QuizResultForm";
 import RegistrationForm from "@/components/RegistrationForm";
 import PricingSection from "@/components/PricingSection";
 import FAQ from "@/components/FAQ";
