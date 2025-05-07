@@ -86,14 +86,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
             });
           }
 
-          let emailContent = `
-            <h1>¡Gracias por registrarte, ${validatedData.name}!</h1>
-          `;
-
-          if (validatedData.quizResults) {
-            console.log('Quiz results received:', validatedData.quizResults);
+          // Determinar el tipo de email basado en si hay resultados del quiz
+          const isQuizRegistration = !!validatedData.quizResults;
+          
+          let emailContent = '';
+          let emailSubject = '';
+          
+          if (isQuizRegistration) {
+            emailSubject = 'Resultados de tu Diagnóstico de Capital MAAS';
             const { score, categoryScores, recommendation } = validatedData.quizResults;
-            emailContent += `
+            emailContent = `
+              <h1>¡Gracias por completar el diagnóstico, ${validatedData.name}!</h1>
               <h2 style="color: #2C3E50; margin-top: 30px;">Resultados de tu Diagnóstico de Capital MAAS</h2>
               <div style="background-color: #F8F9FA; padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <p style="font-size: 18px;"><strong>Tu puntuación general:</strong> ${score}%</p>
@@ -147,9 +150,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
             `;
           }
 
+          if (!isQuizRegistration) {
+            emailSubject = "¡Bienvenido al Taller de Capital MAAS!";
+            emailContent = `
+              <h1>¡Gracias por registrarte, ${validatedData.name}!</h1>
+              <p>¡Nos alegra que hayas decidido dar este importante paso en tu desarrollo profesional!</p>
+              <p>Pronto recibirás más información sobre el taller y los próximos pasos.</p>
+              <p>Si aún no has realizado tu diagnóstico gratuito de Capital MAAS, te invitamos a hacerlo visitando nuestra página.</p>
+            `;
+          }
+
           await emailService.sendEmail(
             validatedData.email,
-            "¡Bienvenido al Taller de Capital MAAS!",
+            emailSubject,
             emailContent
           );
           
