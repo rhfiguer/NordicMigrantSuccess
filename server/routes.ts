@@ -78,6 +78,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
             pass: process.env.EMAIL_APP_PASSWORD || ''
           });
 
+          // Guardar respuestas del quiz en la base de datos si existen
+          if (validatedData.quizResults) {
+            await storage.createQuizResponse({
+              leadId: lead.id,
+              ...validatedData.quizResults
+            });
+          }
+
           let emailContent = `
             <h1>¡Gracias por registrarte, ${validatedData.name}!</h1>
           `;
