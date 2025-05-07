@@ -32,6 +32,7 @@ const RegistrationForm = () => {
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
+    mode: 'onBlur',
     defaultValues: {
       name: '',
       email: '',
@@ -45,6 +46,7 @@ const RegistrationForm = () => {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
+      setIsSubmitting(true);
       const response = await apiRequest('POST', '/api/register', {
         name: data.name,
         email: data.email,
@@ -56,16 +58,26 @@ const RegistrationForm = () => {
       
       const result = await response.json();
       
-      if (response.status === 409) {
-        form.setError('email', { 
-          type: 'manual',
-          message: 'Este email ya está registrado. Por favor utiliza otro email.'
-        });
-        toast({
-          title: 'Email ya registrado',
-          description: 'Este email ya está registrado. Por favor utiliza otro email.',
-          variant: 'destructive',
-        });
+      if (!response.ok) {
+        setIsSubmitting(false);
+        if (response.status === 409) {
+          form.setError('email', { 
+            type: 'manual',
+            message: 'Este email ya está registrado'
+          });
+          form.setFocus('email');
+          toast({
+            title: 'Email ya registrado',
+            description: 'Por favor utiliza otro email o contacta con nosotros si crees que es un error.',
+            variant: 'destructive',
+          });
+        } else {
+          toast({
+            title: 'Error en el registro',
+            description: result.message || 'Ha ocurrido un error. Por favor intenta nuevamente.',
+            variant: 'destructive',
+          });
+        }
         return;
       }
       
