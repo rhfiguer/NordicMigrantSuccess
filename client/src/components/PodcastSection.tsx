@@ -68,7 +68,7 @@ const PodcastSection = () => {
             <CarouselContent>
               {episodes.map((episode, index) => (
                 <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2">
-                  <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group">
+                  <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
                     <div className="aspect-video relative">
                       <iframe
                         width="100%"
@@ -80,12 +80,8 @@ const PodcastSection = () => {
                         allowFullScreen
                         className="absolute inset-0"
                       ></iframe>
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
-                    <div className="p-4 bg-gradient-to-br from 0% from-primary/10 via-secondary/5 to-transparent to-100%">
-                      <h3 className="font-semibold text-lg text-primary mb-1">{episode.title}</h3>
-                      <p className="text-sm text-neutral-600">{episode.description}</p>
-                    </div>
+                    
                   </Card>
                 </CarouselItem>
               ))}
