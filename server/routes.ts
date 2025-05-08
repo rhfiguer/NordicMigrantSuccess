@@ -89,10 +89,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
 
           // Determinar el tipo de email basado en si hay resultados del quiz
-          const isQuizRegistration = validatedData.quizResults && Object.keys(validatedData.quizResults).length > 0;
+          const isQuizRegistration = validatedData.quizResults && 
+            validatedData.quizResults.score !== undefined && 
+            validatedData.quizResults.categoryScores !== undefined;
           
           let emailContent = '';
           let emailSubject = '';
+          
+          console.log('Tipo de registro:', {
+            isQuizRegistration,
+            quizResults: validatedData.quizResults
+          });
           
           if (isQuizRegistration) {
             console.log('Preparando email de resultados del quiz:', {
