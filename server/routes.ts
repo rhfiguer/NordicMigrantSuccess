@@ -219,11 +219,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post(`${apiPrefix}/quiz-responses`, async (req, res) => {
     try {
       const validatedData = quizResponsesInsertSchema.parse(req.body);
-      const quizResponse = new QuizResponse(req.body);
-      const aiService = new AIService();
-      await quizResponse.generateRecommendation(aiService);
-
-      if (totalAnswers === 0) {
+      
+      if (Object.keys(validatedData).length === 0) {
         return res.status(400).json({ 
           message: "Debes responder al menos una pregunta" 
         });
