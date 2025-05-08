@@ -32,9 +32,12 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added pro
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
-      const response = await apiRequest('POST', '/api/register', { // Changed API endpoint
+      const storedResults = localStorage.getItem('quizResults');
+      const parsedResults = storedResults ? JSON.parse(storedResults) : null;
+
+      const response = await apiRequest('POST', '/api/register', {
         ...data,
-        quizResults
+        quizResults: parsedResults
       });
 
       if (!response.ok) {
