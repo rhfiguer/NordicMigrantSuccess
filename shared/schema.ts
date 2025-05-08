@@ -57,7 +57,17 @@ export const quizResponses = pgTable("quiz_responses", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const quizResponsesInsertSchema = createInsertSchema(quizResponses);
+export const quizResponsesInsertSchema = z.object({
+  leadId: z.number().optional(),
+  score: z.number(),
+  categoryScores: z.object({
+    economic: z.number(),
+    cultural: z.number(),
+    social: z.number(),
+    erotic: z.number()
+  }),
+  recommendation: z.string()
+});
 export type QuizResponseInsert = z.infer<typeof quizResponsesInsertSchema>;
 export type QuizResponse = typeof quizResponses.$inferSelect;
 
