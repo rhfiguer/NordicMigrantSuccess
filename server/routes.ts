@@ -219,7 +219,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post(`${apiPrefix}/quiz-responses`, async (req, res) => {
     try {
       const validatedData = quizResponsesInsertSchema.parse(req.body);
-      
+
       if (Object.keys(validatedData).length === 0) {
         return res.status(400).json({ 
           message: "Debes responder al menos una pregunta" 
@@ -228,8 +228,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Usar la clase QuizResponse para procesar los datos
       const quizResponse = new QuizResponse(validatedData);
-      
-      // Generar recomendación usando OpenAI
+
+      // Get AI-generated recommendation
       const aiService = new AIService();
       await quizResponse.generateRecommendation(aiService);
 
@@ -238,17 +238,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         score: quizResponse.score,
         categoryScores: quizResponse.categoryScores,
         recommendation: quizResponse.recommendation
-      });
-
-      // Get AI-generated recommendation
-      const aiService = new AIService();
-      const recommendation = await aiService.generateRecommendation(categoryScores);
-
-      res.status(201).json({ 
-        message: "Respuestas guardadas exitosamente",
-        score: percentageScore,
-        categoryScores,
-        recommendation
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
