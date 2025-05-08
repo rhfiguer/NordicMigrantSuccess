@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { scrollToElement } from '@/lib/utils';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 interface HeroQuizBoxProps {
   questions: QuizQuestion[];
@@ -222,6 +223,14 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
           </div>
         )}
       </CardContent>
+      <Dialog open={showDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Resultados del Quiz</DialogTitle>
+          </DialogHeader>
+          {/* Add your results content here */}
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 };
