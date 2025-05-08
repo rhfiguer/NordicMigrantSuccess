@@ -46,7 +46,8 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added pro
       });
 
       if (!response.ok) {
-        throw new Error('Error en el registro');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Error en el registro');
       }
 
       setIsSuccess(true);
