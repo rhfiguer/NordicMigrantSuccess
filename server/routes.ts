@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
+import { AIService } from "./openai";
 import { leadsInsertSchema, quizResponsesInsertSchema } from "@shared/schema";
 import { ZodError } from "zod-validation-error";
 import { EmailService } from "./email";
