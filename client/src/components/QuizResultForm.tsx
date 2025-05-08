@@ -22,6 +22,14 @@ const QuizResultForm = () => {
   const { toast } = useToast();
   const quizResults = useQuizStore((state) => state.quizResults);
 
+  useEffect(() => {
+    const storedResults = localStorage.getItem('quizResults');
+    if (storedResults) {
+      const parsedResults = JSON.parse(storedResults);
+      useQuizStore.getState().setQuizResults(parsedResults);
+    }
+  }, []);
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
