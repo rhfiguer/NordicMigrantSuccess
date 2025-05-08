@@ -21,7 +21,7 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
   const selectedPrice = WORKSHOPS.find(w => w.id === selectedWorkshop)?.price || 0;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 max-h-[80vh] overflow-y-auto">
       <h3 className="font-poppins font-semibold text-xl mb-4 text-center">
         Selecciona el taller
       </h3>

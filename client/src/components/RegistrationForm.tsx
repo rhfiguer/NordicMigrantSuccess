@@ -398,12 +398,14 @@ const RegistrationForm = () => {
                       </Button>
                     </div>
 
-                    {showPaymentSelector && (
-                      <PaymentMethodSelector 
-                        onSelect={handlePaymentMethodSelect}
-                        onBack={() => setShowPaymentSelector(false)}
-                      />
-                    )}
+                    <Dialog open={showPaymentSelector} onOpenChange={(open) => !open && setShowPaymentSelector(false)}>
+                      <DialogContent className="sm:max-w-[600px]">
+                        <PaymentMethodSelector 
+                          onSelect={handlePaymentMethodSelect}
+                          onBack={() => setShowPaymentSelector(false)}
+                        />
+                      </DialogContent>
+                    </Dialog>
                   </form>
                 </Form>
               )}
