@@ -92,7 +92,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           let emailContent = '';
           let emailSubject = '';
           
-          if (isQuizRegistration) {
+          if (isQuizRegistration && validatedData.quizResults) {
             emailSubject = 'Resultados de tu Diagnóstico de Capital MAAS';
             const { score, categoryScores, recommendation } = validatedData.quizResults;
             emailContent = `
@@ -137,20 +137,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 <p style="background-color: #FFFFFF; padding: 15px; border-left: 4px solid #2196F3; margin: 10px 0;">${recommendation}</p>
               </div>
               
-              <h3 style="color: #2C3E50;">Próximos pasos:</h3>
-              <p>Durante el taller, profundizaremos en cada una de estas áreas y desarrollaremos estrategias específicas para mejorar tu capital migrante.</p>
-              
-              <h3>Próximos pasos:</h3>
-              <p>Durante el taller, profundizaremos en cada una de estas áreas y desarrollaremos estrategias específicas para mejorar tu capital migrante.</p>
+              <h3 style="color: #2C3E50;">¿Quieres profundizar en tu desarrollo?</h3>
+              <p>Te invitamos a participar en nuestro taller donde profundizaremos en cada una de estas áreas y desarrollaremos estrategias específicas para mejorar tu capital migrante.</p>
             `;
           } else {
-            emailContent += `
-              <p>Pronto recibirás más información sobre el taller.</p>
-              <p>¿Sabías que puedes realizar un diagnóstico gratuito de tu Capital MAAS? Visita nuestra página nuevamente y completa el autodiagnóstico.</p>
-            `;
-          }
-
-          if (!isQuizRegistration) {
             emailSubject = "¡Bienvenido al Taller de Capital MAAS!";
             emailContent = `
               <h1>¡Gracias por registrarte, ${validatedData.name}!</h1>
