@@ -33,8 +33,21 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added pro
     setIsSubmitting(true);
     try {
       const storedResults = localStorage.getItem('quizResults');
-      const parsedResults = storedResults ? JSON.parse(storedResults) : null;
+      let parsedResults = storedResults ? JSON.parse(storedResults) : null;
       
+      // Asegurar que los categoryScores estén presentes
+      if (parsedResults && !parsedResults.categoryScores) {
+        parsedResults = {
+          ...parsedResults,
+          categoryScores: {
+            economic: 0,
+            cultural: 0,
+            social: 0,
+            erotic: 0
+          }
+        };
+      }
+
       console.log('Enviando datos al servidor:', {
         ...data,
         quizResults: parsedResults
