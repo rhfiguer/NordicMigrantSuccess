@@ -34,6 +34,11 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added pro
     try {
       const storedResults = localStorage.getItem('quizResults');
       const parsedResults = storedResults ? JSON.parse(storedResults) : null;
+      
+      console.log('Enviando datos al servidor:', {
+        ...data,
+        quizResults: parsedResults
+      });
 
       const response = await apiRequest('POST', '/api/register', {
         ...data,

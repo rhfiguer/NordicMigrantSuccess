@@ -18,6 +18,12 @@ export class EmailService {
   }
 
   async sendEmail(to: string, subject: string, html: string) {
+    console.log('Enviando email:', {
+      to,
+      subject,
+      html: html.substring(0, 500) + '...' // Solo mostramos los primeros 500 caracteres
+    });
+    
     return await this.transporter.sendMail({
       from: process.env.EMAIL_USER,
       to,

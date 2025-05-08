@@ -67,7 +67,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post(`${apiPrefix}/register`, async (req, res) => {
     try {
+      console.log('Datos recibidos en /api/register:', req.body);
       const validatedData = leadsInsertSchema.parse(req.body);
+      console.log('Datos validados:', validatedData);
       
       try {
         const lead = await storage.createLead(validatedData);
@@ -93,6 +95,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           let emailSubject = '';
           
           if (isQuizRegistration && validatedData.quizResults) {
+            console.log('Preparando email de resultados del quiz:', {
+              isQuizRegistration,
+              quizResults: validatedData.quizResults
+            });
             emailSubject = 'Resultados de tu Diagnóstico de Capital MAAS';
             const { score, categoryScores, recommendation } = validatedData.quizResults;
             emailContent = `
