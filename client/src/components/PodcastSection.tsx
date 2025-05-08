@@ -67,7 +67,7 @@ const PodcastSection = () => {
             }}
             plugins={[
               Autoplay({
-                delay: 3000,
+                delay: 6000,
                 stopOnInteraction: false,
                 stopOnMouseEnter: false,
                 playOnInit: true,
