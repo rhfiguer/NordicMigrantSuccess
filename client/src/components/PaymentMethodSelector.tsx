@@ -1,7 +1,7 @@
 
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CreditCard, BankTransfer } from "lucide-react";
+import { CreditCard, Building2 } from "lucide-react";
 
 interface PaymentMethodSelectorProps {
   amount: number;
@@ -35,7 +35,7 @@ const PaymentMethodSelector = ({ amount, onSelect, onBack }: PaymentMethodSelect
           onClick={() => onSelect('transfer')}
         >
           <div className="flex flex-col items-center text-center space-y-4">
-            <BankTransfer className="h-12 w-12 text-primary" />
+            <Building2 className="h-12 w-12 text-primary" />
             <div>
               <h4 className="font-semibold mb-2">Transferencia bancaria</h4>
               <p className="text-sm text-neutral-600">Recibirás los datos por email</p>
