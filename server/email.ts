@@ -19,14 +19,40 @@ export class EmailService {
   }
 
   private formatRecommendation(recommendation: string): string {
-    // Separar el texto por categorías y la invitación final
-    const parts = recommendation.split(/(?=Capital\s+\w+:|Para\s+desarrollar)/);
-    
-    // Filtrar líneas vacías y formatear cada parte
-    return parts
-      .filter(part => part.trim())
-      .map(part => `<p style="margin-bottom: 20px;">${part.trim()}</p>`)
-      .join('\n\n');
+    try {
+      const jsonData = JSON.parse(recommendation);
+      
+      const sections = [
+        { type: 'economic', title: 'Capital Económico' },
+        { type: 'cultural', title: 'Capital Cultural' },
+        { type: 'social', title: 'Capital Social' },
+        { type: 'erotic', title: 'Capital Erótico' }
+      ];
+
+      return sections
+        .map(section => {
+          const data = jsonData[section.type];
+          if (!data) return '';
+          
+          return `
+            <div style="margin-bottom: 20px;">
+              <h3 style="color: #2C3E50; margin-bottom: 10px;">${section.title}: ${data.score}%</h3>
+              <p>${data.analysis}</p>
+            </div>
+          `;
+        })
+        .filter(Boolean)
+        .join('\n\n');
+        
+    } catch (error) {
+      console.error('Error parsing recommendation JSON:', error);
+      // Fallback al formato anterior si hay error
+      const parts = recommendation.split(/(?=Capital\s+\w+:|Para\s+desarrollar)/);
+      return parts
+        .filter(part => part.trim())
+        .map(part => `<p style="margin-bottom: 20px;">${part.trim()}</p>`)
+        .join('\n\n');
+    }
   }
 
   async sendEmail(to: string, subject: string, html: string) {
