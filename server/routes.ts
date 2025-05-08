@@ -259,15 +259,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const quizResponse = await storage.createQuizResponse(quizResponseData);
       
-      // Get recommendation based on score
-      let recommendation;
-      if (percentageScore < 40) {
-        recommendation = "Tu puntuación indica que hay múltiples áreas donde puedes fortalecer tu capital migrante. El taller te será extremadamente beneficioso.";
-      } else if (percentageScore < 60) {
-        recommendation = "Tienes algunas bases, pero aún hay importantes oportunidades de mejora en tu integración. El taller te ayudará a potenciar tus fortalezas.";
-      } else {
-        recommendation = "Has construido buenas bases, pero el taller te permitirá optimizar estratégicamente tu capital migrante para lograr una integración plena.";
-      }
+      // Get AI-generated recommendation
+      const aiService = new AIService();
+      const recommendation = await aiService.generateRecommendation(categoryScores);
       
       res.status(201).json({ 
         message: "Respuestas guardadas exitosamente",
