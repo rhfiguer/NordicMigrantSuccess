@@ -19,13 +19,13 @@ export class EmailService {
   }
 
   private formatRecommendation(recommendation: string): string {
-    // Separar el texto por categorías (buscando "Capital")
-    const categories = recommendation.split(/(?=Capital\s+\w+:)/);
+    // Separar el texto por categorías y la invitación final
+    const parts = recommendation.split(/(?=Capital\s+\w+:|Para\s+desarrollar)/);
     
-    // Filtrar líneas vacías y formatear cada categoría
-    return categories
-      .filter(category => category.trim())
-      .map(category => `<p style="margin-bottom: 20px;">${category.trim()}</p>`)
+    // Filtrar líneas vacías y formatear cada parte
+    return parts
+      .filter(part => part.trim())
+      .map(part => `<p style="margin-bottom: 20px;">${part.trim()}</p>`)
       .join('\n\n');
   }
 
