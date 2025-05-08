@@ -10,13 +10,13 @@ const PricingSection = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="font-poppins font-bold text-2xl md:text-3xl mb-3 text-primary">
-            Invierte en tu futuro en Noruega
+            Invierte en tu futuro MAAS en Noruega
           </h2>
           <p className="text-neutral-600 mb-8">
             Una inversión única para maximizar tu potencial de integración
           </p>
 
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-3">
             <Card className="bg-white p-8 shadow-lg">
               <div className="mb-6">
                 <span className="text-4xl font-bold text-primary">50 NOK</span>
@@ -39,6 +39,35 @@ const PricingSection = () => {
                 className="bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-semibold w-full"
               >
                 Reserva tu introducción
+              </Button>
+            </Card>
+
+            <Card className="bg-white p-8 shadow-lg">
+              <div className="mb-6">
+                <span className="text-4xl font-bold text-primary">300 NOK</span>
+                <p className="text-neutral-600 mt-2">Una Sesión Personalizada</p>
+              </div>
+
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start">
+                  <Check className="text-secondary mt-1 mr-2 h-5 w-5" />
+                  <span className="text-neutral-700">Sesión individual enfocada</span>
+                </div>
+                <div className="flex items-start">
+                  <Check className="text-secondary mt-1 mr-2 h-5 w-5" />
+                  <span className="text-neutral-700">Plan de acción personalizado</span>
+                </div>
+                <div className="flex items-start">
+                  <Check className="text-secondary mt-1 mr-2 h-5 w-5" />
+                  <span className="text-neutral-700">Seguimiento post-sesión</span>
+                </div>
+              </div>
+
+              <Button 
+                onClick={() => scrollToElement('inscripcion')}
+                className="bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-semibold w-full"
+              >
+                Reserva tu sesión
               </Button>
             </Card>
 
