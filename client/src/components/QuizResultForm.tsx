@@ -39,14 +39,12 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added pro
       if (storedResults) {
         try {
           const parsedResults = JSON.parse(storedResults);
+          if (!parsedResults.categoryScores) {
+            throw new Error('No se encontraron los scores por categoría');
+          }
           quizResults = {
             score: parsedResults.score,
-            categoryScores: {
-              economic: parsedResults.categoryScores?.economic || 0,
-              cultural: parsedResults.categoryScores?.cultural || 0,
-              social: parsedResults.categoryScores?.social || 0,
-              erotic: parsedResults.categoryScores?.erotic || 0
-            },
+            categoryScores: parsedResults.categoryScores,
             recommendation: parsedResults.recommendation
           };
         } catch (error) {
