@@ -12,7 +12,7 @@ interface PaymentMethodSelectorProps {
 
 const WORKSHOPS = [
   { id: 'intro', name: 'Sesión Introductoria', price: 50 },
-  { id: 'single', name: 'Una Sesión Personalizada', price: 300 },
+  { id: 'single', name: 'Una Sesión Individual', price: 400 },
   { id: 'full', name: 'Taller Completo', price: 600 }
 ];
 

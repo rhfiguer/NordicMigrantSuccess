@@ -44,22 +44,38 @@ const PricingSection = () => {
 
             <Card className="bg-white p-8 shadow-lg">
               <div className="mb-6">
-                <span className="text-4xl font-bold text-primary">300 NOK</span>
-                <p className="text-neutral-600 mt-2">Una Sesión Personalizada</p>
+                <span className="text-4xl font-bold text-primary">400 NOK</span>
+                <p className="text-neutral-600 mt-2">Una Sesión Individual</p>
               </div>
 
               <div className="space-y-4 mb-8">
                 <div className="flex items-start">
                   <Check className="text-secondary mt-1 mr-2 h-5 w-5" />
-                  <span className="text-neutral-700">Sesión individual enfocada</span>
+                  <span className="text-neutral-700">Una sesión a elegir del taller completo</span>
                 </div>
                 <div className="flex items-start">
                   <Check className="text-secondary mt-1 mr-2 h-5 w-5" />
-                  <span className="text-neutral-700">Plan de acción personalizado</span>
+                  <span className="text-neutral-700">Material de la sesión</span>
                 </div>
                 <div className="flex items-start">
                   <Check className="text-secondary mt-1 mr-2 h-5 w-5" />
-                  <span className="text-neutral-700">Seguimiento post-sesión</span>
+                  <span className="text-neutral-700">Ejercicios prácticos</span>
+                </div>
+                <div className="flex items-start bg-green-50 p-4 rounded-lg border-2 border-green-200">
+                  <div className="flex-shrink-0 mr-4">
+                    <div className="relative">
+                      <div className="w-12 h-12 flex items-center justify-center rounded-full bg-green-600 text-white">
+                        <Shield className="h-6 w-6" />
+                      </div>
+                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center">
+                        <Check className="h-3 w-3 text-green-600" />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <span className="font-bold text-green-700 block mb-1">100% Garantía de satisfacción</span>
+                    <span className="text-green-600 text-sm">Si no quedas satisfecho/a, te devolvemos tu dinero</span>
+                  </div>
                 </div>
               </div>
 
