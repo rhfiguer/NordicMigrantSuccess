@@ -400,7 +400,6 @@ const RegistrationForm = () => {
 
                     {showPaymentSelector && (
                       <PaymentMethodSelector 
-                        amount={600}
                         onSelect={handlePaymentMethodSelect}
                         onBack={() => setShowPaymentSelector(false)}
                       />
