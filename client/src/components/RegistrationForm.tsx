@@ -48,6 +48,13 @@ const RegistrationForm = () => {
   const [showPaymentSelector, setShowPaymentSelector] = useState(false);
   const [registrationData, setRegistrationData] = useState<FormData | null>(null);
 
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
+    setRegistrationData(data);
+    setShowPaymentSelector(true);
+    setIsSubmitting(false);
+  };
+
   const handlePaymentMethodSelect = (method: 'stripe' | 'transfer') => {
     // Aquí manejaremos la selección del método de pago
     if (method === 'stripe') {
@@ -382,12 +389,6 @@ const RegistrationForm = () => {
                         type="submit" 
                         disabled={isSubmitting}
                         className="w-full bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-semibold py-3 px-6 rounded-md shadow-md transition transform hover:-translate-y-1 h-auto"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          const formData = form.getValues();
-                          setRegistrationData(formData);
-                          setShowPaymentSelector(true);
-                        }}
                       >
                         {isSubmitting ? 'Procesando...' : 'Reservar mi lugar'}
                       </Button>
