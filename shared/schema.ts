@@ -110,29 +110,3 @@ export const quizResponsesRelations = relations(quizResponses, ({ one }) => ({
     references: [leads.id],
   }),
 }));
-
-// Workshop participants table
-export const workshopParticipants = pgTable("workshop_participants", {
-  id: serial("id").primaryKey(),
-  name: text("name").notNull(),
-  email: text("email").notNull(),
-  phone: text("phone"),
-  countryOrigin: text("country_origin"),
-  timeInNorway: text("time_in_norway"),
-  workshopDate: text("workshop_date").notNull(),
-  paymentMethod: text("payment_method").notNull(),
-  paymentStatus: text("payment_status").notNull().default('pending'),
-  acceptedPrivacy: boolean("accepted_privacy").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
-
-export const workshopParticipantsSchema = createInsertSchema(workshopParticipants, {
-  name: (schema) => schema.min(2, "El nombre debe tener al menos 2 caracteres"),
-  email: (schema) => schema.email("Por favor, introduce un email válido"),
-  acceptedPrivacy: (schema) => schema.refine((val) => val === true, {
-    message: "Debes aceptar la política de privacidad",
-  }),
-});
-
-export type WorkshopParticipant = typeof workshopParticipants.$inferSelect;
-export type WorkshopParticipantInsert = z.infer<typeof workshopParticipantsSchema>;

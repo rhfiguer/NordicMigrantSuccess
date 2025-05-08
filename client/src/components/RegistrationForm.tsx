@@ -88,7 +88,7 @@ const RegistrationForm = () => {
         }
       }
 
-      const response = await apiRequest('POST', '/api/workshop-register', {
+      const response = await apiRequest('POST', '/api/register', {
         name: registrationData.name,
         email: registrationData.email,
         phone: registrationData.phone || undefined,
@@ -205,17 +205,10 @@ const RegistrationForm = () => {
                 </div>
               ) : (
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(async (data) => {
-                    try {
-                      setIsSubmitting(true);
-                      setRegistrationData(data);
-                      setShowPaymentSelector(true);
-                    } catch (error) {
-                      console.error('Error handling form submission:', error);
-                    } finally {
-                      setIsSubmitting(false);
-                    }
-                  })} className="space-y-4">
+                  <form onSubmit={form.handleSubmit((data) => {
+    setRegistrationData(data);
+    setShowPaymentSelector(true);
+  })} className="space-y-4">
                     <FormField
                       control={form.control}
                       name="name"

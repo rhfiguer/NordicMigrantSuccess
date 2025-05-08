@@ -9,26 +9,18 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Check } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
-import { useToast } from '@/hooks/use-toast';
+import {useToast} from '@/hooks/use-toast';
+
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'El nombre debe tener al menos 2 caracteres' }),
   email: z.string().email({ message: 'Por favor, introduce un email válido' }),
 });
 
-const QuizResultForm = () => {
+const QuizResultForm = ({ quizResults }: { quizResults: any }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
-  const quizResults = useQuizStore((state) => state.quizResults);
-
-  useEffect(() => {
-    const storedResults = localStorage.getItem('quizResults');
-    if (storedResults) {
-      const parsedResults = JSON.parse(storedResults);
-      useQuizStore.getState().setQuizResults(parsedResults);
-    }
-  }, []);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -38,19 +30,38 @@ const QuizResultForm = () => {
     },
   });
 
-  // If no quiz results exist, don't render anything
-  if (!quizResults) {
-    return null;
-  }
-
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
-      console.log('Submitting quiz results:', { data, quizResults });
+      const storedResults = localStorage.getItem('quizResults');
+      let quizResults = null;
+
+      if (storedResults) {
+        try {
+          const parsedResults = JSON.parse(storedResults);
+          quizResults = {
+            score: parsedResults.score,
+            categoryScores: {
+              economic: parsedResults.categoryScores?.economic || 0,
+              cultural: parsedResults.categoryScores?.cultural || 0,
+              social: parsedResults.categoryScores?.social || 0,
+              erotic: parsedResults.categoryScores?.erotic || 0
+            },
+            recommendation: parsedResults.recommendation
+          };
+        } catch (error) {
+          console.error('Error parsing quiz results:', error);
+          throw new Error('Error al procesar los resultados del diagnóstico');
+        }
+      }
+
+      if (!quizResults) {
+        throw new Error('No se encontraron los resultados del diagnóstico');
+      }
+
       const response = await apiRequest('POST', '/api/register', {
-        name: data.name,
-        email: data.email,
-        quizResults: quizResults || undefined
+        ...data,
+        quizResults
       });
 
       if (!response.ok) {
@@ -123,7 +134,7 @@ const QuizResultForm = () => {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-md shadow-md transition-all"
+              className="w-full"
             >
               {isSubmitting ? 'Enviando...' : 'Recibir diagnóstico'}
             </Button>

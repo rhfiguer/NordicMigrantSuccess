@@ -7,30 +7,8 @@ export interface LeadData extends schema.LeadInsert {}
 
 // Interface for quiz response data
 export interface QuizResponseData extends schema.QuizResponseInsert {}
-export interface WorkshopParticipantData extends schema.WorkshopParticipantInsert {}
 
 export const storage = {
-  // Workshop participant methods
-  async createWorkshopParticipant(data: WorkshopParticipantData) {
-    const [participant] = await db.insert(schema.workshopParticipants)
-      .values(data)
-      .returning();
-    return participant;
-  },
-
-  async getWorkshopParticipantByEmail(email: string) {
-    return await db.query.workshopParticipants.findFirst({
-      where: eq(schema.workshopParticipants.email, email)
-    });
-  },
-
-  async updateWorkshopParticipantPaymentStatus(id: number, status: string) {
-    const [participant] = await db.update(schema.workshopParticipants)
-      .set({ paymentStatus: status })
-      .where(eq(schema.workshopParticipants.id, id))
-      .returning();
-    return participant;
-  },
   // Get all testimonials
   async getTestimonials() {
     return await db.query.testimonials.findMany({
