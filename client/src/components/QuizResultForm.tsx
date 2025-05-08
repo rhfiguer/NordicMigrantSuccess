@@ -9,18 +9,18 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Check } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
-import {useToast} from '@/hooks/use-toast';
-
+import { useToast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'El nombre debe tener al menos 2 caracteres' }),
   email: z.string().email({ message: 'Por favor, introduce un email válido' }),
 });
 
-const QuizResultForm = ({ quizResults }: { quizResults: any }) => {
+const QuizResultForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
+  const quizResults = useQuizStore((state) => state.quizResults);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -30,35 +30,14 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => {
     },
   });
 
+  // If no quiz results exist, don't render anything
+  if (!quizResults) {
+    return null;
+  }
+
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
-      const storedResults = localStorage.getItem('quizResults');
-      let quizResults = null;
-
-      if (storedResults) {
-        try {
-          const parsedResults = JSON.parse(storedResults);
-          quizResults = {
-            score: parsedResults.score,
-            categoryScores: {
-              economic: parsedResults.categoryScores?.economic || 0,
-              cultural: parsedResults.categoryScores?.cultural || 0,
-              social: parsedResults.categoryScores?.social || 0,
-              erotic: parsedResults.categoryScores?.erotic || 0
-            },
-            recommendation: parsedResults.recommendation
-          };
-        } catch (error) {
-          console.error('Error parsing quiz results:', error);
-          throw new Error('Error al procesar los resultados del diagnóstico');
-        }
-      }
-
-      if (!quizResults) {
-        throw new Error('No se encontraron los resultados del diagnóstico');
-      }
-
       const response = await apiRequest('POST', '/api/register', {
         ...data,
         quizResults
