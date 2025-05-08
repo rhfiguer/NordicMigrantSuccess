@@ -205,9 +205,16 @@ const RegistrationForm = () => {
                 </div>
               ) : (
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit((data) => {
-                    setRegistrationData(data);
-                    setShowPaymentSelector(true);
+                  <form onSubmit={form.handleSubmit(async (data) => {
+                    try {
+                      setIsSubmitting(true);
+                      setRegistrationData(data);
+                      setShowPaymentSelector(true);
+                    } catch (error) {
+                      console.error('Error handling form submission:', error);
+                    } finally {
+                      setIsSubmitting(false);
+                    }
                   })} className="space-y-4">
                     <FormField
                       control={form.control}
