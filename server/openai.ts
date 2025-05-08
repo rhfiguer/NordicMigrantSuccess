@@ -24,11 +24,12 @@ Capital Social: ${scores.social}%
 Capital Erótico: ${scores.erotic}%
 
 Genera un análisis breve (máximo 200 palabras) que:
-1. Use un tono personal y directo, dirigiéndote al usuario como "tú" y usando frases como "tu capital", "podrías enfrentar", "tus fortalezas"
+1. Use un tono personal y directo, dirigiéndote al usuario como "tú" y usando frases como "tu capital", "podrías enfrentar"
 2. Divida el análisis en secciones claramente separadas por tipo de capital
-3. Se enfoque en los riesgos y consecuencias personales de no desarrollar cada capital
-4. Mantenga un tono profesional pero cercano y empático
-5. NO incluya recomendaciones específicas
+3. Para scores menores al 70%, enfatiza los riesgos y consecuencias específicas de no desarrollar ese capital
+4. Para scores mayores al 70%, solo menciona brevemente la importancia de mantenerlo
+5. Mantén un tono profesional pero cercano y empático
+6. NO incluyas recomendaciones ni sugerencias de acciones específicas
 6. Termine con: "Para desarrollar estrategias concretas que te ayuden a mejorar tu capital migrante, te invitamos a participar en nuestro taller Capital Migrante MAAS."`;
 
     const completion = await this.openai.chat.completions.create({
