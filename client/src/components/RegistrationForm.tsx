@@ -45,8 +45,23 @@ const RegistrationForm = () => {
     },
   });
 
-  const onSubmit = async (data: FormData) => {
-    setIsSubmitting(true);
+  const [showPaymentSelector, setShowPaymentSelector] = useState(false);
+  const [registrationData, setRegistrationData] = useState<FormData | null>(null);
+
+  const handlePaymentMethodSelect = (method: 'stripe' | 'transfer') => {
+    // Aquí manejaremos la selección del método de pago
+    if (method === 'stripe') {
+      // Implementaremos Stripe más adelante
+      console.log('Stripe selected');
+    } else {
+      // Enviar email con datos de transferencia
+      handleTransferPayment();
+    }
+  };
+
+  const handleTransferPayment = async () => {
+    if (!registrationData) return;
+    
     try {
       const storedResults = localStorage.getItem('quizResults');
       let quizResults = null;
@@ -367,10 +382,24 @@ const RegistrationForm = () => {
                         type="submit" 
                         disabled={isSubmitting}
                         className="w-full bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-semibold py-3 px-6 rounded-md shadow-md transition transform hover:-translate-y-1 h-auto"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          const formData = form.getValues();
+                          setRegistrationData(formData);
+                          setShowPaymentSelector(true);
+                        }}
                       >
                         {isSubmitting ? 'Procesando...' : 'Reservar mi lugar'}
                       </Button>
                     </div>
+
+                    {showPaymentSelector && (
+                      <PaymentMethodSelector 
+                        amount={600}
+                        onSelect={handlePaymentMethodSelect}
+                        onBack={() => setShowPaymentSelector(false)}
+                      />
+                    )}
                   </form>
                 </Form>
               )}
