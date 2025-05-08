@@ -85,10 +85,19 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
   };
 
   const handleCompleteQuiz = () => {
-    if (onGetFullDiagnostic) {
-      onGetFullDiagnostic();
-    } else {
-      scrollToElement('diagnostico');
+    if (result) {
+      const quizResults = {
+        score: result.score,
+        categoryScores: result.categoryScores,
+        recommendation: result.recommendation
+      };
+      console.log('Storing quiz results:', quizResults);
+      localStorage.setItem('quizResults', JSON.stringify(quizResults));
+      useQuizStore.getState().setQuizResults(quizResults);
+      const resultsElement = document.getElementById('quiz-results');
+      if (resultsElement) {
+        resultsElement.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -138,27 +147,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                   </div>
 
                   <Button
-                    onClick={() => {
-                      if (result) {
-                        const quizResults = {
-                          score: result.score,
-                          categoryScores: {
-                            economic: result.categoryScores.economic,
-                            cultural: result.categoryScores.cultural,
-                            social: result.categoryScores.social,
-                            erotic: result.categoryScores.erotic
-                          },
-                          recommendation: result.recommendation
-                        };
-                        console.log('Storing quiz results:', quizResults);
-                        localStorage.setItem('quizResults', JSON.stringify(quizResults));
-                        useQuizStore.getState().setQuizResults(quizResults);
-                        const resultsElement = document.getElementById('quiz-results');
-                        if (resultsElement) {
-                          resultsElement.scrollIntoView({ behavior: 'smooth' });
-                        }
-                      }
-                    }}
+                    onClick={handleCompleteQuiz}
                     className="w-full rounded-lg shadow-sm bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-semibold"
                   >
                     Obtener mi diagnóstico completo
