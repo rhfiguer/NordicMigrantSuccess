@@ -73,11 +73,7 @@ const Home = () => {
       <WorkshopSessions />
       <ForWhoSection />
       <DiagnosticQuiz questions={quizQuestions} />
-      <div id="quiz-results" className="scroll-mt-20 py-16 bg-neutral-50">
-        <div className="container mx-auto px-4">
-          <QuizResultForm />
-        </div>
-      </div>
+      <QuizResultForm />
       <div id="inscripcion" className="scroll-mt-20">
         <RegistrationForm />
       </div>
