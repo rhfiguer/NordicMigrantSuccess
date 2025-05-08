@@ -226,16 +226,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      const avgScore = totalSum / totalAnswers;
-      const percentageScore = Math.round((avgScore - 1) / 3 * 100);
+      // Usar la clase QuizResponse para procesar los datos
+      const quizResponse = new QuizResponse(validatedData);
+      
+      // Generar recomendación usando OpenAI
+      const aiService = new AIService();
+      await quizResponse.generateRecommendation(aiService);
 
-      // Add score to validatedData
-      const quizResponseData = {
-        ...validatedData,
-        score: percentageScore
-      };
-
-      const quizResponse = await storage.createQuizResponse(quizResponseData);
+      res.status(201).json({ 
+        message: "Respuestas guardadas exitosamente",
+        score: quizResponse.score,
+        categoryScores: quizResponse.categoryScores,
+        recommendation: quizResponse.recommendation
+      });
 
       // Get AI-generated recommendation
       const aiService = new AIService();
