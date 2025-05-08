@@ -35,7 +35,7 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added pro
     try {
       const quizResults = useQuizStore.getState().quizResults;
       
-      if (!quizResults || !quizResults.categoryScores) {
+      if (!quizResults) {
         console.warn('No se encontraron resultados del diagnóstico');
         throw new Error('No se encontraron los resultados completos del diagnóstico');
       }
@@ -47,7 +47,7 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added pro
 
       const response = await apiRequest('POST', '/api/register', {
         ...data,
-        quizResults: parsedResults
+        quizResults
       });
 
       if (!response.ok) {
