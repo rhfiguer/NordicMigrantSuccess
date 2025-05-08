@@ -61,17 +61,19 @@ const PodcastSection = () => {
         <div className="max-w-4xl mx-auto px-8">
           <Carousel
             opts={{
-              align: "start",
+              align: "center",
               loop: true,
+              dragFree: true,
             }}
             plugins={[
               Autoplay({
-                delay: 4000,
-                stopOnInteraction: true,
-                stopOnMouseEnter: true,
+                delay: 3000,
+                stopOnInteraction: false,
+                stopOnMouseEnter: false,
+                playOnInit: true,
               })
             ]}
-            className="w-full"
+            className="w-full relative"
           >
             <CarouselContent>
               {episodes.map((episode, index) => (
