@@ -38,9 +38,9 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added pro
       let parsedResults = storedResults ? JSON.parse(storedResults) : null;
       console.log('Parsed stored results:', parsedResults);
       
-      // Solo asignar scores por defecto si no existen
-      if (parsedResults && !parsedResults.categoryScores) {
-        console.warn('No category scores found in stored results');
+      if (!parsedResults || !parsedResults.categoryScores) {
+        console.warn('No category scores found in stored results, aborting submission');
+        throw new Error('No se encontraron los resultados completos del diagnóstico');
       }
 
       console.log('Enviando datos al servidor:', {
