@@ -93,7 +93,8 @@ const QuizResultForm = () => {
   if (!showForm) return null;
 
   return (
-    <Card className="p-6 md:p-8 rounded-xl shadow-lg max-w-md mx-auto">
+    <div id="quiz-results" className="scroll-mt-20">
+      <Card className="p-6 md:p-8 rounded-xl shadow-lg max-w-md mx-auto">
       <h3 className="font-poppins font-semibold text-xl mb-4 text-center">Recibe tu diagnóstico completo</h3>
 
       {isSuccess ? (
@@ -145,6 +146,7 @@ const QuizResultForm = () => {
         </Form>
       )}
     </Card>
+    </div>
   );
 };
 
