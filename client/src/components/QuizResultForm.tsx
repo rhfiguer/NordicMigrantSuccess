@@ -33,17 +33,31 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added pro
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
-      const quizResults = useQuizStore.getState().quizResults;
+      const storedResults = localStorage.getItem('quizResults');
+      let quizResults = null;
       
-      if (!quizResults) {
-        console.warn('No se encontraron resultados del diagnóstico');
-        throw new Error('No se encontraron los resultados completos del diagnóstico');
+      if (storedResults) {
+        try {
+          const parsedResults = JSON.parse(storedResults);
+          quizResults = {
+            score: parsedResults.score,
+            categoryScores: {
+              economic: parsedResults.categoryScores?.economic || 0,
+              cultural: parsedResults.categoryScores?.cultural || 0,
+              social: parsedResults.categoryScores?.social || 0,
+              erotic: parsedResults.categoryScores?.erotic || 0
+            },
+            recommendation: parsedResults.recommendation
+          };
+        } catch (error) {
+          console.error('Error parsing quiz results:', error);
+          throw new Error('Error al procesar los resultados del diagnóstico');
+        }
       }
 
-      console.log('Enviando datos al servidor:', {
-        ...data,
-        quizResults
-      });
+      if (!quizResults) {
+        throw new Error('No se encontraron los resultados del diagnóstico');
+      }
 
       const response = await apiRequest('POST', '/api/register', {
         ...data,
