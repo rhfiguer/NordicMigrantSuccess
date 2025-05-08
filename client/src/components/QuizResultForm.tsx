@@ -32,20 +32,16 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added pro
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
-      const storedResults = localStorage.getItem('quizResults');
-      console.log('Retrieved stored results:', storedResults);
+      const quizResults = useQuizStore.getState().quizResults;
       
-      let parsedResults = storedResults ? JSON.parse(storedResults) : null;
-      console.log('Parsed stored results:', parsedResults);
-      
-      if (!parsedResults || !parsedResults.categoryScores) {
-        console.warn('No category scores found in stored results, aborting submission');
+      if (!quizResults || !quizResults.categoryScores) {
+        console.warn('No se encontraron resultados del diagnóstico');
         throw new Error('No se encontraron los resultados completos del diagnóstico');
       }
 
       console.log('Enviando datos al servidor:', {
         ...data,
-        quizResults: parsedResults
+        quizResults
       });
 
       const response = await apiRequest('POST', '/api/register', {
