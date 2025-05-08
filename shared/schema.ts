@@ -26,23 +26,14 @@ export const quizResultsSchema = z.object({
   recommendation: z.string()
 });
 
-export const leadsInsertSchema = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  phone: z.string().optional(),
-  countryOrigin: z.string().optional(),
-  timeInNorway: z.string().optional(),
-  acceptedPrivacy: z.boolean(),
-  quizResults: z.object({
-    score: z.number(),
-    categoryScores: z.object({
-      economic: z.number(),
-      cultural: z.number(),
-      social: z.number(),
-      erotic: z.number()
-    }).optional(),
-    recommendation: z.string()
-  }).optional()
+export const leadsInsertSchema = createInsertSchema(leads, {
+  name: (schema) => schema.min(2, "El nombre debe tener al menos 2 caracteres"),
+  email: (schema) => schema.email("Por favor, introduce un email válido"),
+  acceptedPrivacy: (schema) => schema.refine((val) => val === true, {
+    message: "Debes aceptar la política de privacidad",
+  }),
+}).extend({
+  quizResults: quizResultsSchema.optional()
 });
 export type LeadInsert = z.infer<typeof leadsInsertSchema>;
 export type Lead = typeof leads.$inferSelect;
@@ -66,20 +57,7 @@ export const quizResponses = pgTable("quiz_responses", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const quizResponsesInsertSchema = z.object({
-  q1: z.number().optional(),
-  q2: z.number().optional(),
-  q3: z.number().optional(),
-  q4: z.number().optional(),
-  q5: z.number().optional(),
-  q6: z.number().optional(),
-  q7: z.number().optional(),
-  q8: z.number().optional(),
-  q9: z.number().optional(),
-  q10: z.number().optional(),
-  q11: z.number().optional(),
-  leadId: z.number().optional(),
-});
+export const quizResponsesInsertSchema = createInsertSchema(quizResponses);
 export type QuizResponseInsert = z.infer<typeof quizResponsesInsertSchema>;
 export type QuizResponse = typeof quizResponses.$inferSelect;
 
