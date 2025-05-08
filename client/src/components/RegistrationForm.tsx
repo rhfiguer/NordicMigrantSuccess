@@ -11,6 +11,7 @@ import { Card } from '@/components/ui/card';
 import { apiRequest } from '@/lib/queryClient';
 import { Check, Calendar, AlertTriangle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import PaymentMethodSelector from "@/components/PaymentMethodSelector";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'El nombre debe tener al menos 2 caracteres' }),
@@ -68,11 +69,11 @@ const RegistrationForm = () => {
 
   const handleTransferPayment = async () => {
     if (!registrationData) return;
-    
+
     try {
       const storedResults = localStorage.getItem('quizResults');
       let quizResults = null;
-      
+
       if (storedResults) {
         try {
           const parsedResults = JSON.parse(storedResults);
@@ -88,12 +89,12 @@ const RegistrationForm = () => {
       }
 
       const response = await apiRequest('POST', '/api/register', {
-        name: data.name,
-        email: data.email,
-        phone: data.phone || undefined,
-        countryOrigin: data.countryOrigin || undefined,
-        timeInNorway: data.timeInNorway || undefined,
-        acceptedPrivacy: data.acceptedPrivacy,
+        name: registrationData.name,
+        email: registrationData.email,
+        phone: registrationData.phone || undefined,
+        countryOrigin: registrationData.countryOrigin || undefined,
+        timeInNorway: registrationData.timeInNorway || undefined,
+        acceptedPrivacy: registrationData.acceptedPrivacy,
         quizResults: quizResults,
       });
 
@@ -204,7 +205,7 @@ const RegistrationForm = () => {
                 </div>
               ) : (
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <form onSubmit={form.handleSubmit(handleTransferPayment)} className="space-y-4">
                     <FormField
                       control={form.control}
                       name="name"
@@ -381,7 +382,7 @@ const RegistrationForm = () => {
                       )}
                     />
 
-                    
+
 
 
                     <div className="pt-2">
