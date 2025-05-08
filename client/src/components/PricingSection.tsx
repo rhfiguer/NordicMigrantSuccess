@@ -71,9 +71,9 @@ const PricingSection = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <span className="font-bold text-green-700 block mb-1 break-words">100% Garantía de satisfacción</span>
-                    <span className="text-green-600 text-sm block break-words">Si no quedas satisfecho/a, te devolvemos tu dinero</span>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-green-700 text-sm leading-tight mb-1 whitespace-normal">100% Garantía de satisfacción</h4>
+                    <p className="text-green-600 text-sm leading-tight whitespace-normal">Si no quedas satisfecho/a, te devolvemos tu dinero</p>
                   </div>
                 </div>
               </div>
@@ -120,9 +120,9 @@ const PricingSection = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <span className="font-bold text-green-700 block mb-1 break-words">100% Garantía de satisfacción</span>
-                    <span className="text-green-600 text-sm block break-words">Si no quedas satisfecho/a, te devolvemos tu dinero</span>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-green-700 text-sm leading-tight mb-1 whitespace-normal">100% Garantía de satisfacción</h4>
+                    <p className="text-green-600 text-sm leading-tight whitespace-normal">Si no quedas satisfecho/a, te devolvemos tu dinero</p>
                   </div>
                 </div>
               </div>
