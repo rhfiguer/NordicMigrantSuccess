@@ -58,15 +58,18 @@ export const quizResponses = pgTable("quiz_responses", {
 });
 
 export const quizResponsesInsertSchema = z.object({
+  q1: z.number().optional(),
+  q2: z.number().optional(),
+  q3: z.number().optional(),
+  q4: z.number().optional(),
+  q5: z.number().optional(),
+  q6: z.number().optional(),
+  q7: z.number().optional(),
+  q8: z.number().optional(),
+  q9: z.number().optional(),
+  q10: z.number().optional(),
+  q11: z.number().optional(),
   leadId: z.number().optional(),
-  score: z.number(),
-  categoryScores: z.object({
-    economic: z.number(),
-    cultural: z.number(),
-    social: z.number(),
-    erotic: z.number()
-  }),
-  recommendation: z.string()
 });
 export type QuizResponseInsert = z.infer<typeof quizResponsesInsertSchema>;
 export type QuizResponse = typeof quizResponses.$inferSelect;

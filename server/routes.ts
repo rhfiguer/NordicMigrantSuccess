@@ -229,7 +229,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
 
       // Calculate scores by category
-      const categoryScores: { [key: string]: number } = {};
+      const categoryScores: { [key: string]: number } = {
+        economic: 0,
+        cultural: 0,
+        social: 0,
+        erotic: 0
+      };
       let totalAnswers = 0;
       let totalSum = 0;
 
