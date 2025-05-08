@@ -1,3 +1,4 @@
+
 import nodemailer from 'nodemailer';
 
 export class EmailService {
@@ -17,7 +18,37 @@ export class EmailService {
     return new EmailService(config);
   }
 
+  private formatRecommendation(recommendation: string): string {
+    // Separar el texto por categorías (buscando "Capital")
+    const categories = recommendation.split(/(?=Capital\s+\w+:)/);
+    
+    // Filtrar líneas vacías y formatear cada categoría
+    return categories
+      .filter(category => category.trim())
+      .map(category => `<p style="margin-bottom: 20px;">${category.trim()}</p>`)
+      .join('\n\n');
+  }
+
   async sendEmail(to: string, subject: string, html: string) {
+    // Si el contenido incluye la recomendación del quiz
+    if (html.includes('Resultados de tu Diagnóstico')) {
+      // Encontrar la sección de recomendación
+      const recommendationMatch = html.match(/<p style="background-color: #FFFFFF; padding: 15px[^>]*>(.*?)<\/p>/s);
+      
+      if (recommendationMatch) {
+        const originalRecommendation = recommendationMatch[1];
+        const formattedRecommendation = this.formatRecommendation(originalRecommendation);
+        
+        // Reemplazar la recomendación original con la formateada
+        html = html.replace(
+          recommendationMatch[0],
+          `<div style="background-color: #FFFFFF; padding: 15px; border-left: 4px solid #2196F3; margin: 10px 0;">
+            ${formattedRecommendation}
+          </div>`
+        );
+      }
+    }
+
     console.log('Enviando email:', {
       to,
       subject,
