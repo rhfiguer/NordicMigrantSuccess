@@ -132,7 +132,12 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                       if (result) {
                         const quizResults = {
                           score: result.score,
-                          categoryScores: result.categoryScores,
+                          categoryScores: {
+                            economic: result.categoryScores.economic || 0,
+                            cultural: result.categoryScores.cultural || 0,
+                            social: result.categoryScores.social || 0,
+                            erotic: result.categoryScores.erotic || 0
+                          },
                           recommendation: result.recommendation
                         };
                         console.log('Storing quiz results:', quizResults);
