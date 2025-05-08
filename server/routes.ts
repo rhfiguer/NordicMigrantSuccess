@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
 import { AIService } from "./openai";
-import { leadsInsertSchema, quizResponsesInsertSchema } from "@shared/schema";
+import { leadsInsertSchema, quizResponsesInsertSchema, workshopParticipantsSchema } from "@shared/schema";
 import { ZodError } from "zod-validation-error";
 import { EmailService } from "./email";
 import { QuizResponse } from "@shared/types";
@@ -221,7 +221,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post(`${apiPrefix}/workshop-register`, async (req, res) => {
     try {
       console.log('Workshop registration data:', req.body);
-      const validatedData = schema.workshopParticipantsSchema.parse(req.body);
+      const validatedData = workshopParticipantsSchema.parse(req.body);
 
       const participant = await storage.createWorkshopParticipant(validatedData);
 
