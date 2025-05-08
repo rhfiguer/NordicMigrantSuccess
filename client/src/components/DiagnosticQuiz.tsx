@@ -117,7 +117,7 @@ const DiagnosticQuiz: React.FC<QuizProps> = ({ questions }) => {
                           <p>{result?.recommendation || 'Gracias por completar el diagnóstico.'}</p>
                         </CardContent>
                       </Card>
-                      
+
                       <div className="space-y-4">
                         <p>Descubre cómo mejorar tu capital migrante y acelerar tu integración:</p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -142,7 +142,7 @@ const DiagnosticQuiz: React.FC<QuizProps> = ({ questions }) => {
                         {currentQuestion?.order}. {currentQuestion?.category}
                       </h3>
                       <p className="mb-6">{currentQuestion?.question}</p>
-                      
+
                       <RadioGroup 
                         value={currentQuestion ? responses[`q${currentQuestion.order}` as keyof typeof responses]?.toString() : undefined}
                         onValueChange={handleOptionChange}
@@ -180,7 +180,10 @@ const DiagnosticQuiz: React.FC<QuizProps> = ({ questions }) => {
                       {isSubmitting ? (
                         <div className="flex items-center">
                           <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                          Procesando...
+                          <span>Procesando resultados...</span>
+                          <span className="text-xs opacity-80">
+                            Analizando tus respuestas (puede tomar unos segundos)
+                          </span>
                         </div>
                       ) : isLastStep ? (
                         'Ver resultados'
