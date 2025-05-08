@@ -1,5 +1,6 @@
 
 import React from "react";
+import Autoplay from 'embla-carousel-autoplay';
 import { Card } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
@@ -63,6 +64,13 @@ const PodcastSection = () => {
               align: "start",
               loop: true,
             }}
+            plugins={[
+              Autoplay({
+                delay: 4000,
+                stopOnInteraction: true,
+                stopOnMouseEnter: true,
+              })
+            ]}
             className="w-full"
           >
             <CarouselContent>
