@@ -223,12 +223,12 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
           </div>
         )}
       </CardContent>
-      <Dialog open={showDialog}>
-        <DialogContent>
+      <Dialog open={showDialog} onOpenChange={(open) => setShowDialog(open)}>
+        <DialogContent className="max-w-lg">
           <DialogHeader>
-            <DialogTitle>Resultados del Quiz</DialogTitle>
+            <DialogTitle>Obtener resultados completos</DialogTitle>
           </DialogHeader>
-          {/* Add your results content here */}
+          <QuizResultForm />
         </DialogContent>
       </Dialog>
     </Card>
