@@ -17,10 +17,10 @@ const formSchema = z.object({
   email: z.string().email({ message: 'Por favor, introduce un email válido' }),
 });
 
-const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added prop type for quizResults
+const QuizResultForm = ({ quizResults }: { quizResults: any }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const { toast } = useToast(); //Re-added useToast
+  const { toast } = useToast();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -35,7 +35,7 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added pro
     try {
       const storedResults = localStorage.getItem('quizResults');
       let quizResults = null;
-      
+
       if (storedResults) {
         try {
           const parsedResults = JSON.parse(storedResults);
@@ -71,7 +71,7 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added pro
 
       setIsSuccess(true);
       form.reset();
-      toast({ //Re-added success toast
+      toast({
         title: '¡Resultados enviados! 🎉',
         description: 'Te hemos enviado un correo con tu diagnóstico completo.',
         variant: 'default',
@@ -79,7 +79,7 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added pro
       });
     } catch (error) {
       console.error('Error:', error);
-      toast({ //Re-added error toast
+      toast({
         title: 'Error al enviar',
         description: 'Ha ocurrido un error. Por favor intenta nuevamente.',
         variant: 'destructive',
@@ -98,6 +98,7 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added pro
           <Check className="h-8 w-8 mx-auto mb-2" />
           <h4 className="font-bold mb-2">¡Gracias!</h4>
           <p>Te hemos enviado un correo con tu diagnóstico completo.</p>
+          <p className="text-sm mt-2">⚠️ Si no lo recibes en unos segundos, por favor revisa tu carpeta de spam.</p>
         </div>
       ) : (
         <Form {...form}>

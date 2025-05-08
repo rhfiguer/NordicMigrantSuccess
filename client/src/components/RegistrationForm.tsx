@@ -178,6 +178,7 @@ const RegistrationForm = () => {
                   <Check className="h-8 w-8 mx-auto mb-2" />
                   <h4 className="font-bold mb-2">¡Gracias por tu registro!</h4>
                   <p>Te hemos enviado un correo con más información sobre el taller.</p>
+                  <p className="text-sm mt-2">⚠️ Si no lo recibes en unos segundos, por favor revisa tu carpeta de spam.</p>
                 </div>
               ) : (
                 <Form {...form}>
