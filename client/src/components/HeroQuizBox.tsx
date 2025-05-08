@@ -129,18 +129,14 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
 
                   <Button
                     onClick={() => {
-                      if (result) {
+                      if (result?.categoryScores) {
                         const quizResults = {
                           score: result.score,
-                          categoryScores: {
-                            economic: parseInt(result.categoryScores?.economic || '0'),
-                            cultural: parseInt(result.categoryScores?.cultural || '0'),
-                            social: parseInt(result.categoryScores?.social || '0'),
-                            erotic: parseInt(result.categoryScores?.erotic || '0')
-                          },
+                          categoryScores: result.categoryScores,
                           recommendation: result.recommendation
                         };
                         localStorage.setItem('quizResults', JSON.stringify(quizResults));
+                        useQuizStore.getState().setQuizResults(quizResults);
                       }
                       scrollToElement('quiz-results');
                     }}
