@@ -219,29 +219,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post(`${apiPrefix}/quiz-responses`, async (req, res) => {
     try {
       const validatedData = quizResponsesInsertSchema.parse(req.body);
-
-      // Calculate score based on answers
-      const responses = {
-        economic: [req.body.q1, req.body.q2],
-        cultural: [req.body.q3, req.body.q4, req.body.q5],
-        social: [req.body.q6, req.body.q7, req.body.q8],
-        erotic: [req.body.q9, req.body.q10, req.body.q11]
-      };
-
-      // Calculate scores by category
-      const categoryScores = {};
-      let totalAnswers = 0;
-      let totalSum = 0;
-
-      for (const [category, answers] of Object.entries(responses)) {
-        const validAnswers = answers.filter(Boolean);
-        if (validAnswers.length > 0) {
-          const categoryAvg = validAnswers.reduce((sum, val) => sum + val, 0) / validAnswers.length;
-          categoryScores[category] = Math.round((categoryAvg - 1) / 3 * 100);
-          totalAnswers += validAnswers.length;
-          totalSum += validAnswers.reduce((sum, val) => sum + val, 0);
-        }
-      }
+      const quizResponse = new QuizResponse(req.body);
+      const aiService = new AIService();
+      await quizResponse.generateRecommendation(aiService);
 
       if (totalAnswers === 0) {
         return res.status(400).json({ 
