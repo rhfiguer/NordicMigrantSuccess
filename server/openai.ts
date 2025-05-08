@@ -16,23 +16,46 @@ export class AIService {
     social: number;
     erotic: number;
   }): Promise<string> {
-    const prompt = `Como experto en las teorías del capital social, cultural, económico y erótico de Pierre Bourdieu y Catherine Hakim, analiza los siguientes scores y genera un mensaje personal y directo para el usuario:
+    const prompt = `Como experto en las teorías del capital social, cultural, económico y erótico de Pierre Bourdieu y Catherine Hakim, analiza los siguientes scores y genera una respuesta en formato JSON:
 
 Capital Económico: ${scores.economic}%
 Capital Cultural: ${scores.cultural}%
 Capital Social: ${scores.social}%
 Capital Erótico: ${scores.erotic}%
 
-Genera un análisis breve (máximo 200 palabras) que:
-1. Use un tono personal y directo, dirigiéndote al usuario como "tú" y usando frases como "tu capital", "podrías enfrentar"
-2. Divida el análisis en secciones claramente separadas por tipo de capital
-3. Para scores menores al 70%, enfatiza los riesgos y consecuencias específicas de no desarrollar ese capital
-4. Para scores mayores al 70%, solo menciona brevemente la importancia de mantenerlo
-5. Mantén un tono profesional pero cercano y empático
-6. NO incluyas recomendaciones ni sugerencias de acciones específicas
-6. Termine con: "Para desarrollar estrategias concretas que te ayuden a mejorar tu capital migrante, te invitamos a participar en nuestro taller Capital Migrante MAAS."`;
+Genera un análisis en formato JSON que contenga:
+{
+  "economic": {
+    "score": number,
+    "analysis": string (análisis específico del capital económico, máximo 2 líneas)
+  },
+  "cultural": {
+    "score": number,
+    "analysis": string (análisis específico del capital cultural, máximo 2 líneas)
+  },
+  "social": {
+    "score": number,
+    "analysis": string (análisis específico del capital social, máximo 2 líneas)
+  },
+  "erotic": {
+    "score": number,
+    "analysis": string (análisis específico del capital erótico, máximo 2 líneas)
+  }
+}
+
+Reglas para el análisis:
+1. Usa un tono personal y directo ("tu capital", "podrías enfrentar")
+2. Para scores < 70%, enfatiza riesgos específicos
+3. Para scores > 70%, solo menciona la importancia de mantenerlo
+4. Mantén un tono profesional pero empático
+5. NO incluyas recomendaciones específicas`;
 
     const completion = await this.openai.chat.completions.create({
+      messages: [{ 
+        role: "user", 
+        content: prompt,
+        response_format: { type: "json_object" }
+      }],
       messages: [{ role: "user", content: prompt }],
       model: "gpt-4",
       temperature: 0.7,
