@@ -69,6 +69,11 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
         console.log('Storing quiz results:', quizResults);
         localStorage.setItem('quizResults', JSON.stringify(quizResults));
         useQuizStore.getState().setQuizResults(quizResults);
+        useQuizStore.getState().setShowForm(true); //Added this line
+        const resultsElement = document.getElementById('quiz-results');
+        if (resultsElement) {
+          resultsElement.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     } else {
       goToNext();
@@ -153,8 +158,12 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                         console.log('Storing quiz results:', quizResults);
                         localStorage.setItem('quizResults', JSON.stringify(quizResults));
                         useQuizStore.getState().setQuizResults(quizResults);
+                        useQuizStore.getState().setShowForm(true); //Added this line
+                        const resultsElement = document.getElementById('quiz-results');
+                        if (resultsElement) {
+                          resultsElement.scrollIntoView({ behavior: 'smooth' });
+                        }
                       }
-                      scrollToElement('quiz-results');
                     }}
                     className="w-full rounded-lg shadow-sm bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-semibold"
                   >

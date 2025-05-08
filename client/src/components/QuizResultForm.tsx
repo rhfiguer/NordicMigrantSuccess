@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -9,18 +10,18 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Check } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
-import {useToast} from '@/hooks/use-toast';
-
+import { useToast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'El nombre debe tener al menos 2 caracteres' }),
   email: z.string().email({ message: 'Por favor, introduce un email válido' }),
 });
 
-const QuizResultForm = ({ quizResults }: { quizResults: any }) => {
+const QuizResultForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
+  const { quizResults, showForm, setShowForm } = useQuizStore();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -88,6 +89,8 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => {
       setIsSubmitting(false);
     }
   };
+
+  if (!showForm) return null;
 
   return (
     <Card className="p-6 md:p-8 rounded-xl shadow-lg max-w-md mx-auto">
