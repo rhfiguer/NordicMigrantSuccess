@@ -88,7 +88,7 @@ const RegistrationForm = () => {
         }
       }
 
-      const response = await apiRequest('POST', '/api/register', {
+      const response = await apiRequest('POST', '/api/workshop-register', {
         name: registrationData.name,
         email: registrationData.email,
         phone: registrationData.phone || undefined,

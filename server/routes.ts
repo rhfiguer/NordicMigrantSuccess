@@ -217,6 +217,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Submit quiz responses
+  // Workshop registration endpoint
+  app.post(`${apiPrefix}/workshop-register`, async (req, res) => {
+    try {
+      console.log('Workshop registration data:', req.body);
+      const validatedData = schema.workshopParticipantsSchema.parse(req.body);
+
+      const participant = await storage.createWorkshopParticipant(validatedData);
+
+      const emailService = EmailService.initialize({
+        user: process.env.EMAIL_USER || '',
+        pass: process.env.EMAIL_APP_PASSWORD || ''
+      });
+
+      if (validatedData.paymentMethod === 'transfer') {
+        await emailService.sendBankTransferEmail(
+          validatedData.email,
+          'Taller Completo', // TODO: Make this dynamic based on selection
+          600 // TODO: Make this dynamic based on selection
+        );
+      }
+
+      res.status(201).json({ 
+        message: "Registro exitoso", 
+        participantId: participant.id 
+      });
+    } catch (error: any) {
+      console.error("Error registering workshop participant:", error);
+      res.status(500).json({ message: "Error en el registro del taller" });
+    }
+  });
+
   app.post(`${apiPrefix}/quiz-responses`, async (req, res) => {
     try {
       const validatedData = quizResponsesInsertSchema.parse(req.body);
