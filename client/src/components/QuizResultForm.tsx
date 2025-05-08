@@ -38,9 +38,11 @@ const QuizResultForm = () => {
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
     try {
+      console.log('Submitting quiz results:', { data, quizResults });
       const response = await apiRequest('POST', '/api/register', {
-        ...data,
-        quizResults
+        name: data.name,
+        email: data.email,
+        quizResults: quizResults || undefined
       });
 
       if (!response.ok) {
@@ -113,7 +115,7 @@ const QuizResultForm = () => {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full"
+              className="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-md shadow-md transition-all"
             >
               {isSubmitting ? 'Enviando...' : 'Recibir diagnóstico'}
             </Button>
