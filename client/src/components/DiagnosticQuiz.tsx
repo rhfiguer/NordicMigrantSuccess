@@ -180,10 +180,24 @@ const DiagnosticQuiz: React.FC<QuizProps> = ({ questions }) => {
                       {isSubmitting ? (
                         <div className="flex items-center">
                           <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                          <span>Procesando resultados...</span>
-                          <span className="text-xs opacity-80">
-                            Analizando tus respuestas (puede tomar unos segundos)
-                          </span>
+                          <div className="flex flex-col">
+                            <span id="processing-text" className="transition-opacity duration-500">
+                              Procesando resultados...
+                            </span>
+                            <span className="text-xs opacity-80 mt-1">
+                              Analizando tus respuestas en profundidad
+                            </span>
+                          </div>
+                          <script
+                            dangerouslySetInnerHTML={{
+                              __html: `
+                                setTimeout(() => {
+                                  const text = document.getElementById('processing-text');
+                                  if (text) text.textContent = 'Seguimos trabajando en tu análisis...';
+                                }, 3000);
+                              `
+                            }}
+                          />
                         </div>
                       ) : isLastStep ? (
                         'Ver resultados'
