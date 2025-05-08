@@ -71,10 +71,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log('Datos recibidos en /api/register:', req.body);
       const validatedData = leadsInsertSchema.parse(req.body);
       console.log('Datos validados:', validatedData);
-      
+
       try {
         const lead = await storage.createLead(validatedData);
-        
+
         try {
           const emailService = EmailService.initialize({
             user: process.env.EMAIL_USER || '',
@@ -93,10 +93,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const hasQuizResults = validatedData.quizResults && 
             validatedData.quizResults.score !== undefined && 
             validatedData.quizResults.categoryScores !== undefined;
-          
+
           let emailContent = '';
           let emailSubject = '';
-          
+
           console.log('Datos de registro validados:', {
             name: validatedData.name,
             email: validatedData.email,
@@ -106,7 +106,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           });
 
           const isQuizRegistration = hasQuizResults;
-          
+
           if (isQuizRegistration) {
             console.log('Preparando email de resultados del quiz:', {
               isQuizRegistration,
@@ -119,43 +119,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
               <h2 style="color: #2C3E50; margin-top: 30px;">Resultados de tu Diagnóstico de Capital MAAS</h2>
               <div style="background-color: #F8F9FA; padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <p style="font-size: 18px;"><strong>Tu puntuación general:</strong> ${score}%</p>
-                
+
                 <h3 style="color: #34495E; margin-top: 20px;">Desglose por categorías:</h3>
                 <ul style="list-style-type: none; padding: 0;">
                   <li style="margin: 10px 0;">
                     <strong>Capital Económico:</strong> 
                     <div style="background-color: #E8E8E8; height: 20px; border-radius: 10px; margin-top: 5px;">
-                      <div style="background-color: #4CAF50; width: ${categoryScores.economic}%; height: 100%; border-radius: 10px;"></div>
+                      <div style="background-color: #4CAF50; width: ${validatedData.quizResults.categoryScores.economic}%; height: 100%; border-radius: 10px;"></div>
                     </div>
-                    <span>${categoryScores.economic}%</span>
+                    <span>${validatedData.quizResults.categoryScores.economic}%</span>
                   </li>
                   <li style="margin: 10px 0;">
                     <strong>Capital Cultural:</strong>
                     <div style="background-color: #E8E8E8; height: 20px; border-radius: 10px; margin-top: 5px;">
-                      <div style="background-color: #2196F3; width: ${categoryScores.cultural}%; height: 100%; border-radius: 10px;"></div>
+                      <div style="background-color: #2196F3; width: ${validatedData.quizResults.categoryScores.cultural}%; height: 100%; border-radius: 10px;"></div>
                     </div>
-                    <span>${categoryScores.cultural}%</span>
+                    <span>${validatedData.quizResults.categoryScores.cultural}%</span>
                   </li>
                   <li style="margin: 10px 0;">
                     <strong>Capital Social:</strong>
                     <div style="background-color: #E8E8E8; height: 20px; border-radius: 10px; margin-top: 5px;">
-                      <div style="background-color: #FF9800; width: ${categoryScores.social}%; height: 100%; border-radius: 10px;"></div>
+                      <div style="background-color: #FF9800; width: ${validatedData.quizResults.categoryScores.social}%; height: 100%; border-radius: 10px;"></div>
                     </div>
-                    <span>${categoryScores.social}%</span>
+                    <span>${validatedData.quizResults.categoryScores.social}%</span>
                   </li>
                   <li style="margin: 10px 0;">
                     <strong>Capital Erótico:</strong>
                     <div style="background-color: #E8E8E8; height: 20px; border-radius: 10px; margin-top: 5px;">
-                      <div style="background-color: #9C27B0; width: ${categoryScores.erotic}%; height: 100%; border-radius: 10px;"></div>
+                      <div style="background-color: #9C27B0; width: ${validatedData.quizResults.categoryScores.erotic}%; height: 100%; border-radius: 10px;"></div>
                     </div>
-                    <span>${categoryScores.erotic}%</span>
+                    <span>${validatedData.quizResults.categoryScores.erotic}%</span>
                   </li>
                 </ul>
 
                 <h3 style="color: #34495E; margin-top: 20px;">Recomendación personalizada:</h3>
                 <p style="background-color: #FFFFFF; padding: 15px; border-left: 4px solid #2196F3; margin: 10px 0;">${recommendation}</p>
               </div>
-              
+
               <h3 style="color: #2C3E50;">¿Quieres profundizar en tu desarrollo?</h3>
               <p>Te invitamos a participar en nuestro taller donde profundizaremos en cada una de estas áreas y desarrollaremos estrategias específicas para mejorar tu capital migrante.</p>
             `;
@@ -174,7 +174,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             emailSubject,
             emailContent
           );
-          
+
           console.log("Confirmation email sent to:", validatedData.email);
         } catch (emailError) {
           console.error("Error sending email:", emailError);
@@ -186,13 +186,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       } catch (dbError: any) {
         console.error("Database error:", dbError);
-        
+
         if (dbError.code === '23505' && dbError.constraint === 'leads_email_unique') {
           return res.status(409).json({ 
             message: "Este email ya está registrado" 
           });
         }
-        
+
         throw dbError;
       }
     } catch (error: any) {
@@ -202,14 +202,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
           errors: error.errors 
         });
       }
-      
+
       // Check for duplicate email error
       if (error.code === '23505' && error.constraint === 'leads_email_unique') {
         return res.status(409).json({ 
           message: "Este email ya está registrado" 
         });
       }
-      
+
       console.error("Error creating lead:", error);
       res.status(500).json({ message: "Error en el registro" });
     }
@@ -219,7 +219,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post(`${apiPrefix}/quiz-responses`, async (req, res) => {
     try {
       const validatedData = quizResponsesInsertSchema.parse(req.body);
-      
+
       // Calculate score based on answers
       const responses = {
         economic: [req.body.q1, req.body.q2],
@@ -251,19 +251,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const avgScore = totalSum / totalAnswers;
       const percentageScore = Math.round((avgScore - 1) / 3 * 100);
-      
+
       // Add score to validatedData
       const quizResponseData = {
         ...validatedData,
         score: percentageScore
       };
-      
+
       const quizResponse = await storage.createQuizResponse(quizResponseData);
-      
+
       // Get AI-generated recommendation
       const aiService = new AIService();
       const recommendation = await aiService.generateRecommendation(categoryScores);
-      
+
       res.status(201).json({ 
         message: "Respuestas guardadas exitosamente",
         score: percentageScore,
