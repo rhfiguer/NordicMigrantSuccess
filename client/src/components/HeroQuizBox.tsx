@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/componen
 import { Progress } from '@/components/ui/progress';
 import { scrollToElement } from '@/lib/utils';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import QuizResultForm from '@/components/QuizResultForm';
 
 interface HeroQuizBoxProps {
   questions: QuizQuestion[];
