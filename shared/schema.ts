@@ -15,12 +15,25 @@ export const leads = pgTable("leads", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const quizResultsSchema = z.object({
+  score: z.number(),
+  categoryScores: z.object({
+    economic: z.number(),
+    cultural: z.number(),
+    social: z.number(),
+    erotic: z.number()
+  }),
+  recommendation: z.string()
+});
+
 export const leadsInsertSchema = createInsertSchema(leads, {
   name: (schema) => schema.min(2, "El nombre debe tener al menos 2 caracteres"),
   email: (schema) => schema.email("Por favor, introduce un email válido"),
   acceptedPrivacy: (schema) => schema.refine((val) => val === true, {
     message: "Debes aceptar la política de privacidad",
   }),
+}).extend({
+  quizResults: quizResultsSchema.optional()
 });
 export type LeadInsert = z.infer<typeof leadsInsertSchema>;
 export type Lead = typeof leads.$inferSelect;
