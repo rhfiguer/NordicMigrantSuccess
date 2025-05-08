@@ -134,6 +134,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                           categoryScores: result.categoryScores,
                           recommendation: result.recommendation
                         };
+                        console.log('Storing quiz results:', quizResults);
                         localStorage.setItem('quizResults', JSON.stringify(quizResults));
                       }
                       scrollToElement('quiz-results');

@@ -33,19 +33,14 @@ const QuizResultForm = ({ quizResults }: { quizResults: any }) => { // Added pro
     setIsSubmitting(true);
     try {
       const storedResults = localStorage.getItem('quizResults');
-      let parsedResults = storedResults ? JSON.parse(storedResults) : null;
+      console.log('Retrieved stored results:', storedResults);
       
-      // Asegurar que los categoryScores estén presentes
+      let parsedResults = storedResults ? JSON.parse(storedResults) : null;
+      console.log('Parsed stored results:', parsedResults);
+      
+      // Solo asignar scores por defecto si no existen
       if (parsedResults && !parsedResults.categoryScores) {
-        parsedResults = {
-          ...parsedResults,
-          categoryScores: {
-            economic: 0,
-            cultural: 0,
-            social: 0,
-            erotic: 0
-          }
-        };
+        console.warn('No category scores found in stored results');
       }
 
       console.log('Enviando datos al servidor:', {
