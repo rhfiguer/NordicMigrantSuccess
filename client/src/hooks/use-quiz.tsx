@@ -38,7 +38,7 @@ export function useQuiz({ questions, leadId }: UseQuizProps) {
 
   const submitQuiz = useCallback(async () => {
     if (Object.keys(responses).length === 0) {
-      return;
+      return null;
     }
 
     setIsSubmitting(true);
@@ -50,12 +50,15 @@ export function useQuiz({ questions, leadId }: UseQuizProps) {
       const res = await apiRequest('POST', '/api/quiz-responses', quizData);
       const data = await res.json();
       
-      setResult({
+      const results = {
         score: data.score,
+        categoryScores: data.categoryScores,
         recommendation: data.recommendation
-      });
+      };
       
+      setResult(results);
       setCurrentStep(totalSteps); // Show results
+      return results;
     } catch (error) {
       console.error('Error submitting quiz:', error);
     } finally {

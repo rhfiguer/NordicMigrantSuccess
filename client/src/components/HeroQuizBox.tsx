@@ -57,9 +57,19 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
     }
   };
 
-  const handleNextClick = () => {
+  const handleNextClick = async () => {
     if (isLastStep) {
-      submitQuiz();
+      const result = await submitQuiz();
+      if (result) {
+        const quizResults = {
+          score: result.score,
+          categoryScores: result.categoryScores,
+          recommendation: result.recommendation
+        };
+        console.log('Storing quiz results:', quizResults);
+        localStorage.setItem('quizResults', JSON.stringify(quizResults));
+        useQuizStore.getState().setQuizResults(quizResults);
+      }
     } else {
       goToNext();
     }
