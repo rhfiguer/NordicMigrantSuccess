@@ -24,6 +24,7 @@ const QuizOptions = [
 
 const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnostic }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showDialog, setShowDialog] = useState(false); // Added state for dialog
 
   useEffect(() => {
     if (questions.length > 0) {
@@ -46,7 +47,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
     submitQuiz,
     reset
   } = useQuiz({
-    questions: isLoaded ? questions : Array(11).fill({ id: 0, question: '', category: '', order: 0 }) 
+    questions: isLoaded ? questions : Array(11).fill({ id: 0, question: '', category: '', order: 0 })
   });
 
   const progress = Math.floor((currentStep / totalSteps) * 100);
@@ -69,11 +70,8 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
         console.log('Storing quiz results:', quizResults);
         localStorage.setItem('quizResults', JSON.stringify(quizResults));
         useQuizStore.getState().setQuizResults(quizResults);
-        useQuizStore.getState().setShowForm(true); //Added this line
-        const resultsElement = document.getElementById('quiz-results');
-        if (resultsElement) {
-          resultsElement.scrollIntoView({ behavior: 'smooth' });
-        }
+        useQuizStore.getState().setShowForm(true);
+        setShowDialog(true); // Show the dialog
       }
     } else {
       goToNext();
@@ -173,14 +171,14 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                   </h3>
                   <p className="mb-2 text-sm leading-snug">{currentQuestion?.question}</p>
 
-                  <RadioGroup 
+                  <RadioGroup
                     key={currentQuestion?.order}
                     value={currentQuestion ? responses[`q${currentQuestion.order}` as keyof typeof responses]?.toString() : undefined}
                     onValueChange={handleOptionChange}
                     className="space-y-1.5"
                   >
                     {QuizOptions.map((option) => (
-                      <div 
+                      <div
                         key={option.value}
                         className="flex items-center space-x-2 py-2 px-3 border border-neutral-300 rounded-lg hover:border-primary hover:bg-neutral-50 cursor-pointer shadow-sm"
                       >
