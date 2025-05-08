@@ -55,6 +55,42 @@ export class EmailService {
     }
   }
 
+  async sendBankTransferEmail(to: string, workshopName: string, price: number) {
+    const html = `
+      <h1>Información para Transferencia Bancaria - ${workshopName}</h1>
+      
+      <p>Gracias por tu interés en nuestro taller. Para completar tu inscripción, sigue estos pasos:</p>
+      
+      <div style="background-color: #F8F9FA; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h2>Datos para la transferencia:</h2>
+        <ul style="list-style-type: none; padding-left: 0;">
+          <li>🏦 <strong>Banco:</strong> [NOMBRE DEL BANCO]</li>
+          <li>💳 <strong>Número de cuenta:</strong> [NÚMERO]</li>
+          <li>👤 <strong>Titular:</strong> [NOMBRE]</li>
+          <li>💰 <strong>Monto:</strong> ${price} NOK</li>
+        </ul>
+      </div>
+
+      <p>Por favor, después de realizar la transferencia:</p>
+      <ol>
+        <li>Responde a este correo adjuntando el comprobante</li>
+        <li>Incluye la siguiente información:
+          <ul>
+            <li>Tu nombre completo</li>
+            <li>Fecha de la transferencia</li>
+            <li>Monto transferido</li>
+          </ul>
+        </li>
+      </ol>
+
+      <p>Confirmaremos tu inscripción en un plazo de 24-48 horas hábiles.</p>
+      
+      <p><strong>Nota:</strong> Si tienes alguna pregunta, no dudes en contactarnos.</p>
+    `;
+
+    return this.sendEmail(to, `Información de Pago - ${workshopName}`, html);
+  }
+
   async sendEmail(to: string, subject: string, html: string) {
     // Si el contenido incluye la recomendación del quiz
     if (html.includes('Resultados de tu Diagnóstico')) {
