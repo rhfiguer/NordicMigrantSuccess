@@ -7,44 +7,49 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 const PodcastSection = () => {
   const episodes = [
     {
-      title: "Cómo Aprovechar tu Capital Migrante",
-      videoId: "Z5D5xh4i1z4",
+      title: "Episodio 1",
+      videoId: "AP3tYwcK2hU",
       description: "Estrategias para maximizar tu potencial como inmigrante.",
     },
     {
-      title: "Integración Cultural en Noruega",
-      videoId: "TbdmDMgVm-I",
+      title: "Episodio 2",
+      videoId: "DK61ELg8DG8",
       description: "Claves para una adaptación exitosa a la cultura noruega.",
     },
     {
-      title: "Desarrollo Profesional",
-      videoId: "hBIDdcpG7gI",
+      title: "Episodio 3",
+      videoId: "u0lNm5sDeXQ",
       description: "Consejos para tu crecimiento profesional en Noruega.",
     },
     {
-      title: "Networking Efectivo",
-      videoId: "1r5DcASE8hs",
+      title: "Episodio 4",
+      videoId: "C45npAwITQM",
       description: "Cómo construir una red de contactos valiosa.",
     },
     {
-      title: "Superando Desafíos",
-      videoId: "PWpColjoWKo",
+      title: "Episodio 5",
+      videoId: "Ego013xxLWM",
       description: "Herramientas para enfrentar los retos de la migración.",
     },
     {
-      title: "Construyendo tu Futuro",
-      videoId: "dknVxRK1YR4",
+      title: "Episodio 6",
+      videoId: "1VhVfUZfaXQ",
       description: "Pasos clave para construir tu futuro en Noruega.",
     },
     {
-      title: "El Camino del Éxito",
-      videoId: "ipucJGlXZbk",
+      title: "Episodio 7",
+      videoId: "5Tdw1Jkc4bM",
       description: "Experiencias y consejos para alcanzar el éxito.",
     },
     {
-      title: "Adaptación e Integración",
-      videoId: "PLWF_j3s4zc",
+      title: "Episodio 8",
+      videoId: "G-RIHSD_n9c",
       description: "Estrategias efectivas para adaptarte a tu nueva vida.",
+    },
+    {
+      title: "Episodio 9",
+      videoId: "cuWn7VP0i3A",
+      description: "Más consejos para tu integración en Noruega.",
     }
   ];
 
