@@ -224,7 +224,16 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
           </div>
         )}
       </CardContent>
-      <Dialog open={showDialog} onOpenChange={(open) => setShowDialog(open)}>
+      <Dialog open={showDialog} onOpenChange={(open) => {
+        if (!open) {
+          setShowDialog(false);
+        } else {
+          // Delay showing the dialog to ensure Card is rendered first
+          setTimeout(() => {
+            setShowDialog(true);
+          }, 500);
+        }
+      }}>
         <DialogContent className="max-w-lg">
           <DialogHeader>
             <DialogTitle>Obtener resultados completos</DialogTitle>
