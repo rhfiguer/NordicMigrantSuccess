@@ -7,49 +7,116 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 const PodcastSection = () => {
   const episodes = [
     {
-      title: "Episodio 1",
-      videoId: "AP3tYwcK2hU",
+      title: "Cómo Aprovechar tu Capital Migrante",
+      videoId: "Z5D5xh4i1z4",
       description: "Estrategias para maximizar tu potencial como inmigrante.",
     },
     {
-      title: "Episodio 2",
-      videoId: "DK61ELg8DG8",
+      title: "Integración Cultural en Noruega",
+      videoId: "TbdmDMgVm-I",
       description: "Claves para una adaptación exitosa a la cultura noruega.",
     },
     {
-      title: "Episodio 3",
-      videoId: "u0lNm5sDeXQ",
+      title: "Desarrollo Profesional",
+      videoId: "hBIDdcpG7gI",
       description: "Consejos para tu crecimiento profesional en Noruega.",
     },
     {
-      title: "Episodio 4",
-      videoId: "C45npAwITQM",
+      title: "Networking Efectivo",
+      videoId: "1r5DcASE8hs",
       description: "Cómo construir una red de contactos valiosa.",
     },
     {
-      title: "Episodio 5",
-      videoId: "Ego013xxLWM",
+      title: "Superando Desafíos",
+      videoId: "PWpColjoWKo",
       description: "Herramientas para enfrentar los retos de la migración.",
     },
     {
-      title: "Episodio 6",
-      videoId: "1VhVfUZfaXQ",
+      title: "Construyendo tu Futuro",
+      videoId: "dknVxRK1YR4",
       description: "Pasos clave para construir tu futuro en Noruega.",
     },
     {
-      title: "Episodio 7",
-      videoId: "5Tdw1Jkc4bM",
+      title: "El Camino del Éxito",
+      videoId: "ipucJGlXZbk",
       description: "Experiencias y consejos para alcanzar el éxito.",
     },
     {
-      title: "Episodio 8",
-      videoId: "G-RIHSD_n9c",
+      title: "Adaptación e Integración",
+      videoId: "PLWF_j3s4zc",
       description: "Estrategias efectivas para adaptarte a tu nueva vida.",
     },
+    // Primera lista de nuevos episodios
     {
-      title: "Episodio 9",
+      title: "Nuevo Episodio 1",
+      videoId: "AP3tYwcK2hU",
+      description: "Nuevas estrategias para tu integración.",
+    },
+    {
+      title: "Nuevo Episodio 2",
+      videoId: "DK61ELg8DG8",
+      description: "Más consejos para tu adaptación.",
+    },
+    {
+      title: "Nuevo Episodio 3",
+      videoId: "u0lNm5sDeXQ",
+      description: "Desarrollo personal en Noruega.",
+    },
+    {
+      title: "Nuevo Episodio 4",
+      videoId: "C45npAwITQM",
+      description: "Construyendo tu futuro.",
+    },
+    {
+      title: "Nuevo Episodio 5",
+      videoId: "Ego013xxLWM",
+      description: "Superando obstáculos.",
+    },
+    {
+      title: "Nuevo Episodio 6",
+      videoId: "1VhVfUZfaXQ",
+      description: "Claves del éxito.",
+    },
+    {
+      title: "Nuevo Episodio 7",
+      videoId: "5Tdw1Jkc4bM",
+      description: "Tu camino en Noruega.",
+    },
+    {
+      title: "Nuevo Episodio 8",
+      videoId: "G-RIHSD_n9c",
+      description: "Adaptación cultural.",
+    },
+    {
+      title: "Nuevo Episodio 9",
       videoId: "cuWn7VP0i3A",
-      description: "Más consejos para tu integración en Noruega.",
+      description: "Consejos prácticos.",
+    },
+    // Segunda lista de nuevos episodios
+    {
+      title: "Extra Episodio 1",
+      videoId: "4UFnBQ5Ighk",
+      description: "Más allá de la integración.",
+    },
+    {
+      title: "Extra Episodio 2",
+      videoId: "IalpMjAjW_A",
+      description: "Profundizando en la cultura.",
+    },
+    {
+      title: "Extra Episodio 3",
+      videoId: "abjzea0m_Ls",
+      description: "Experiencias compartidas.",
+    },
+    {
+      title: "Extra Episodio 4",
+      videoId: "_6-tJB66bn8",
+      description: "Nuevas perspectivas.",
+    },
+    {
+      title: "Extra Episodio 5",
+      videoId: "-BzLE0GnKYg",
+      description: "Hacia el éxito.",
     }
   ];
 
