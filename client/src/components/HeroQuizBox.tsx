@@ -159,6 +159,7 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                         localStorage.setItem('quizResults', JSON.stringify(quizResults));
                         useQuizStore.getState().setQuizResults(quizResults);
                         useQuizStore.getState().setShowForm(true);
+                        setShowDialog(true);
                       }
                     }}
                     className="w-full rounded-lg shadow-sm bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-semibold"
