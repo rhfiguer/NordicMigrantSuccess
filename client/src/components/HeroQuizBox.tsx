@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useQuiz } from '@/hooks/use-quiz';
 import { useQuizStore } from '@/hooks/use-quiz-store';
+import { X } from 'lucide-react';
 import { QuizQuestion } from '@/types/quiz';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
