@@ -157,8 +157,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 <p style="background-color: #FFFFFF; padding: 15px; border-left: 4px solid #2196F3; margin: 10px 0;">${recommendation}</p>
               </div>
 
-              <h3 style="color: #2C3E50;">¿Quieres profundizar en tu desarrollo?</h3>
-              <p>Te invitamos a participar en nuestro taller donde profundizaremos en cada una de estas áreas y desarrollaremos estrategias específicas para mejorar tu capital migrante.</p>
+              <div style="background-color: #FDF6E3; padding: 25px; border-radius: 8px; margin: 30px 0; text-align: center;">
+                <h3 style="color: #D4AF37; font-size: 24px; margin-bottom: 15px;">¡Potencia tu Capital MAAS!</h3>
+                <p style="font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
+                  Basado en tus resultados, te invitamos a participar en nuestro taller especializado donde:
+                  <ul style="text-align: left; margin: 20px 0;">
+                    <li>✓ Profundizaremos en cada área de tu capital MAAS</li>
+                    <li>✓ Desarrollaremos estrategias personalizadas para mejorar tus puntuaciones</li>
+                    <li>✓ Crearás conexiones valiosas con otros migrantes MAAS</li>
+                    <li>✓ Recibirás mentoría directa de expertos en integración</li>
+                  </ul>
+                </p>
+                <a href="https://capitalmaasnorge.com/#inscripcion" 
+                   style="display: inline-block; background-color: #D4AF37; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 18px; margin-top: 20px;">
+                   INSCRÍBETE AHORA →
+                </a>
+              </div>
+
+              <p style="color: #666; font-size: 14px; text-align: center; margin-top: 20px;">
+                * Las plazas son limitadas y se asignan por orden de inscripción
+              </p>
             `;
           } else {
             emailSubject = "¡Bienvenido al Taller de Capital MAAS!";
