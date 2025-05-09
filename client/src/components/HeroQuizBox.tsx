@@ -122,7 +122,14 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
 
             <ScrollArea className={`${showResults ? 'h-[360px]' : 'h-[280px]'}`}>
               {showResults ? (
-                <div className="text-center py-4">
+                <div className="text-center py-4 relative">
+                  <button 
+                    onClick={() => reset()} 
+                    className="absolute right-2 top-2 p-1 rounded-md hover:bg-neutral-100 transition-colors"
+                    aria-label="Cerrar resultados"
+                  >
+                    <X className="h-4 w-4 text-neutral-500" />
+                  </button>
                   <h3 className="font-semibold text-lg mb-3 text-primary">
                     Resultados Preliminares
                   </h3>
