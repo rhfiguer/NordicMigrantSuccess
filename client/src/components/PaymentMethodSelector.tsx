@@ -82,15 +82,7 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
                   }
                   
                   console.log('Redirigiendo a Stripe Checkout con sessionId:', sessionId);
-                  const result = await stripe.redirectToCheckout({ 
-                    sessionId: sessionId
-                  });
-                  
-                  console.log('Resultado de redirección:', result);
-                  if (result.error) {
-                    console.error('Error en redirectToCheckout:', result.error);
-                    throw new Error(`Error de Stripe: ${result.error.message}`);
-                  }
+                  window.location.href = `https://checkout.stripe.com/c/pay/${sessionId}`;
                 } catch (error) {
                   console.error('Error detallado:', error);
                   alert(`Error en el proceso de pago: ${error instanceof Error ? error.message : 'Error desconocido'}`);
