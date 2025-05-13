@@ -1,5 +1,6 @@
 
 import { useState } from 'react';
+import { loadStripe } from '@stripe/stripe-js';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CreditCard, Building2 } from "lucide-react";
@@ -46,7 +47,36 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
           <div className="grid gap-4 md:grid-cols-2">
             <Card 
               className="p-6 cursor-pointer hover:border-primary transition-colors"
-              onClick={() => onSelect('stripe')}
+              onClick={async () => {
+                try {
+                  const selectedWorkshopData = WORKSHOPS.find(w => w.id === selectedWorkshop);
+                  if (!selectedWorkshopData) return;
+                  
+                  const response = await fetch('/api/create-payment-session', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      workshop: selectedWorkshopData.name,
+                      price: selectedWorkshopData.price
+                    }),
+                  });
+
+                  if (!response.ok) throw new Error('Error al crear sesión de pago');
+                  
+                  const { sessionId } = await response.json();
+                  const stripe = await loadStripe(process.env.STRIPE_PUBLISHABLE_KEY!);
+                  if (!stripe) throw new Error('Error al cargar Stripe');
+                  
+                  await stripe.redirectToCheckout({
+                    sessionId
+                  });
+                } catch (error) {
+                  console.error('Error:', error);
+                  // Aquí podrías mostrar un toast con el error
+                }
+              }}
             >
               <div className="flex flex-col items-center text-center space-y-4">
                 <CreditCard className="h-12 w-12 text-primary" />

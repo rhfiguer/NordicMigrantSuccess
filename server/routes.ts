@@ -7,6 +7,7 @@ import { leadsInsertSchema, quizResponsesInsertSchema } from "@shared/schema";
 import { ZodError } from "zod-validation-error";
 import { EmailService } from "./email";
 import { QuizResponse } from "@shared/types";
+import { StripeService } from "./stripe";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API prefix
@@ -235,6 +236,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Submit quiz responses
+  // Crear sesión de pago con Stripe
+  app.post(`${apiPrefix}/create-payment-session`, async (req, res) => {
+    try {
+      const { workshop, price } = req.body;
+      const stripeService = new StripeService();
+      const session = await stripeService.createPaymentSession(workshop, price);
+      res.json({ sessionId: session.id });
+    } catch (error) {
+      console.error('Error creating payment session:', error);
+      res.status(500).json({ message: 'Error al crear la sesión de pago' });
+    }
+  });
+
   app.post(`${apiPrefix}/quiz-responses`, async (req, res) => {
     try {
       const validatedData = quizResponsesInsertSchema.parse(req.body);
