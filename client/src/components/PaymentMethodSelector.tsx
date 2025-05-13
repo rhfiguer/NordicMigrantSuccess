@@ -19,6 +19,7 @@ const WORKSHOPS = [
 
 const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps) => {
   const [selectedWorkshop, setSelectedWorkshop] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
   const selectedPrice = WORKSHOPS.find(w => w.id === selectedWorkshop)?.price || 0;
 
   return (
@@ -46,8 +47,10 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
         <>
           <div className="grid gap-4 md:grid-cols-2">
             <Card 
-              className="p-6 cursor-pointer hover:border-primary transition-colors"
+              className={`p-6 cursor-pointer hover:border-primary transition-colors ${isLoading ? 'opacity-50' : ''}`}
               onClick={async () => {
+                if (isLoading) return;
+                setIsLoading(true);
                 try {
                   const selectedWorkshopData = WORKSHOPS.find(w => w.id === selectedWorkshop);
                   if (!selectedWorkshopData) {
@@ -97,6 +100,8 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
                 } catch (error) {
                   console.error('Error detallado:', error);
                   alert(`Error en el proceso de pago: ${error instanceof Error ? error.message : 'Error desconocido'}`);
+                } finally {
+                  setIsLoading(false);
                 }
               }}
             >
@@ -104,7 +109,9 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
                 <CreditCard className="h-12 w-12 text-primary" />
                 <div>
                   <h4 className="font-semibold mb-2">Pago con tarjeta</h4>
-                  <p className="text-sm text-neutral-600">Pago seguro con tarjeta de crédito/débito</p>
+                  <p className="text-sm text-neutral-600">
+                    {isLoading ? 'Procesando pago...' : 'Pago seguro con tarjeta de crédito/débito'}
+                  </p>
                 </div>
               </div>
             </Card>
