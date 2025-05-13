@@ -28,10 +28,10 @@ const Presenters = () => {
               </div>
               <div className="bg-white rounded-2xl p-6 border-2 border-secondary relative before:content-[''] before:absolute before:w-4 before:h-4 before:bg-white before:border-l-2 before:border-b-2 before:border-secondary before:-left-2 before:top-8 before:rotate-45">
                 <h3 className="font-poppins font-bold text-xl text-primary mb-1">Rodrigo Figueroa</h3>
-                <p className="text-primary font-medium mb-1">MSc in Management & Softwareutvikler</p>
+                <p className="text-primary font-medium mb-1">Chileno, Emprendedor, Podcaster y Desarrollador Autodidacta </p>
                 <p className="text-rose-600 font-medium mb-4">STAVANGER</p>
                 <p className="text-neutral-600 leading-relaxed">
-                  Coach especializado en desarrollo profesional y adaptación cultural, dedicado a potenciar el éxito de inmigrantes en Noruega. Con años de experiencia, Rodrigo ha desarrollado metodologías efectivas para ayudar a otros a alcanzar su máximo potencial en su nuevo país.
+                  Rodrigo vive en Stavanger. Padre de dos niños. Podcaster. Con experiencia en emprendimientos en Chile y ahora en Noruega. Tiene estudios en Ciencias Sociales, Ingeniería Comercial y un MSc en Administración en Noruega. Fanático del fútbol.
                 </p>
               </div>
             </div>
