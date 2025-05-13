@@ -82,14 +82,17 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
                   }
                   
                   console.log('Redirigiendo a Stripe Checkout con sessionId:', sessionId);
-                  const result = await stripe.redirectToCheckout({ 
+                  console.log('Redirigiendo a Stripe con sessionId:', sessionId);
+                  const { error } = await stripe.redirectToCheckout({ 
                     sessionId: sessionId
                   });
                   
-                  console.log('Resultado de redirección:', result);
-                  if (result.error) {
-                    console.error('Error en redirectToCheckout:', result.error);
-                    throw new Error(`Error de Stripe: ${result.error.message}`);
+                  if (error) {
+                    console.error('Error en redirectToCheckout:', error);
+                    throw new Error(`Error de Stripe: ${error.message}`);
+                  } else {
+                    console.log('Redirección exitosa');
+                    // La redirección ocurrirá automáticamente
                   }
                 } catch (error) {
                   console.error('Error detallado:', error);
