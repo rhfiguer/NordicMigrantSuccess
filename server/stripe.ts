@@ -31,8 +31,8 @@ export class StripeService {
         },
       ],
       mode: 'payment',
-      success_url: `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co/success`,
-      cancel_url: `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co/cancel`,
+      success_url: `${process.env.REPL_SLUG ? `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co` : 'http://localhost:5000'}/success`,
+      cancel_url: `${process.env.REPL_SLUG ? `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co` : 'http://localhost:5000'}/cancel`,
     });
 
     console.log('Sesión de Stripe creada exitosamente:', session.id);

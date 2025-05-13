@@ -81,11 +81,15 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
                     throw new Error('No se pudo inicializar Stripe. Verifica la clave pública.');
                   }
                   
-                  console.log('Redirigiendo a Stripe Checkout...');
-                  const { error } = await stripe.redirectToCheckout({ sessionId });
+                  console.log('Redirigiendo a Stripe Checkout con sessionId:', sessionId);
+                  const result = await stripe.redirectToCheckout({ 
+                    sessionId: sessionId
+                  });
                   
-                  if (error) {
-                    throw new Error(`Error de Stripe: ${error.message}`);
+                  console.log('Resultado de redirección:', result);
+                  if (result.error) {
+                    console.error('Error en redirectToCheckout:', result.error);
+                    throw new Error(`Error de Stripe: ${result.error.message}`);
                   }
                 } catch (error) {
                   console.error('Error detallado:', error);
