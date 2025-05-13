@@ -4,6 +4,16 @@ import { Button } from '@/components/ui/button';
 
 const Overview = () => {
   return (
+    <>
+    <section className="py-16 bg-neutral-100">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="font-poppins font-bold text-2xl md:text-3xl text-center mb-3 text-primary">
+            ¿Qué es el Capital MAAS?
+          </h2>
+        </div>
+      </div>
+    </section>
     <section id="taller" className="py-16 bg-white scroll-mt-20">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
@@ -58,6 +68,7 @@ const Overview = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
