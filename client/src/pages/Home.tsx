@@ -72,7 +72,6 @@ const Home = () => {
       <Presenters />
       <WorkshopSessions />
       <ForWhoSection />
-      <DiagnosticQuiz questions={quizQuestions} />
       <QuizResultForm />
       <div id="inscripcion" className="scroll-mt-20">
         <RegistrationForm />
