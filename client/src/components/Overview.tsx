@@ -53,12 +53,7 @@ const Overview = () => {
                 <h3 className="font-poppins font-semibold">Material Exclusivo</h3>
               </div>
             </div>
-            <div className="bg-secondary text-white rounded-lg flex items-center justify-center p-6">
-              <div className="text-center">
-                <i className="fas fa-certificate text-4xl mb-3 text-primary"></i>
-                <h3 className="font-poppins font-semibold">Certificado</h3>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>
