@@ -29,8 +29,8 @@ export class StripeService {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.PUBLIC_URL}/success`,
-      cancel_url: `${process.env.PUBLIC_URL}/cancel`,
+      success_url: `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co/success`,
+      cancel_url: `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co/cancel`,
     });
 
     return session;
