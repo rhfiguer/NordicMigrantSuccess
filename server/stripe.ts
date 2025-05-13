@@ -16,6 +16,7 @@ export class StripeService {
   async createPaymentSession(workshop: string, price: number) {
     try {
       console.log('Creando sesión de Stripe para:', workshop, 'precio:', price);
+      console.log('Usando clave de Stripe:', process.env.STRIPE_SECRET_KEY?.substring(0, 8) + '...');
       const session = await this.stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
