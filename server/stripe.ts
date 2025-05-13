@@ -1,4 +1,3 @@
-
 import Stripe from 'stripe';
 
 export class StripeService {
@@ -32,8 +31,8 @@ export class StripeService {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.REPLIT_APP_URL || 'http://localhost:5000'}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.REPLIT_APP_URL || 'http://localhost:5000'}/cancel?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${process.env.REPLIT_APP_URL || `https://${process.env.REPL_SLUG}.replit.dev`}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.REPLIT_APP_URL || `https://${process.env.REPL_SLUG}.replit.dev`}/cancel?session_id={CHECKOUT_SESSION_ID}`,
     });
 
     console.log('Sesión de Stripe creada exitosamente:', session.id);
