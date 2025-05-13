@@ -34,7 +34,7 @@ const Overview = () => {
             </ul>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-6 mb-12">
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
             <div className="bg-secondary text-white rounded-lg flex items-center justify-center p-6">
               <div className="text-center">
                 <i className="fas fa-users text-4xl mb-3 text-primary"></i>
