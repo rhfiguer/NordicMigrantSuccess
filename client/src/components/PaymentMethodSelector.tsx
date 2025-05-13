@@ -105,8 +105,13 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
                 }
               }}
             >
-              <div className="flex flex-col items-center text-center space-y-4">
-                <CreditCard className="h-12 w-12 text-primary" />
+              <div className="flex flex-col items-center text-center space-y-4 relative">
+                {isLoading ? (
+                  <div className="absolute inset-0 bg-white/80 flex items-center justify-center z-10">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                  </div>
+                ) : null}
+                <CreditCard className={`h-12 w-12 ${isLoading ? 'text-primary/50' : 'text-primary'}`} />
                 <div>
                   <h4 className="font-semibold mb-2">Pago con tarjeta</h4>
                   <p className="text-sm text-neutral-600">
