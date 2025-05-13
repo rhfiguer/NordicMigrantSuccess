@@ -82,7 +82,7 @@ const VideoSection = () => {
               <div className="aspect-video">
                 <iframe
                   className="w-full h-full"
-                  src="https://www.youtube.com/embed/R0qrRxH9pS4"
+                  src="https://www.youtube.com/embed/3ZN9IlXoAak"
                   title="Marcela Nürnberg - Taller de Integración"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
