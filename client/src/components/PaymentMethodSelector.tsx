@@ -50,8 +50,11 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
               onClick={async () => {
                 try {
                   const selectedWorkshopData = WORKSHOPS.find(w => w.id === selectedWorkshop);
-                  if (!selectedWorkshopData) return;
+                  if (!selectedWorkshopData) {
+                    throw new Error('Por favor selecciona un taller');
+                  }
                   
+                  console.log('Iniciando creación de sesión de pago para:', selectedWorkshopData.name);
                   const response = await fetch('/api/create-payment-session', {
                     method: 'POST',
                     headers: {
@@ -63,18 +66,30 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
                     }),
                   });
 
-                  if (!response.ok) throw new Error('Error al crear sesión de pago');
+                  if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`Error del servidor: ${errorData.message || response.statusText}`);
+                  }
                   
+                  console.log('Sesión de pago creada, obteniendo ID...');
                   const { sessionId } = await response.json();
-                  const stripe = await loadStripe(process.env.STRIPE_PUBLISHABLE_KEY!);
-                  if (!stripe) throw new Error('Error al cargar Stripe');
                   
-                  await stripe.redirectToCheckout({
-                    sessionId
-                  });
+                  console.log('Cargando Stripe con clave pública:', import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+                  const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+                  
+                  if (!stripe) {
+                    throw new Error('No se pudo inicializar Stripe. Verifica la clave pública.');
+                  }
+                  
+                  console.log('Redirigiendo a Stripe Checkout...');
+                  const { error } = await stripe.redirectToCheckout({ sessionId });
+                  
+                  if (error) {
+                    throw new Error(`Error de Stripe: ${error.message}`);
+                  }
                 } catch (error) {
-                  console.error('Error:', error);
-                  // Aquí podrías mostrar un toast con el error
+                  console.error('Error detallado:', error);
+                  alert(`Error en el proceso de pago: ${error instanceof Error ? error.message : 'Error desconocido'}`);
                 }
               }}
             >

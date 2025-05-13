@@ -14,7 +14,9 @@ export class StripeService {
   }
 
   async createPaymentSession(workshop: string, price: number) {
-    const session = await this.stripe.checkout.sessions.create({
+    try {
+      console.log('Creando sesión de Stripe para:', workshop, 'precio:', price);
+      const session = await this.stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
         {
@@ -33,6 +35,11 @@ export class StripeService {
       cancel_url: `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co/cancel`,
     });
 
+    console.log('Sesión de Stripe creada exitosamente:', session.id);
     return session;
+    } catch (error) {
+      console.error('Error al crear sesión de Stripe:', error);
+      throw new Error(error instanceof Error ? error.message : 'Error al crear la sesión de pago');
+    }
   }
 }
