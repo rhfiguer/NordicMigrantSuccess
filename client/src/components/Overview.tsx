@@ -12,7 +12,7 @@ const Overview = () => {
             ¿Eres un MAAS?
           </h2>
           <p className="text-neutral-600 text-center leading-relaxed">
-            Un MAAS es un Migrante de Alta Ambición y Superación: personas que llegan a Noruega con grandes metas, experiencias valiosas y el deseo firme de construir una vida plena. Sabemos que adaptarse a una nueva cultura puede ser un reto, especialmente cuando los códigos sociales cambian y tus talentos no siempre se reconocen de inmediato. Por eso creamos este taller: para ayudarte a capitalizar todo lo que ya traes contigo, identificar tus áreas de mejora con un test gratuito de autodiagnóstico, y entregarte herramientas prácticas que impulsen tu integración y desarrollo personal. Porque juntos somos más, y construir comunidad es el primer paso.
+            Un MAAS es un Migrante de Alta Ambición de Superación: personas que llegan a Noruega con grandes metas, experiencias valiosas y el deseo firme de construir una vida plena. Sabemos que adaptarse a una nueva cultura puede ser un reto, especialmente cuando los códigos sociales cambian y tus talentos no siempre se reconocen de inmediato. Por eso creamos este taller: para ayudarte a capitalizar todo lo que ya traes contigo, identificar tus áreas de mejora con un test gratuito de autodiagnóstico, y entregarte herramientas prácticas que impulsen tu integración y desarrollo personal. Porque juntos somos más, y construir comunidad es el primer paso.
           </p>
         </div>
       </div>
