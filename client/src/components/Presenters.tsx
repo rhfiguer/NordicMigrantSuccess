@@ -55,7 +55,7 @@ const Presenters = () => {
                 <p className="text-primary font-medium mb-1">Argentina, abogada, podcaster y activista cultural</p>
                 <p className="text-rose-600 font-medium mb-4">KOPPANG</p>
                 <p className="text-neutral-600 leading-relaxed">
-                  Especialista en integración cultural y desarrollo personal, con amplia experiencia ayudando a inmigrantes a prosperar en Noruega. Su enfoque único combina el entendimiento profundo de ambas culturas con estrategias prácticas para el éxito.
+                  Marcela vive junto a su familia en un pequeño pueblo a 200km de Oslo. Madre de un niño. Con experiencia en defensa de derechos humanos y comunicación intercultural. Apasionada por el arte, la cultura y la integración.
                 </p>
               </div>
             </div>
