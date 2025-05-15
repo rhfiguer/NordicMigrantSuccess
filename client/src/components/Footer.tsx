@@ -67,7 +67,7 @@ const Footer = () => {
             <ul className="space-y-2 text-neutral-300">
               <li className="flex items-start">
                 <i className="fas fa-envelope text-secondary mt-1 mr-2"></i>
-                <span>info@capitalmigrante.no</span>
+                <span>elpodcastdenoruega@gmail.com</span>
               </li>
               <li className="flex items-start">
                 <i className="fas fa-map-marker-alt text-secondary mt-1 mr-2"></i>
