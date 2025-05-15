@@ -11,6 +11,7 @@ import NotFound from "@/pages/not-found";
 function Router() {
   return (
     <Switch>
+      <Route path="/success_stripe" component={SuccessStripe} />
       <Route path="/success" component={Success} />
       <Route path="/cancel" component={Cancel} />
       <Route path="/privacy" component={Privacy} />
