@@ -10,6 +10,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 interface PaymentMethodSelectorProps {
   onSelect: (method: 'stripe' | 'transfer') => void;
   onBack: () => void;
+  registrationData: {
+    name: string;
+    email: string;
+  };
 }
 
 const WORKSHOPS = [
@@ -126,10 +130,40 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
 
             <Card 
               className={`p-6 cursor-pointer hover:border-primary transition-colors ${isTransferLoading ? 'opacity-50' : ''}`}
-              onClick={() => {
+              onClick={async () => {
                 if (isTransferLoading) return;
                 setIsTransferLoading(true);
-                setLocation('/success');
+
+                try {
+                  const selectedWorkshopData = WORKSHOPS.find(w => w.id === selectedWorkshop);
+                  if (!selectedWorkshopData) {
+                    throw new Error('Por favor selecciona un taller');
+                  }
+
+                  const response = await fetch('/api/bank-transfer', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      name: registrationData.name,
+                      email: registrationData.email,
+                      workshopId: selectedWorkshopData.id,
+                      paymentMethod: 'transfer',
+                      paymentStatus: 'pending'
+                    }),
+                  });
+
+                  if (!response.ok) {
+                    throw new Error('Error al procesar el registro');
+                  }
+
+                  setLocation('/success');
+                } catch (error) {
+                  console.error('Error:', error);
+                  alert('Hubo un error al procesar tu registro. Por favor intenta nuevamente.');
+                  setIsTransferLoading(false);
+                }
               }}
             >
               <div className="flex flex-col items-center text-center space-y-4 relative">
