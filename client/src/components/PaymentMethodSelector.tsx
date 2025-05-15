@@ -77,7 +77,7 @@ const PaymentMethodSelector = ({ onSelect, onBack, registrationData }: PaymentMe
                     },
                     body: JSON.stringify({
                       workshop: selectedWorkshopData.name,
-                      price: 3
+                      price: selectedWorkshopData.price
                     }),
                   });
 
