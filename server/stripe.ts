@@ -31,7 +31,7 @@ export class StripeService {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.REPLIT_APP_URL || `https://${process.env.REPL_SLUG}.replit.app`}/success?workshop=${encodeURIComponent(workshop)}`,
+      success_url: `https://www.somosmaas.no/success`,
       cancel_url: `${process.env.REPLIT_APP_URL || `https://${process.env.REPL_SLUG}.replit.app`}/cancel?session_id={CHECKOUT_SESSION_ID}`,
     });
 
