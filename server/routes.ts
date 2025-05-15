@@ -71,11 +71,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post(`${apiPrefix}/register`, async (req, res) => {
     try {
       console.log('Datos recibidos en /api/register:', req.body);
-      const validatedData = leadsInsertSchema.parse(req.body);
+      const validatedData = clientsInsertSchema.parse(req.body);
       console.log('Datos validados:', validatedData);
 
       try {
-        const lead = await storage.createLead(validatedData);
+        const client = await storage.createClient({
+          name: validatedData.name,
+          email: validatedData.email,
+          workshopId: "capital-maas-2024",
+          paymentMethod: "pending",
+          paymentStatus: "pending"
+        });
 
         try {
           const emailService = EmailService.initialize({
