@@ -3,6 +3,21 @@ import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 import { relations } from "drizzle-orm";
 
+// Clients table for workshop registrations
+export const clients = pgTable("clients", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  workshopId: text("workshop_id").notNull(),
+  paymentMethod: text("payment_method").notNull(),
+  paymentStatus: text("payment_status").notNull().default("pending"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const clientsInsertSchema = createInsertSchema(clients);
+export type ClientInsert = z.infer<typeof clientsInsertSchema>;
+export type Client = typeof clients.$inferSelect;
+
 // Leads/Registrations table
 export const leads = pgTable("leads", {
   id: serial("id").primaryKey(),

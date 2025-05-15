@@ -9,6 +9,27 @@ export interface LeadData extends schema.LeadInsert {}
 export interface QuizResponseData extends schema.QuizResponseInsert {}
 
 export const storage = {
+  // Client functions
+  async createClient(data: schema.ClientInsert) {
+    const [client] = await db.insert(schema.clients)
+      .values(data)
+      .returning();
+    return client;
+  },
+
+  async getClientById(id: number) {
+    return await db.query.clients.findFirst({
+      where: eq(schema.clients.id, id)
+    });
+  },
+
+  async updateClientPaymentStatus(id: number, status: string) {
+    const [client] = await db.update(schema.clients)
+      .set({ paymentStatus: status })
+      .where(eq(schema.clients.id, id))
+      .returning();
+    return client;
+  },
   // Get all testimonials
   async getTestimonials() {
     return await db.query.testimonials.findMany({
