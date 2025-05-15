@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
 import { AIService } from "./openai";
-import { leadsInsertSchema, quizResponsesInsertSchema } from "@shared/schema";
+import { leadsInsertSchema, quizResponsesInsertSchema, clientsInsertSchema } from "@shared/schema";
 import { ZodError } from "zod-validation-error";
 import { EmailService } from "./email";
 import { QuizResponse } from "@shared/types";
