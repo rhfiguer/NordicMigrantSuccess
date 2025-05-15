@@ -88,12 +88,14 @@ const PaymentMethodSelector = ({ onSelect, onBack, registrationData }: PaymentMe
                   console.log('Sesión de pago creada, obteniendo ID...');
                   const { sessionId } = await response.json();
 
-                  const STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
-                  if (!STRIPE_PUBLIC_KEY) {
-                    throw new Error('VITE_STRIPE_PUBLISHABLE_KEY no está configurada en los Secrets');
+                  const publishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+                  if (!publishableKey) {
+                    throw new Error('VITE_STRIPE_PUBLISHABLE_KEY no está configurada');
                   }
-                  console.log('Cargando Stripe con clave pública:', STRIPE_PUBLIC_KEY);
-                  const stripe = await loadStripe(STRIPE_PUBLIC_KEY, {
+                  if (!publishableKey.startsWith('pk_')) {
+                    throw new Error('La clave pública de Stripe no es válida');
+                  }
+                  const stripe = await loadStripe(publishableKey, {
                     stripeAccount: undefined,
                     locale: 'es'
                   });
