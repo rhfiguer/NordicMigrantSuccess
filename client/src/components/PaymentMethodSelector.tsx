@@ -127,10 +127,7 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
               onClick={() => {
                 if (isTransferLoading) return;
                 setIsTransferLoading(true);
-                setTimeout(() => {
-                  setIsTransferLoading(false);
-                  window.location.href = '/success';
-                }, 1000);
+                window.location.href = '/success';
               }}
             >
               <div className="flex flex-col items-center text-center space-y-4 relative">
