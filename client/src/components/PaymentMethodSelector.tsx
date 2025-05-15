@@ -160,8 +160,8 @@ const PaymentMethodSelector = ({ onSelect, onBack, registrationData }: PaymentMe
                       phone: registrationData.phone,
                       countryOrigin: registrationData.countryOrigin,
                       timeInNorway: registrationData.timeInNorway,
-                      acceptedPrivacy: registrationData.acceptedPrivacy,
                       acceptedMarketing: registrationData.acceptedMarketing || false,
+                      acceptedPrivacy: registrationData.acceptedPrivacy,
                     }),
                   });
 
