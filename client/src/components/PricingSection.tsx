@@ -1,6 +1,7 @@
 import { Check, Shield } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import CountdownTimer from '@/components/CountdownTimer';
 import { scrollToElement } from '@/lib/utils';
 
 const PricingSection = () => {
