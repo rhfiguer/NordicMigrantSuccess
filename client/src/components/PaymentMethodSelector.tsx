@@ -107,9 +107,7 @@ const PaymentMethodSelector = ({ onSelect, onBack, registrationData }: PaymentMe
 
                   console.log('Redirigiendo a Stripe Checkout con sessionId:', sessionId);
                   const result = await stripe.redirectToCheckout({
-                    sessionId,
-                    successUrl: window.location.origin + '/success_stripe',
-                    cancelUrl: window.location.origin + '/cancel'
+                    sessionId
                   });
                   if (result.error) {
                     throw new Error(result.error.message);

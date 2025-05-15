@@ -31,8 +31,8 @@ export class StripeService {
         },
       ],
       mode: 'payment',
-      success_url: `https://www.somosmaas.no/success`,
-      cancel_url: `https://www.somosmaas.no/cancel?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${process.env.SITE_URL || 'https://www.somosmaas.no'}/success_stripe`,
+      cancel_url: `${process.env.SITE_URL || 'https://www.somosmaas.no'}/cancel`,
     });
 
     console.log('Sesión de Stripe creada exitosamente:', session.id);
