@@ -102,21 +102,21 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
                   console.error('Error detallado:', error);
                   alert(`Error en el proceso de pago: ${error instanceof Error ? error.message : 'Error desconocido'}`);
                 } finally {
-                  setIsLoading(false);
+                  setIsStripeLoading(false);
                 }
               }}
             >
               <div className="flex flex-col items-center text-center space-y-4 relative">
-                {isLoading ? (
+                {isStripeLoading ? (
                   <div className="absolute inset-0 bg-white/80 flex items-center justify-center z-10">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                   </div>
                 ) : null}
-                <CreditCard className={`h-12 w-12 ${isLoading ? 'text-primary/50' : 'text-primary'}`} />
+                <CreditCard className={`h-12 w-12 ${isStripeLoading ? 'text-primary/50' : 'text-primary'}`} />
                 <div>
                   <h4 className="font-semibold mb-2">Pago con tarjeta</h4>
                   <p className="text-sm text-neutral-600">
-                    {isLoading ? 'Procesando pago...' : 'Pago seguro con tarjeta de crédito/débito'}
+                    {isStripeLoading ? 'Procesando pago...' : 'Pago seguro con tarjeta de crédito/débito'}
                   </p>
                 </div>
               </div>
@@ -136,7 +136,7 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                   </div>
                 )}
-                <Building2 className={`h-12 w-12 ${isLoading ? 'text-primary/50' : 'text-primary'}`} />
+                <Building2 className={`h-12 w-12 ${isTransferLoading ? 'text-primary/50' : 'text-primary'}`} />
                 <div>
                   <h4 className="font-semibold mb-2">Transferencia bancaria</h4>
                   <p className="text-sm text-neutral-600">Recibirás los datos por email</p>
