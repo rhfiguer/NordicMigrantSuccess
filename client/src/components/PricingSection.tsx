@@ -19,15 +19,10 @@ const PricingSection = () => {
           <div className="grid gap-6 md:grid-cols-3">
             <Card className="bg-white p-8 shadow-lg">
               <div className="mb-6">
-                <div className="flex flex-col items-center gap-2">
-                  <span className="text-2xl font-bold text-neutral-400 line-through">3 NOK</span>
-                  <span className="text-4xl font-bold text-rose-600">10 NOK</span>
+                <div className="flex flex-col items-center">
+                  <span className="text-4xl font-bold text-primary">3 NOK</span>
                 </div>
                 <p className="text-neutral-600 mt-2">Primera sesión introductoria</p>
-                <div className="mt-3 text-rose-600 text-sm font-medium text-center">
-                  ¡Oferta especial por tiempo limitado!
-                  <CountdownTimer />
-                </div>
               </div>
 
               <div className="space-y-4 mb-8">
