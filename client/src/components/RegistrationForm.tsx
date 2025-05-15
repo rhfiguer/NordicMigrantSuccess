@@ -70,7 +70,8 @@ const RegistrationForm = () => {
 
   const handleTransferPayment = async () => {
     if (!registrationData) return;
-
+    
+    setIsSubmitting(true);
     try {
       const storedResults = localStorage.getItem('quizResults');
       let quizResults = null;

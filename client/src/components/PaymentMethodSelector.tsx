@@ -122,8 +122,11 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
             </Card>
 
             <Card 
-              className="p-6 cursor-pointer hover:border-primary transition-colors"
-              onClick={() => onSelect('transfer')}
+              className={`p-6 cursor-pointer hover:border-primary transition-colors ${isLoading ? 'opacity-50' : ''}`}
+              onClick={() => {
+                if (isLoading) return;
+                onSelect('transfer');
+              }}
             >
               <div className="flex flex-col items-center text-center space-y-4">
                 <Building2 className="h-12 w-12 text-primary" />
