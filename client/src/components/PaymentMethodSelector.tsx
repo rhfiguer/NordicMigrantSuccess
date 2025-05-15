@@ -92,8 +92,7 @@ const PaymentMethodSelector = ({ onSelect, onBack, registrationData }: PaymentMe
                   console.log('Cargando Stripe con clave pública LIVE:', STRIPE_PUBLIC_KEY);
                   const stripe = await loadStripe(STRIPE_PUBLIC_KEY, {
                     stripeAccount: undefined,
-                    locale: 'es',
-                    apiVersion: '2023-10-16'
+                    locale: 'es'
                   });
 
                   if (!stripe) {
