@@ -52,7 +52,7 @@ const Presenters = () => {
               </div>
               <div className="bg-white rounded-2xl p-6 border-2 border-primary relative before:content-[''] before:absolute before:w-4 before:h-4 before:bg-white before:border-r-2 before:border-b-2 before:border-primary before:-right-2 before:top-8 before:rotate-45">
                 <h3 className="font-poppins font-bold text-xl text-primary mb-1">Marcela Nürnberg</h3>
-                <p className="text-primary font-medium mb-1">Utdannet jurist, tekstforfatter, kulturaktivist</p>
+                <p className="text-primary font-medium mb-1">Argentina, abogada, podcaster y activista cultural</p>
                 <p className="text-rose-600 font-medium mb-4">KOPPANG</p>
                 <p className="text-neutral-600 leading-relaxed">
                   Especialista en integración cultural y desarrollo personal, con amplia experiencia ayudando a inmigrantes a prosperar en Noruega. Su enfoque único combina el entendimiento profundo de ambas culturas con estrategias prácticas para el éxito.
