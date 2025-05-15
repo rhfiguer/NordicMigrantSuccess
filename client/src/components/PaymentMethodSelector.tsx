@@ -92,11 +92,12 @@ const PaymentMethodSelector = ({ onSelect, onBack, registrationData }: PaymentMe
                   console.log('Cargando Stripe con clave pública LIVE:', STRIPE_PUBLIC_KEY);
                   const stripe = await loadStripe(STRIPE_PUBLIC_KEY, {
                     stripeAccount: undefined,
-                    locale: 'es'
+                    locale: 'es',
+                    apiVersion: '2023-10-16'
                   });
 
                   if (!stripe) {
-                    throw new Error('No se pudo inicializar Stripe. Verifica la clave pública.');
+                    throw new Error('No se pudo inicializar Stripe con la clave LIVE');
                   }
 
                   console.log('Redirigiendo a Stripe Checkout con sessionId:', sessionId);
