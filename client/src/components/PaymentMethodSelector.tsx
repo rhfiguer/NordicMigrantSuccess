@@ -69,7 +69,7 @@ const PaymentMethodSelector = ({ onSelect, onBack, registrationData }: PaymentMe
                     throw new Error('Por favor selecciona un taller');
                   }
 
-                  console.log('Iniciando creación de sesión de pago para:', selectedWorkshopData.name, 'precio:', selectedWorkshopData.price);
+                  console.log('Iniciando creación de sesión de pago para:', selectedWorkshopData.name, 'precio: 3');
                   const response = await fetch('/api/create-payment-session', {
                     method: 'POST',
                     headers: {
@@ -77,7 +77,7 @@ const PaymentMethodSelector = ({ onSelect, onBack, registrationData }: PaymentMe
                     },
                     body: JSON.stringify({
                       workshop: selectedWorkshopData.name,
-                      price: selectedWorkshopData.price
+                      price: 3
                     }),
                   });
 
