@@ -19,7 +19,8 @@ const WORKSHOPS = [
 
 const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps) => {
   const [selectedWorkshop, setSelectedWorkshop] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isStripeLoading, setIsStripeLoading] = useState(false);
+  const [isTransferLoading, setIsTransferLoading] = useState(false);
   const selectedPrice = WORKSHOPS.find(w => w.id === selectedWorkshop)?.price || 0;
 
   return (
@@ -47,10 +48,10 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
         <>
           <div className="grid gap-4 md:grid-cols-2">
             <Card 
-              className={`p-6 cursor-pointer hover:border-primary transition-colors ${isLoading ? 'opacity-50' : ''}`}
+              className={`p-6 cursor-pointer hover:border-primary transition-colors ${isStripeLoading ? 'opacity-50' : ''}`}
               onClick={async () => {
-                if (isLoading) return;
-                setIsLoading(true);
+                if (isStripeLoading) return;
+                setIsStripeLoading(true);
                 try {
                   const selectedWorkshopData = WORKSHOPS.find(w => w.id === selectedWorkshop);
                   if (!selectedWorkshopData) {
@@ -122,15 +123,15 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
             </Card>
 
             <Card 
-              className={`p-6 cursor-pointer hover:border-primary transition-colors ${isLoading ? 'opacity-50' : ''}`}
+              className={`p-6 cursor-pointer hover:border-primary transition-colors ${isTransferLoading ? 'opacity-50' : ''}`}
               onClick={() => {
-                if (isLoading) return;
-                setIsLoading(true);
+                if (isTransferLoading) return;
+                setIsTransferLoading(true);
                 onSelect('transfer');
               }}
             >
               <div className="flex flex-col items-center text-center space-y-4 relative">
-                {isLoading && (
+                {isTransferLoading && (
                   <div className="absolute inset-0 bg-white/80 flex items-center justify-center z-10">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                   </div>
