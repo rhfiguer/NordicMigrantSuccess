@@ -240,12 +240,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post(`${apiPrefix}/create-payment-session`, async (req, res) => {
     try {
       const { workshop, price } = req.body;
+      
+      if (!workshop || !price) {
+        return res.status(400).json({ message: 'Faltan datos requeridos (workshop o price)' });
+      }
+
       const stripeService = new StripeService();
       const session = await stripeService.createPaymentSession(workshop, price);
       res.json({ sessionId: session.id });
     } catch (error) {
       console.error('Error creating payment session:', error);
-      res.status(500).json({ message: 'Error al crear la sesión de pago' });
+      res.status(500).json({ 
+        message: 'Error al crear la sesión de pago',
+        details: error instanceof Error ? error.message : 'Error desconocido'
+      });
     }
   });
 
