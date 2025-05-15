@@ -70,15 +70,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post(`${apiPrefix}/bank-transfer`, async (req, res) => {
     try {
-      const validatedData = clientsInsertSchema.parse({
+      const clientData = {
         name: req.body.name,
         email: req.body.email,
-        workshopId: req.body.workshopId,
+        workshopId: "capital-maas-2024",
         paymentMethod: 'transfer',
         paymentStatus: 'pending'
-      });
+      };
 
-      const client = await storage.createClient(validatedData);
+      const client = await storage.createClient(clientData);
       
       try {
         const emailService = EmailService.initialize({
