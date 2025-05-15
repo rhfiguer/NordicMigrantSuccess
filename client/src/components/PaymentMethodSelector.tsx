@@ -149,8 +149,7 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
                       name: registrationData.name,
                       email: registrationData.email,
                       workshopId: selectedWorkshopData.id,
-                      paymentMethod: 'transfer',
-                      paymentStatus: 'pending'
+                      amount: selectedWorkshopData.price
                     }),
                   });
 

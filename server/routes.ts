@@ -70,15 +70,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post(`${apiPrefix}/bank-transfer`, async (req, res) => {
     try {
-      const clientData = {
+      const validatedData = clientsInsertSchema.parse({
         name: req.body.name,
         email: req.body.email,
-        workshopId: "capital-maas-2024",
+        workshopId: req.body.workshopId,
         paymentMethod: 'transfer',
         paymentStatus: 'pending'
-      };
+      });
 
-      const client = await storage.createClient(clientData);
+      const client = await storage.createClient(validatedData);
+      
+      console.log('Cliente registrado:', client);
+      
       res.status(201).json({ 
         message: "Cliente registrado exitosamente",
         clientId: client.id
