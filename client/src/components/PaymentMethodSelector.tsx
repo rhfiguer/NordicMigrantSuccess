@@ -13,6 +13,10 @@ interface PaymentMethodSelectorProps {
   registrationData: {
     name: string;
     email: string;
+    phone?: string;
+    countryOrigin?: string;
+    timeInNorway?: string;
+    acceptedPrivacy: boolean;
   };
 }
 
@@ -149,18 +153,24 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
                       name: registrationData.name,
                       email: registrationData.email,
                       workshopId: selectedWorkshopData.id,
-                      amount: selectedWorkshopData.price
+                      amount: selectedWorkshopData.price,
+                      phone: registrationData.phone,
+                      countryOrigin: registrationData.countryOrigin,
+                      timeInNorway: registrationData.timeInNorway,
+                      acceptedPrivacy: registrationData.acceptedPrivacy
                     }),
                   });
 
+                  const result = await response.json();
+                  
                   if (!response.ok) {
-                    throw new Error('Error al procesar el registro');
+                    throw new Error(result.message || 'Error al procesar el registro');
                   }
 
                   setLocation('/success');
                 } catch (error) {
                   console.error('Error:', error);
-                  alert('Hubo un error al procesar tu registro. Por favor intenta nuevamente.');
+                  alert(error instanceof Error ? error.message : 'Hubo un error al procesar tu registro. Por favor intenta nuevamente.');
                   setIsTransferLoading(false);
                 }
               }}
