@@ -20,7 +20,7 @@ const PricingSection = () => {
             <Card className="bg-white p-8 shadow-lg">
               <div className="mb-6">
                 <div className="flex flex-col items-center">
-                  <span className="text-4xl font-bold text-primary">3 NOK</span>
+                  <span className="text-4xl font-bold text-primary">50 NOK</span>
                 </div>
                 <p className="text-neutral-600 mt-2">Primera sesión introductoria</p>
               </div>
