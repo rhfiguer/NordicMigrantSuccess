@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Card } from "@/components/ui/card";
+import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { CreditCard, Building2 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -18,6 +19,7 @@ const WORKSHOPS = [
 ];
 
 const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps) => {
+  const navigate = useNavigate();
   const [selectedWorkshop, setSelectedWorkshop] = useState<string>('');
   const [isStripeLoading, setIsStripeLoading] = useState(false);
   const [isTransferLoading, setIsTransferLoading] = useState(false);
@@ -127,7 +129,7 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
               onClick={() => {
                 if (isTransferLoading) return;
                 setIsTransferLoading(true);
-                window.location.href = '/success';
+                navigate('/success');
               }}
             >
               <div className="flex flex-col items-center text-center space-y-4 relative">
