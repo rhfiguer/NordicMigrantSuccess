@@ -16,6 +16,7 @@ export const clients = pgTable("clients", {
   paymentStatus: text("payment_status").notNull().default("pending"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   acceptedPrivacy: boolean("accepted_privacy").notNull().default(false),
+  acceptedMarketing: boolean("accepted_marketing").default(false),
 });
 
 export const clientsInsertSchema = createInsertSchema(clients);
