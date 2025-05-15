@@ -207,4 +207,3 @@ const PaymentMethodSelector = ({ onSelect, onBack, registrationData }: PaymentMe
 };
 
 export default PaymentMethodSelector;
-```
