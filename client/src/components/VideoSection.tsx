@@ -73,7 +73,7 @@ const VideoSection = () => {
                     Marcela Nürnberg
                   </h3>
                   <p className="text-neutral-600">
-                    "Aprende las claves para una integración cultural exitosa en Noruega"
+                    "Migrar implica tener el coraje de rescribir el guión de nuestro destino"
                   </p>
                 </div>
               </Card>
