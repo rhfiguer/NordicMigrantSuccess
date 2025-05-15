@@ -34,7 +34,7 @@ const VideoSection = () => {
                     Rodrigo Figueroa
                   </h3>
                   <p className="text-neutral-600">
-                    "Descubre cómo transformar tu experiencia migratoria en una historia de éxito"
+                    "¡Un migrante más, no. Un Migrante MAAS, sí!"
                   </p>
                 </div>
               </Card>
