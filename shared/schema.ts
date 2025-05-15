@@ -11,7 +11,7 @@ export const clients = pgTable("clients", {
   phone: text("phone"),
   countryOrigin: text("country_origin"),
   timeInNorway: text("time_in_norway"),
-  workshopId: text("workshop_id").notNull(),
+  workshopId: text("workshop_id"),
   paymentMethod: text("payment_method").notNull(),
   paymentStatus: text("payment_status").notNull().default("pending"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
