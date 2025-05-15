@@ -16,6 +16,7 @@ interface PaymentMethodSelectorProps {
     countryOrigin?: string;
     timeInNorway?: string;
     acceptedPrivacy: boolean;
+    acceptedPrivacy: boolean;
   };
 }
 
@@ -87,8 +88,8 @@ const PaymentMethodSelector = ({ onSelect, onBack, registrationData }: PaymentMe
                   console.log('Sesión de pago creada, obteniendo ID...');
                   const { sessionId } = await response.json();
 
-                  console.log('Cargando Stripe con clave pública:', import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
-                  const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+                  console.log('Cargando Stripe con clave pública:', 'pk_live_51ROHXFF7OOrZyCwXf3jbYJ0jq1dkaQyKwusY4g5SUU4ygTzoNhtj0h4CB5UqP13zuPJr5xEZyL3LlXbVgZDTMmjo00yiLZpEEl');
+                  const stripe = await loadStripe('pk_live_51ROHXFF7OOrZyCwXf3jbYJ0jq1dkaQyKwusY4g5SUU4ygTzoNhtj0h4CB5UqP13zuPJr5xEZyL3LlXbVgZDTMmjo00yiLZpEEl');
 
                   if (!stripe) {
                     throw new Error('No se pudo inicializar Stripe. Verifica la clave pública.');
