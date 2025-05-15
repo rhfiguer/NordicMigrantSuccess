@@ -6,6 +6,7 @@ import Home from "@/pages/Home";
 import Privacy from "@/pages/Privacy";
 import Cancel from "@/pages/Cancel";
 import Success from "@/pages/Success";
+import SuccessStripe from "@/pages/SuccessStripe";
 import NotFound from "@/pages/not-found";
 
 function Router() {
