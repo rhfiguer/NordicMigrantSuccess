@@ -73,9 +73,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const validatedData = clientsInsertSchema.parse({
         name: req.body.name,
         email: req.body.email,
-        workshopId: req.body.workshopId,
+        workshopId: req.body.workshopId || 'capital-maas-2024',
         paymentMethod: 'transfer',
-        paymentStatus: 'pending'
+        paymentStatus: 'pending',
+        phone: req.body.phone,
+        countryOrigin: req.body.countryOrigin,
+        timeInNorway: req.body.timeInNorway
       });
 
       const client = await storage.createClient(validatedData);
