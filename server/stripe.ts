@@ -32,7 +32,7 @@ export class StripeService {
       ],
       mode: 'payment',
       success_url: `https://www.somosmaas.no/success`,
-      cancel_url: `${process.env.REPLIT_APP_URL || `https://${process.env.REPL_SLUG}.replit.app`}/cancel?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `https://www.somosmaas.no/cancel?session_id={CHECKOUT_SESSION_ID}`,
     });
 
     console.log('Sesión de Stripe creada exitosamente:', session.id);
