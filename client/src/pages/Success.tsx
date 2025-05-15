@@ -19,7 +19,7 @@ export default function Success() {
             Tu pago ha sido procesado correctamente. Pronto recibirás un correo electrónico con los detalles del taller.
           </p>
           <a 
-            href="/" 
+            href="."
             className="text-primary hover:text-primary-dark underline"
           >
             Volver al inicio
