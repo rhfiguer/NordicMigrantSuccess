@@ -68,14 +68,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post(`${apiPrefix}/bank-transfer`, async (req, res) => {
+    try {
+      const validatedData = clientsInsertSchema.parse({
+        name: req.body.name,
+        email: req.body.email,
+        workshopId: req.body.workshopId,
+        paymentMethod: 'transfer',
+        paymentStatus: 'pending'
+      });
+
+      const client = await storage.createClient(validatedData);
+      
+      try {
+        const emailService = EmailService.initialize({
+          user: process.env.EMAIL_USER || '',
+          pass: process.env.EMAIL_APP_PASSWORD || ''
+        });
+
+        await emailService.sendEmail(
+          validatedData.email,
+          "Datos para Transferencia Bancaria - Taller Capital MAAS",
+          `Hola ${validatedData.name},\n\nAquí están los datos para realizar la transferencia:\n\nBanco: Sparebank\nCuenta: 32015362307\n\nPor favor envía el comprobante a elpodcastdenoruega@gmail.com`
+        );
+
+        res.status(201).json({ 
+          message: "Cliente registrado exitosamente",
+          clientId: client.id
+        });
+      } catch (emailError) {
+        console.error("Error sending email:", emailError);
+        // Aún retornamos éxito ya que el cliente fue creado
+        res.status(201).json({ 
+          message: "Cliente registrado, pero hubo un error enviando el email",
+          clientId: client.id
+        });
+      }
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ 
+          message: "Datos de registro inválidos",
+          errors: error.errors
+        });
+      }
+      console.error("Error registering client:", error);
+      res.status(500).json({ message: "Error en el registro" });
+    }
+  });
+
   app.post(`${apiPrefix}/register`, async (req, res) => {
     try {
-      console.log('Datos recibidos en /api/register:', req.body);
-      const validatedData = clientsInsertSchema.parse(req.body);
-      console.log('Datos validados:', validatedData);
-
+      const validatedData = leadsInsertSchema.parse(req.body);
+      
       try {
-        const client = await storage.createClient({
+        const lead = await storage.createLead({
           name: validatedData.name,
           email: validatedData.email,
           workshopId: "capital-maas-2024",
