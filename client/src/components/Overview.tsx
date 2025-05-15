@@ -9,7 +9,7 @@ const Overview = () => {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <h2 className="font-poppins font-bold text-2xl md:text-3xl text-center mb-3 text-primary">
-            ¿Qué es el Capital MAAS?
+            ¿Eres un MAAS?
           </h2>
         </div>
       </div>
