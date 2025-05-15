@@ -105,8 +105,10 @@ const PaymentMethodSelector = ({ onSelect, onBack, registrationData }: PaymentMe
                   }
 
                   console.log('Redirigiendo a Stripe Checkout con sessionId:', sessionId);
-                  console.log('Redirigiendo a Stripe con sessionId:', sessionId);
-                  window.location.href = `https://checkout.stripe.com/c/pay/${sessionId}`;
+                  const result = await stripe.redirectToCheckout({ sessionId });
+                  if (result.error) {
+                    throw new Error(result.error.message);
+                  }
                   return;
                 } catch (error) {
                   console.error('Error detallado:', error);
