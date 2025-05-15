@@ -169,7 +169,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                     <li>✓ Recibirás mentoría directa de expertos en integración</li>
                   </ul>
                 </p>
-                <a href="https://nordic-migrant-success-rhfiguer.replit.app/#inscripcion" 
+                <a href="https://www.somosmaas.no/#inscripcion" 
                    style="display: inline-block; background-color: #D4AF37; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 18px; margin-top: 20px;">
                    INSCRÍBETE AHORA →
                 </a>
@@ -240,7 +240,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post(`${apiPrefix}/create-payment-session`, async (req, res) => {
     try {
       const { workshop, price } = req.body;
-      
+
       if (!workshop || !price) {
         return res.status(400).json({ message: 'Faltan datos requeridos (workshop o price)' });
       }
