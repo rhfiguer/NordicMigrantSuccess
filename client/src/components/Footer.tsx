@@ -71,7 +71,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start">
                 <i className="fas fa-map-marker-alt text-secondary mt-1 mr-2"></i>
-                <span>Oslo, Noruega</span>
+                <span>Noruega</span>
               </li>
             </ul>
           </div>
