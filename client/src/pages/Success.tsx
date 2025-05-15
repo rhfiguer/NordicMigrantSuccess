@@ -4,8 +4,12 @@ import { Card } from "@/components/ui/card";
 import { CheckCircle2 } from "lucide-react";
 
 export default function Success() {
+  // Obtener parámetros de la URL
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get('name') || 'estimado cliente';
+  const workshop = params.get('workshop') || 'el taller';
+
   useEffect(() => {
-    // Podemos agregar lógica adicional aquí si es necesario
     console.log('Payment successful');
   }, []);
 
@@ -16,10 +20,11 @@ export default function Success() {
           <CheckCircle2 className="h-16 w-16 text-green-500 mb-4" />
           <h1 className="text-2xl font-bold text-gray-900 mb-2">¡Pago Exitoso!</h1>
           <p className="text-gray-600 mb-4">
-            Tu pago ha sido procesado correctamente. Pronto recibirás un correo electrónico con los detalles del taller.
+            ¡Gracias {name} por inscribirte en {workshop}! Tu pago ha sido procesado correctamente. 
+            Pronto recibirás un correo electrónico con los detalles para acceder al taller.
           </p>
           <a 
-            href="."
+            href="/"
             className="text-primary hover:text-primary-dark underline"
           >
             Volver al inicio
