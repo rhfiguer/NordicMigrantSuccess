@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Card } from "@/components/ui/card";
@@ -67,7 +66,7 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
                   if (!selectedWorkshopData) {
                     throw new Error('Por favor selecciona un taller');
                   }
-                  
+
                   console.log('Iniciando creación de sesión de pago para:', selectedWorkshopData.name, 'precio:', selectedWorkshopData.price);
                   const response = await fetch('/api/create-payment-session', {
                     method: 'POST',
@@ -84,23 +83,23 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
                     const errorData = await response.json();
                     throw new Error(`Error del servidor: ${errorData.message || response.statusText}`);
                   }
-                  
+
                   console.log('Sesión de pago creada, obteniendo ID...');
                   const { sessionId } = await response.json();
-                  
+
                   console.log('Cargando Stripe con clave pública:', import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
                   const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
-                  
+
                   if (!stripe) {
                     throw new Error('No se pudo inicializar Stripe. Verifica la clave pública.');
                   }
-                  
+
                   console.log('Redirigiendo a Stripe Checkout con sessionId:', sessionId);
                   console.log('Redirigiendo a Stripe con sessionId:', sessionId);
                   const { error } = await stripe.redirectToCheckout({ 
                     sessionId: sessionId
                   });
-                  
+
                   if (error) {
                     console.error('Error en redirectToCheckout:', error);
                     throw new Error(`Error de Stripe: ${error.message}`);
@@ -162,7 +161,7 @@ const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps)
                   });
 
                   const result = await response.json();
-                  
+
                   if (!response.ok) {
                     throw new Error(result.message || 'Error al procesar el registro');
                   }
