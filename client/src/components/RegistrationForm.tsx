@@ -23,6 +23,7 @@ const formSchema = z.object({
   acceptedPrivacy: z.boolean().refine(val => val === true, {
     message: 'Debes aceptar la política de privacidad',
   }),
+  acceptedMarketing: z.boolean().optional(),
   quizResults: z.any().optional(), // Added quizResults field
 });
 
