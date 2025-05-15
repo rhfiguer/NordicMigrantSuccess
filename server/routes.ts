@@ -78,7 +78,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         paymentStatus: 'pending',
         phone: req.body.phone,
         countryOrigin: req.body.countryOrigin,
-        timeInNorway: req.body.timeInNorway
+        timeInNorway: req.body.timeInNorway,
+        acceptedPrivacy: req.body.acceptedPrivacy,
+        acceptedMarketing: req.body.acceptedMarketing || false
       });
 
       const client = await storage.createClient(validatedData);
