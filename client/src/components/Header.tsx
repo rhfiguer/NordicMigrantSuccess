@@ -38,11 +38,6 @@ const Header = () => {
         </Link>
       </li>
       <li>
-        <Link href="#diagnostico" onClick={handleNavClick('diagnostico')} className="text-sm md:text-base hover:text-secondary transition">
-          Diagnóstico
-        </Link>
-      </li>
-      <li>
         <Link href="#inscripcion" onClick={handleNavClick('inscripcion')} className="text-sm md:text-base font-semibold bg-[#D4AF37] hover:bg-[#C09F2F] text-white px-4 py-2 rounded-full transition">
           Inscríbete
         </Link>
