@@ -25,7 +25,7 @@ const WORKSHOPS = [
   { id: 'full', name: 'Taller Completo', price: 600 }
 ];
 
-const PaymentMethodSelector = ({ onSelect, onBack }: PaymentMethodSelectorProps) => {
+const PaymentMethodSelector = ({ onSelect, onBack, registrationData }: PaymentMethodSelectorProps) => {
   const [, setLocation] = useLocation();
   const [selectedWorkshop, setSelectedWorkshop] = useState<string>('');
   const [isStripeLoading, setIsStripeLoading] = useState(false);

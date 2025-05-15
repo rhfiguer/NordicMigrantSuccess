@@ -405,6 +405,7 @@ const RegistrationForm = () => {
                         <PaymentMethodSelector 
                           onSelect={handlePaymentMethodSelect}
                           onBack={() => setShowPaymentSelector(false)}
+                          registrationData={registrationData!}
                         />
                       </DialogContent>
                     </Dialog>
