@@ -184,7 +184,7 @@ const PaymentMethodSelector = ({ onSelect, onBack, registrationData }: PaymentMe
                   <div className="absolute inset-0 bg-white/80 flex items-center justify-center z-10">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
                   </div>
-                ) : null}
+                )}
                 <Building2 className={`h-12 w-12 ${isTransferLoading ? 'text-primary/50' : 'text-primary'}`} />
                 <div>
                   <h4 className="font-semibold mb-2">Transferencia bancaria</h4>
