@@ -8,10 +8,14 @@ export const clients = pgTable("clients", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull(),
+  phone: text("phone"),
+  countryOrigin: text("country_origin"),
+  timeInNorway: text("time_in_norway"),
   workshopId: text("workshop_id").notNull(),
   paymentMethod: text("payment_method").notNull(),
   paymentStatus: text("payment_status").notNull().default("pending"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  acceptedPrivacy: boolean("accepted_privacy").notNull().default(false),
 });
 
 export const clientsInsertSchema = createInsertSchema(clients);
