@@ -42,19 +42,23 @@ const FAQ: React.FC<FAQProps> = ({ faqs: _faqs }) => {
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16">
       <div className="container mx-auto px-4">
-        <h2 className="font-poppins font-bold text-2xl md:text-3xl text-center mb-10 text-primary">
+        <h2 className="font-poppins font-bold text-2xl md:text-3xl text-center mb-10 text-white">
           Preguntas Frecuentes
         </h2>
-        <div className="max-w-2xl mx-auto">
-          <Accordion type="single" collapsible className="w-full">
+        <div className="max-w-2xl mx-auto space-y-4">
+          <Accordion type="single" collapsible className="w-full space-y-4">
             {subscriptionFaqs.map((faq) => (
-              <AccordionItem key={faq.id} value={`item-${faq.id}`}>
-                <AccordionTrigger className="text-left font-semibold text-neutral-800">
+              <AccordionItem
+                key={faq.id}
+                value={`item-${faq.id}`}
+                className="border border-slate-700 rounded-lg bg-slate-900/50 overflow-hidden px-4"
+              >
+                <AccordionTrigger className="text-left font-semibold text-slate-200 hover:text-white hover:no-underline py-4">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-neutral-600">
+                <AccordionContent className="text-slate-400 pb-4">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
