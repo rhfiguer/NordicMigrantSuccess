@@ -16,6 +16,16 @@ export class AIService {
     social: number;
     erotic: number;
   }): Promise<string> {
+    if (!process.env.OPENAI_API_KEY) {
+      console.warn("OPENAI_API_KEY is missing. Returning mock recommendation.");
+      return JSON.stringify({
+        economic: { score: scores.economic, analysis: "Análisis simulado: Buen potencial económico detectado." },
+        cultural: { score: scores.cultural, analysis: "Análisis simulado: Capital cultural en desarrollo." },
+        social: { score: scores.social, analysis: "Análisis simulado: Red de contactos activa." },
+        erotic: { score: scores.erotic, analysis: "Análisis simulado: Presentación personal adecuada." }
+      });
+    }
+
     const prompt = `Como experto en las teorías del capital social, cultural, económico y erótico de Pierre Bourdieu y Catherine Hakim, analiza los siguientes scores y genera una respuesta en formato JSON:
 
 Capital Económico: ${scores.economic}%
@@ -50,18 +60,27 @@ Reglas para el análisis:
 4. Mantén un tono profesional pero empático
 5. NO incluyas recomendaciones específicas`;
 
-    const completion = await this.openai.chat.completions.create({
-      messages: [{ 
-        role: "user", 
-        content: prompt,
+    try {
+      const completion = await this.openai.chat.completions.create({
+        messages: [{ 
+          role: "user", 
+          content: prompt
+        }],
+        model: "gpt-4",
+        temperature: 0.7,
+        max_tokens: 500,
         response_format: { type: "json_object" }
-      }],
-      messages: [{ role: "user", content: prompt }],
-      model: "gpt-4",
-      temperature: 0.7,
-      max_tokens: 500
-    });
+      });
 
-    return completion.choices[0].message.content || "No se pudo generar una recomendación";
+      return completion.choices[0].message.content || "No se pudo generar una recomendación";
+    } catch (error) {
+      console.error("OpenAI API Error:", error);
+      return JSON.stringify({
+        economic: { score: scores.economic, analysis: "Análisis no disponible por el momento." },
+        cultural: { score: scores.cultural, analysis: "Análisis no disponible por el momento." },
+        social: { score: scores.social, analysis: "Análisis no disponible por el momento." },
+        erotic: { score: scores.erotic, analysis: "Análisis no disponible por el momento." }
+      });
+    }
   }
 }

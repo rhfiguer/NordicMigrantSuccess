@@ -124,8 +124,8 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
             <ScrollArea className={`${showResults ? 'h-[360px]' : 'h-[280px]'}`}>
               {showResults ? (
                 <div className="text-center py-4 relative">
-                  <button 
-                    onClick={() => reset()} 
+                  <button
+                    onClick={() => reset()}
                     className="absolute right-2 top-2 p-1 rounded-md hover:bg-neutral-100 transition-colors"
                     aria-label="Cerrar resultados"
                   >
@@ -167,9 +167,8 @@ const HeroQuizBox: React.FC<HeroQuizBoxProps> = ({ questions, onGetFullDiagnosti
                         useQuizStore.getState().setQuizResults(quizResults);
                         useQuizStore.getState().setShowForm(true);
                       }
+                      setShowDialog(true);
                     }}
-                    className="w-full rounded-lg shadow-sm bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-semibold"
-                    onClick={() => setShowDialog(true)}
                   >
                     Obtener mi diagnóstico completo
                   </Button>
