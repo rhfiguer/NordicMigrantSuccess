@@ -66,7 +66,7 @@ const Hero = () => {
           <div className="w-full flex justify-center">
             <div className="w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10">
               <img
-                src="/community-hero.jpg"
+                src="/hero-community-image.png"
                 alt="Comunidad MAAS"
                 className="w-full h-auto object-cover"
               />

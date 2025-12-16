@@ -67,15 +67,15 @@ const Home = () => {
       <Header />
       <Hero />
       <Overview />
-      <VideoSection />
-      <PodcastSection />
-      <Presenters />
-      <WorkshopSessions />
-      <ForWhoSection />
-      <QuizResultForm />
-      <div id="inscripcion" className="scroll-mt-20">
+      {/* <VideoSection /> Keep Video? User didn't say hide. Assuming yes. */}
+      {/* <PodcastSection /> Keep Podcast? Assuming yes. */}
+      {/* <Presenters /> Keep Presenters? Assuming yes. */}
+      {/* <WorkshopSessions /> Hidden per request */}
+      {/* <ForWhoSection /> Hidden per request */}
+      {/* <QuizResultForm /> Hidden (Quiz removed) */}
+      {/* <div id="inscripcion" className="scroll-mt-20">
         <RegistrationForm />
-      </div>
+      </div> Hidden per request */}
       <PricingSection />
       <FAQ faqs={faqs} />
       <Footer />
