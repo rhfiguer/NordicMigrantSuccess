@@ -1,13 +1,6 @@
-import { scrollToElement } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import HeroQuizBox from './HeroQuizBox';
-import { QuizQuestion } from '@/types/quiz';
 
-interface HeroProps {
-  quizQuestions: QuizQuestion[];
-}
-
-const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
+const Hero = () => {
   return (
     <section className="relative py-28 text-white bg-cover bg-center" style={{
       backgroundImage: `linear-gradient(135deg, hsla(var(--primary) / 0.75), hsla(var(--primary-dark) / 0.55), hsla(var(--primary) / 0.70)), url('/hero-mountain.jpg')`
@@ -44,33 +37,38 @@ const Hero: React.FC<HeroProps> = ({ quizQuestions }) => {
               CAPITALIZA TU POTENCIAL COMO MIGRANTE DE <span className="relative inline-block">ALTA AMBICION<span className="absolute -bottom-1 left-0 w-full">
                 <svg className="w-full h-3" viewBox="0 0 100 10" preserveAspectRatio="none">
                   <path className="watercolor" d="M0,8 Q25,0 50,0 T100,8" stroke="#D4AF37" strokeWidth="6" fill="none" strokeLinecap="round" opacity="0.4">
-                    <animate attributeName="stroke-dashoffset" from="1" to="0" dur="2s" fill="freeze"/>
+                    <animate attributeName="stroke-dashoffset" from="1" to="0" dur="2s" fill="freeze" />
                   </path>
                   <path className="watercolor" d="M0,8 Q25,0 50,0 T100,8" stroke="#D4AF37" strokeWidth="4" fill="none" strokeLinecap="round" opacity="0.3" transform="translate(0, 0.5)">
-                    <animate attributeName="stroke-dashoffset" from="1" to="0" dur="2s" fill="freeze"/>
+                    <animate attributeName="stroke-dashoffset" from="1" to="0" dur="2s" fill="freeze" />
                   </path>
                 </svg>
-              </span></span><br className="md:hidden"/> Y SUPERACION (MAAS)
+              </span></span><br className="md:hidden" /> Y SUPERACION (MAAS)
             </h1>
             <p className="text-lg md:text-xl mb-8">
-              ¿Sueñas con construir una vida plena y exitosa, superando los desafíos iniciales y floreciendo en tu nuevo hogar?
+              La red exclusiva para migrantes de alta ambición. Únete a la tribu, accede a mentoría experta y desbloquea herramientas de IA para tu carrera.
             </p>
             <div className="flex justify-center">
-              <Button
-                onClick={() => scrollToElement('inscripcion')}
-                variant="outline"
-                className="bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-semibold px-6 py-4 text-lg rounded-lg shadow-lg text-center transition transform hover:-translate-y-1 h-auto"
+              <a
+                href="https://somosmaas.lemonsqueezy.com/buy/9a84d545-268d-42da-b7b8-9b77bd47cf43"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                Inscríbete al taller
-              </Button>
+                <Button
+                  className="bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-semibold px-6 py-4 text-lg rounded-lg shadow-lg text-center transition transform hover:-translate-y-1 h-auto"
+                >
+                  Únete a la Tribu ($4.99/mes)
+                </Button>
+              </a>
             </div>
           </div>
 
           <div className="w-full flex justify-center">
-            <div className="w-full max-w-lg">
-              <HeroQuizBox 
-                questions={quizQuestions} 
-                onGetFullDiagnostic={() => scrollToElement('diagnostico')} 
+            <div className="w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10">
+              <img
+                src="/community-hero.jpg"
+                alt="Comunidad MAAS"
+                className="w-full h-auto object-cover"
               />
             </div>
           </div>

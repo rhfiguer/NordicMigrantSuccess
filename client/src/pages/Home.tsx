@@ -65,7 +65,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <Hero quizQuestions={quizQuestions} />
+      <Hero />
       <Overview />
       <VideoSection />
       <PodcastSection />
