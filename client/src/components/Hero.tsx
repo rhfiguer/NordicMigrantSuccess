@@ -50,11 +50,22 @@ const Hero = () => {
               transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
               className="w-full max-w-lg"
             >
-              <img
-                src="/hero-community-image.png"
-                alt="Comunidad MAAS"
-                className="w-full h-auto object-cover rounded-xl shadow-2xl border border-slate-700"
-              />
+              {/* Browser Window Container */}
+              <div className="rounded-xl overflow-hidden border border-slate-700 shadow-2xl shadow-purple-500/20 bg-slate-900">
+                {/* Fake Browser Header */}
+                <div className="bg-slate-800 p-3 flex items-center gap-2 border-b border-slate-700">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+
+                {/* Content/Image */}
+                <img
+                  src="/hero-community-image.png"
+                  alt="Comunidad MAAS"
+                  className="w-full h-auto object-cover"
+                />
+              </div>
             </motion.div>
           </motion.div>
 
