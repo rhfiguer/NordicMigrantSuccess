@@ -3,12 +3,12 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 const VideoSection = () => {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-transparent">
       <div className="container mx-auto px-4">
-        <h2 className="font-poppins font-bold text-2xl md:text-3xl text-center mb-3 text-primary">
+        <h2 className="font-poppins font-bold text-2xl md:text-3xl text-center mb-3 text-white">
           Conoce a tus mentores en acción
         </h2>
-        <p className="text-center text-neutral-600 mb-12 max-w-2xl mx-auto">
+        <p className="text-center text-slate-400 mb-12 max-w-2xl mx-auto">
           Descubre cómo nuestros expertos te guiarán en tu proceso de integración
         </p>
 
@@ -29,11 +29,11 @@ const VideoSection = () => {
                     </div>
                   </div>
                 </div>
-                <div className="p-6 bg-gradient-to-b from-secondary/5 to-transparent">
-                  <h3 className="font-poppins font-bold text-xl text-primary mb-2">
+                <div className="p-6 bg-slate-900 border-t border-slate-700">
+                  <h3 className="font-poppins font-bold text-xl text-white mb-2">
                     Rodrigo Figueroa
                   </h3>
-                  <p className="text-neutral-600">
+                  <p className="text-slate-400">
                     "¡Un migrante más, no. Un Migrante MAAS, sí!"
                   </p>
                 </div>
@@ -68,11 +68,11 @@ const VideoSection = () => {
                     </div>
                   </div>
                 </div>
-                <div className="p-6 bg-gradient-to-b from-primary/5 to-transparent">
-                  <h3 className="font-poppins font-bold text-xl text-primary mb-2">
+                <div className="p-6 bg-slate-900 border-t border-slate-700">
+                  <h3 className="font-poppins font-bold text-xl text-white mb-2">
                     Marcela Nürnberg
                   </h3>
-                  <p className="text-neutral-600">
+                  <p className="text-slate-400">
                     "Migrar implica tener el coraje de rescribir el guión de nuestro destino"
                   </p>
                 </div>

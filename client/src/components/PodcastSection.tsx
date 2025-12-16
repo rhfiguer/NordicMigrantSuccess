@@ -121,12 +121,12 @@ const PodcastSection = () => {
   ];
 
   return (
-    <section className="py-16 bg-neutral-50">
+    <section className="py-16 bg-transparent">
       <div className="container mx-auto px-4">
-        <h2 className="font-poppins font-bold text-2xl md:text-3xl text-center mb-3 text-primary">
+        <h2 className="font-poppins font-bold text-2xl md:text-3xl text-center mb-3 text-white">
           Episodios Recomendados
         </h2>
-        <p className="text-center text-neutral-600 mb-12 max-w-2xl mx-auto">
+        <p className="text-center text-slate-400 mb-12 max-w-2xl mx-auto">
           Escucha estos episodios especialmente seleccionados de El Podcast de Noruega
         </p>
 
@@ -163,7 +163,7 @@ const PodcastSection = () => {
                         className="absolute inset-0"
                       ></iframe>
                     </div>
-                    
+
                   </Card>
                 </CarouselItem>
               ))}
