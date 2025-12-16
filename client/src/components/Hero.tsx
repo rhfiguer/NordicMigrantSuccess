@@ -50,10 +50,10 @@ const Hero = () => {
               transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
               className="w-full max-w-lg"
             >
-              {/* Browser Window Container */}
-              <div className="rounded-xl overflow-hidden border border-slate-700 shadow-2xl shadow-purple-500/20 bg-slate-900">
+              {/* Browser Window Container - 3D Glass Effect */}
+              <div className="rounded-xl overflow-hidden border border-white/20 bg-slate-900/80 backdrop-blur-sm shadow-[0_20px_50px_rgba(8,112,184,0.7)] transition-all duration-500 ease-out [transform:perspective(2000px)_rotateY(-12deg)_rotateX(6deg)] hover:[transform:perspective(2000px)_rotateY(0deg)_rotateX(0deg)] hover:scale-105 hover:shadow-[0_30px_70px_rgba(8,112,184,0.9)]">
                 {/* Fake Browser Header */}
-                <div className="bg-slate-800 p-3 flex items-center gap-2 border-b border-slate-700">
+                <div className="bg-slate-800/90 p-3 flex items-center gap-2 border-b border-white/10">
                   <div className="w-3 h-3 rounded-full bg-red-500"></div>
                   <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
