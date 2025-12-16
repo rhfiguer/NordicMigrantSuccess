@@ -14,37 +14,43 @@ const Overview = () => {
           </div>
         </div>
       </section>
-      <section id="taller" className="py-16 bg-white scroll-mt-20">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="font-poppins font-bold text-2xl md:text-3xl text-center mb-3 text-primary">
+            <h2 className="font-poppins font-bold text-2xl md:text-3xl text-center mb-4 text-primary drop-shadow-sm">
               Todo lo que incluye tu Membresía Ambición MAAS
             </h2>
-            <p className="text-center text-neutral-600 mb-10">
+            <p className="text-center text-secondary text-lg mb-12 font-medium">
               Únete y desbloquea herramientas y conexiones para acelerar tu carrera en Noruega
             </p>
 
-            <div className="bg-neutral-100 p-6 rounded-lg mb-10">
-              <ul className="space-y-4">
+            <div className="bg-neutral-50 p-8 rounded-2xl shadow-sm border border-neutral-100 mb-10">
+              <ul className="space-y-6">
                 <li className="flex items-start">
-                  <Check className="text-secondary mt-1 mr-2 h-5 w-5" />
+                  <div className="bg-gold/10 p-2 rounded-full mr-4 mt-0.5">
+                    <Check className="text-gold-dim h-5 w-5" />
+                  </div>
                   <div>
-                    <span className="font-bold">Analizador Cósmico de CV:</span>
-                    <p className="text-sm text-neutral-600">Acceso ilimitado a nuestra IA para optimizar tu perfil profesional.</p>
+                    <span className="font-bold text-secondary text-lg block mb-1">Analizador Cósmico de CV</span>
+                    <p className="text-neutral-600 leading-relaxed">Acceso ilimitado a nuestra IA para optimizar tu perfil profesional y alinearlo con las demandas del mercado nórdico.</p>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Check className="text-secondary mt-1 mr-2 h-5 w-5" />
+                  <div className="bg-gold/10 p-2 rounded-full mr-4 mt-0.5">
+                    <Check className="text-gold-dim h-5 w-5" />
+                  </div>
                   <div>
-                    <span className="font-bold">Networking de Alto Nivel:</span>
-                    <p className="text-sm text-neutral-600">Conecta con otros migrantes ambiciosos y mentores en Noruega.</p>
+                    <span className="font-bold text-secondary text-lg block mb-1">Networking de Alto Nivel</span>
+                    <p className="text-neutral-600 leading-relaxed">Conecta con otros migrantes ambiciosos y mentores en Noruega que comparten tu mentalidad de crecimiento.</p>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <Check className="text-secondary mt-1 mr-2 h-5 w-5" />
+                  <div className="bg-gold/10 p-2 rounded-full mr-4 mt-0.5">
+                    <Check className="text-gold-dim h-5 w-5" />
+                  </div>
                   <div>
-                    <span className="font-bold">Contenido Exclusivo:</span>
-                    <p className="text-sm text-neutral-600">Webinars, guías tácticas y soporte continuo.</p>
+                    <span className="font-bold text-secondary text-lg block mb-1">Contenido Exclusivo</span>
+                    <p className="text-neutral-600 leading-relaxed">Webinars tácticos, guías de integración y soporte continuo por parte de la comunidad.</p>
                   </div>
                 </li>
               </ul>

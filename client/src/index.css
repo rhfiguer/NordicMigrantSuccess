@@ -27,17 +27,20 @@
     --popover: 0 0% 100%;
     --popover-foreground: 215 100% 20%;
     
-    --primary: 0 82% 55%;
+    --primary: 348 83% 47%; /* Crimson Red #DC143C approx */
     --primary-foreground: 0 0% 100%;
     
-    --primary-light: 0 82% 65%;
-    --primary-dark: 215 100% 20%;
+    --primary-light: 350 80% 60%;
+    --primary-dark: 345 85% 35%;
     
-    --secondary: 215 100% 20%;
+    --secondary: 222 47% 11%; /* Midnight Blue */
     --secondary-foreground: 0 0% 100%;
     
-    --secondary-light: 215 100% 30%;
-    --secondary-dark: 215 100% 10%;
+    --secondary-light: 220 45% 20%;
+    --secondary-dark: 222 50% 5%;
+
+    --gold: 46 74% 65%; /* #E8C85E approx */
+    --gold-dim: 46 60% 45%;
     
     --accent: 51 100% 50%;
     --accent-foreground: 215 100% 20%;
