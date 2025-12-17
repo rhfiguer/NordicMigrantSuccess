@@ -63,13 +63,31 @@ const PricingSection = () => {
                     <div className="bg-slate-800 p-1 rounded-full mr-3 mt-1 border border-slate-700">
                       <Check className="text-red-400 h-4 w-4 flex-shrink-0" />
                     </div>
-                    <span className="text-slate-300 font-medium">Herramienta Analizador de CV (IA)</span>
+                    <span className="text-slate-300 font-medium">Nordy: Entrenador de Idioma (IA)</span>
                   </div>
                   <div className="flex items-start">
                     <div className="bg-slate-800 p-1 rounded-full mr-3 mt-1 border border-slate-700">
                       <Check className="text-red-400 h-4 w-4 flex-shrink-0" />
                     </div>
-                    <span className="text-slate-300 font-medium">Sesiones de Mentoría Grupal</span>
+                    <span className="text-slate-300 font-medium">Herramienta Analizador de CV</span>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-slate-800 p-1 rounded-full mr-3 mt-1 border border-slate-700">
+                      <Check className="text-red-400 h-4 w-4 flex-shrink-0" />
+                    </div>
+                    <span className="text-slate-300 font-medium">Mindset Groups & Networking</span>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-slate-800 p-1 rounded-full mr-3 mt-1 border border-slate-700">
+                      <Check className="text-red-400 h-4 w-4 flex-shrink-0" />
+                    </div>
+                    <span className="text-slate-300 font-medium">Masterclasses & Webinars Expertos</span>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-slate-800 p-1 rounded-full mr-3 mt-1 border border-slate-700">
+                      <Check className="text-red-400 h-4 w-4 flex-shrink-0" />
+                    </div>
+                    <span className="text-slate-300 font-medium">Contenido Exclusivo y mucho más</span>
                   </div>
 
                   <div className="flex items-start bg-slate-800/50 p-4 rounded-xl border border-green-900/30 mt-6 shadow-sm">

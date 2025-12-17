@@ -21,23 +21,23 @@ const FAQ: React.FC<FAQProps> = ({ faqs: _faqs }) => {
   const subscriptionFaqs = [
     {
       id: 1,
-      question: "¿Qué incluye exactamente la membresía de $4.99?",
-      answer: "Obtienes acceso completo a nuestra Comunidad Privada en Discord/WhatsApp, uso ilimitado de la herramienta 'Analizador Cósmico de CV' con IA, y participación en las sesiones grupales mensuales de mentoría."
+      question: "¿Por qué el precio es de solo $2.99 USD?",
+      answer: "Es una oferta exclusiva de lanzamiento para los primeros 20 inscritos. Queremos premiar a los pioneros (Early Adopters) de nuestra comunidad. Después, el precio subirá gradualmente a su valor real."
     },
     {
       id: 2,
-      question: "¿Puedo cancelar en cualquier momento?",
-      answer: "Sí, absolutamente. No hay plazos forzosos. Puedes cancelar tu suscripción desde tu panel de usuario en Lemon Squeezy cuando lo desees."
+      question: "¿Qué recibo exactamente por mi inversión?",
+      answer: "Acceso total a: Nordy (Entrenador de Idiomas IA), Analizador de CV con IA, Mindset Groups, Masterclasses, Webinars con expertos, Contenido Exclusivo y una red de networking de alto nivel."
     },
     {
       id: 3,
-      question: "¿El 'Analizador de CV' funciona para cualquier industria?",
-      answer: "Nuestra IA está entrenada con estándares globales y nórdicos, funcionando bien para la mayoría de las profesiones corporativas, tecnológicas y de servicios. Te ayuda a 'traducir' tu valor al mercado local."
+      question: "¿Puedo cancelar en cualquier momento?",
+      answer: "Sí, absolutamente. Sin contratos ni letras pequeñas. Eres libre de quedarte solo si sientes que recibes valor masivo."
     },
     {
       id: 4,
-      question: "¿Necesito vivir ya en Noruega para unirme?",
-      answer: "No es obligatorio, pero nuestro enfoque está en el mercado laboral nórdico. Si estás planeando migrar o ya estás aquí, encontrarás el mayor valor."
+      question: "¿Es solo para personas que ya viven en Noruega?",
+      answer: "¡No! Somos MAAS es para cualquier migrante con ambición, ya sea que estés planeando tu aventura, en pleno proceso de mudanza o ya establecido. Si tu meta es el éxito internacional, este es tu lugar."
     }
   ];
 

@@ -34,7 +34,7 @@ const Overview = () => {
           >
             <div className="absolute top-0 right-0 p-4 z-20">
               <span className="bg-red-500/20 text-red-400 text-xs font-bold px-3 py-1 rounded-full border border-red-500/30 flex items-center gap-1">
-                <Sparkles className="w-3 h-3" /> BETA EXCLUSIVA
+                <Sparkles className="w-3 h-3" /> BETA • PRONTO EN INGLÉS
               </span>
             </div>
 
@@ -47,7 +47,7 @@ const Overview = () => {
                   Nordy: Tu Entrenador Vikingo
                 </h3>
                 <p className="text-slate-400 text-lg leading-relaxed mb-6">
-                  Entrena entrevistas y conversaciones difíciles con Nordy. Un coach IA que no tiene piedad con tu gramática para que brilles en la vida real.
+                  Entrena entrevistas de trabajo y conversaciones en noruego. Un coach IA que no tiene piedad con tu gramática para que brilles en la vida real.
                 </p>
               </div>
 
@@ -91,8 +91,13 @@ const Overview = () => {
           {/* CARD 3: PLAYBOOK (Media) */}
           <motion.div
             whileHover={{ translateY: -5 }}
-            className="md:col-span-1 p-8 rounded-3xl bg-slate-900/60 border border-slate-700 hover:border-red-500/50 transition-all duration-300 flex flex-col justify-between"
+            className="md:col-span-1 p-8 rounded-3xl bg-slate-900/60 border border-slate-700 hover:border-red-500/50 transition-all duration-300 flex flex-col justify-between relative"
           >
+            <div className="absolute top-0 right-0 p-4 z-20">
+              <span className="bg-slate-700/50 text-slate-300 text-xs font-bold px-3 py-1 rounded-full border border-slate-600/30">
+                PRONTO
+              </span>
+            </div>
             <div>
               <div className="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Compass className="w-6 h-6 text-emerald-400" />
