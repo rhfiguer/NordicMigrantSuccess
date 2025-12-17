@@ -52,11 +52,13 @@ const Overview = () => {
               <div className="w-full md:w-1/3 flex justify-center items-center relative">
                 <div className="relative w-48 h-48 md:w-56 md:h-56">
                   <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
-                  <img
-                    src="/nordy.png"
-                    alt="Nordy Viking AI"
-                    className="relative z-10 w-full h-full object-contain drop-shadow-[0_0_30px_rgba(59,130,246,0.5)] transform group-hover:scale-110 transition-transform duration-500"
-                  />
+                  <a href="https://nordy.elpodcastdenoruega.com" target="_blank" rel="noopener noreferrer" className="cursor-pointer block">
+                    <img
+                      src="/nordy.png"
+                      alt="Nordy Viking AI"
+                      className="relative z-10 w-full h-full object-contain drop-shadow-[0_0_30px_rgba(59,130,246,0.5)] transform group-hover:scale-110 transition-transform duration-500"
+                    />
+                  </a>
                 </div>
               </div>
             </div>

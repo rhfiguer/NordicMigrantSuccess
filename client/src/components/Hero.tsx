@@ -32,7 +32,7 @@ const Hero = () => {
                 <Button
                   className="bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-6 text-xl rounded-lg shadow-lg transition-all transform hover:scale-105"
                 >
-                  Únete a la Tribu ($4.99/mes)
+                  Únete a la Tribu ($2.99/mes)
                 </Button>
               </a>
             </div>
