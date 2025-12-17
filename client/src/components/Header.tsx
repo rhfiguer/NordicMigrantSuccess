@@ -33,13 +33,18 @@ const Header = () => {
   const NavItems = () => (
     <>
       <li>
-        <Link href="#taller" onClick={handleNavClick('taller')} className="text-sm md:text-base hover:text-secondary transition">
-          El Taller
+        <Link href="#taller" onClick={handleNavClick('taller')} className="text-sm md:text-base hover:text-slate-300 transition text-white">
+          Comunidad
         </Link>
       </li>
-      <li>
+      {/* <li>
         <Link href="#inscripcion" onClick={handleNavClick('inscripcion')} className="text-sm md:text-base font-semibold bg-[#D4AF37] hover:bg-[#C09F2F] text-white px-4 py-2 rounded-full transition">
           Inscríbete
+        </Link>
+      </li> */}
+      <li>
+        <Link href="/login" className="text-sm md:text-base font-medium px-4 py-2 rounded-full border border-white/20 hover:bg-white/10 transition text-white">
+          Acceder 🚀
         </Link>
       </li>
     </>
@@ -49,7 +54,7 @@ const Header = () => {
     <header className={`bg-primary text-white py-4 sticky top-0 z-50 shadow-md transition-all ${isScrolled ? 'py-3' : 'py-4'}`}>
       <div className="container mx-auto px-4 flex justify-between items-center">
         <h1 className="font-poppins font-bold text-lg md:text-2xl">Capital MAAS</h1>
-        
+
         {isMobile ? (
           <Sheet>
             <SheetTrigger asChild>
