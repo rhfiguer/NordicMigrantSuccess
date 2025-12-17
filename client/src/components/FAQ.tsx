@@ -36,8 +36,8 @@ const FAQ: React.FC<FAQProps> = ({ faqs: _faqs }) => {
     },
     {
       id: 4,
-      question: "¿Es solo para personas que ya viven en Noruega?",
-      answer: "¡No! Somos MAAS es para cualquier migrante con ambición, ya sea que estés planeando tu aventura, en pleno proceso de mudanza o ya establecido. Si tu meta es el éxito internacional, este es tu lugar."
+      question: "¿Debo estar ya viviendo en el extranjero para unirme?",
+      answer: "¡Para nada! Somos MAAS está diseñado para acompañarte en todo el viaje: desde la planificación en tu país de origen, durante la mudanza y hasta tu establecimiento exitoso."
     }
   ];
 

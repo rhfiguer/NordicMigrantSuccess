@@ -99,8 +99,8 @@ const PricingSection = () => {
                       </div>
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-green-400 text-sm leading-tight mb-1">Satisfacción Garantizada</h4>
-                      <p className="text-slate-400 text-sm leading-tight">Únete sin riesgo. Reembolso garantizado si no es lo que esperabas.</p>
+                      <h4 className="font-bold text-green-400 text-sm leading-tight mb-1">Libertad Total</h4>
+                      <p className="text-slate-400 text-sm leading-tight">Sin ataduras. Tu suscripción es mensual y puedes cancelarla en cualquier momento.</p>
                     </div>
                   </div>
                 </div>
