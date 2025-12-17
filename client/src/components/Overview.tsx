@@ -25,11 +25,14 @@ const Overview = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {/* CARD 1: NORDY (Destacada - Grande) */}
-          <motion.div
+          <motion.a
+            href="https://nordy.elpodcastdenoruega.com"
+            target="_blank"
+            rel="noopener noreferrer"
             whileHover={{ scale: 1.02 }}
-            className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900/60 border border-slate-700 hover:border-red-500/50 transition-all duration-300"
+            className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900/60 border border-slate-700 hover:border-red-500/50 transition-all duration-300 block"
           >
-            <div className="absolute top-0 right-0 p-4">
+            <div className="absolute top-0 right-0 p-4 z-20">
               <span className="bg-red-500/20 text-red-400 text-xs font-bold px-3 py-1 rounded-full border border-red-500/30 flex items-center gap-1">
                 <Sparkles className="w-3 h-3" /> BETA EXCLUSIVA
               </span>
@@ -52,23 +55,26 @@ const Overview = () => {
               <div className="w-full md:w-1/3 flex justify-center items-center relative">
                 <div className="relative w-48 h-48 md:w-56 md:h-56">
                   <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-3xl animate-pulse" />
-                  <a href="https://nordy.elpodcastdenoruega.com" target="_blank" rel="noopener noreferrer" className="cursor-pointer block">
-                    <img
-                      src="/nordy.png"
-                      alt="Nordy Viking AI"
-                      className="relative z-10 w-full h-full object-contain drop-shadow-[0_0_30px_rgba(59,130,246,0.5)] transform group-hover:scale-110 transition-transform duration-500"
-                    />
-                  </a>
+                  <img
+                    src="/nordy.png"
+                    alt="Nordy Viking AI"
+                    className="relative z-10 w-full h-full object-contain drop-shadow-[0_0_30px_rgba(59,130,246,0.5)] transform group-hover:scale-110 transition-transform duration-500"
+                  />
                 </div>
               </div>
             </div>
-          </motion.div>
+          </motion.a>
 
           {/* CARD 2: MASTERCLASS (Media) */}
           <motion.div
             whileHover={{ translateY: -5 }}
-            className="md:col-span-1 p-8 rounded-3xl bg-slate-900/60 border border-slate-700 hover:border-red-500/50 transition-all duration-300 flex flex-col justify-between"
+            className="md:col-span-1 p-8 rounded-3xl bg-slate-900/60 border border-slate-700 hover:border-red-500/50 transition-all duration-300 flex flex-col justify-between relative"
           >
+            <div className="absolute top-0 right-0 p-4 z-20">
+              <span className="bg-slate-700/50 text-slate-300 text-xs font-bold px-3 py-1 rounded-full border border-slate-600/30">
+                PRONTO
+              </span>
+            </div>
             <div>
               <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Play className="w-6 h-6 text-purple-400" />
