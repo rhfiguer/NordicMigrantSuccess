@@ -3,10 +3,13 @@ import { eq } from "drizzle-orm";
 import * as schema from "@shared/schema";
 
 // Interface for lead data
-export interface LeadData extends schema.LeadInsert {}
+export interface LeadData extends schema.LeadInsert { }
 
 // Interface for quiz response data
-export interface QuizResponseData extends schema.QuizResponseInsert {}
+export interface QuizResponseData extends schema.QuizResponseInsert { }
+
+// Interface for profile data
+export interface ProfileData extends schema.ProfileInsert { }
 
 export const storage = {
   // Client functions
@@ -86,5 +89,37 @@ export const storage = {
     return await db.query.quizResponses.findMany({
       where: eq(schema.quizResponses.leadId, leadId)
     });
+  },
+
+  // Profiles
+  async createProfile(data: schema.ProfileInsert) {
+    const [profile] = await db.insert(schema.profiles)
+      .values(data)
+      .returning();
+    return profile;
+  },
+
+  async getProfileByEmail(email: string) {
+    return await db.query.profiles.findFirst({
+      where: eq(schema.profiles.email, email)
+    });
+  },
+
+  async getProfileByLicenseKey(licenseKey: string) {
+    return await db.query.profiles.findFirst({
+      where: eq(schema.profiles.gumroadLicenseKey, licenseKey)
+    });
+  },
+
+  async updateProfileLicense(id: string, licenseKey: string, status: string = 'active') {
+    const [profile] = await db.update(schema.profiles)
+      .set({
+        gumroadLicenseKey: licenseKey,
+        subscriptionStatus: status,
+        lastLogin: new Date()
+      })
+      .where(eq(schema.profiles.id, id))
+      .returning();
+    return profile;
   }
 };

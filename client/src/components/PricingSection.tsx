@@ -1,7 +1,8 @@
-import { Check, Shield } from 'lucide-react';
+import { Check, Shield, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { motion } from 'framer-motion';
+import { Link } from 'wouter';
 
 const PricingSection = () => {
   return (
@@ -105,17 +106,13 @@ const PricingSection = () => {
                   </div>
                 </div>
 
-                <a
-                  href="https://somosmaas.lemonsqueezy.com/buy/9a84d545-268d-42da-b7b8-9b77bd47cf43"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/activate"
+                  className="w-full bg-[#D4AF37] hover:bg-[#C09F2F] text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2 group"
                 >
-                  <Button
-                    className="bg-red-600 hover:bg-red-700 text-white font-bold w-full py-7 text-lg shadow-lg shadow-red-900/20 transition-all hover:scale-[1.02] active:scale-[0.98] rounded-xl"
-                  >
-                    Convertirme en Miembro
-                  </Button>
-                </a>
+                  <span>Unirme a la Tribu Ahora</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Link>
               </Card>
             </motion.div>
           </div>

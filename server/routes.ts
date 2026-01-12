@@ -84,16 +84,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       const client = await storage.createClient(validatedData);
-      
+
       console.log('Cliente registrado:', client);
-      
-      res.status(201).json({ 
+
+      res.status(201).json({
         message: "Cliente registrado exitosamente",
         clientId: client.id
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        return res.status(400).json({ 
+        return res.status(400).json({
           message: "Datos de registro inválidos",
           errors: error.errors
         });
@@ -106,7 +106,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post(`${apiPrefix}/register`, async (req, res) => {
     try {
       const validatedData = leadsInsertSchema.parse(req.body);
-      
+
       try {
         const lead = await storage.createLead({
           name: validatedData.name,
@@ -131,8 +131,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
 
           // Determinar el tipo de email basado en si hay resultados del quiz
-          const hasQuizResults = validatedData.quizResults && 
-            validatedData.quizResults.score !== undefined && 
+          const hasQuizResults = validatedData.quizResults &&
+            validatedData.quizResults.score !== undefined &&
             validatedData.quizResults.categoryScores !== undefined;
 
           let emailContent = '';
@@ -239,16 +239,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
           console.error("Error sending email:", emailError);
         }
 
-        res.status(201).json({ 
-          message: "Registro exitoso", 
-          leadId: lead.id 
+        res.status(201).json({
+          message: "Registro exitoso",
+          leadId: lead.id
         });
       } catch (dbError: any) {
         console.error("Database error:", dbError);
 
         if (dbError.code === '23505' && dbError.constraint === 'leads_email_unique') {
-          return res.status(409).json({ 
-            message: "Este email ya está registrado" 
+          return res.status(409).json({
+            message: "Este email ya está registrado"
           });
         }
 
@@ -256,16 +256,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     } catch (error: any) {
       if (error instanceof z.ZodError) {
-        return res.status(400).json({ 
-          message: "Datos de registro inválidos", 
-          errors: error.errors 
+        return res.status(400).json({
+          message: "Datos de registro inválidos",
+          errors: error.errors
         });
       }
 
       // Check for duplicate email error
       if (error.code === '23505' && error.constraint === 'leads_email_unique') {
-        return res.status(409).json({ 
-          message: "Este email ya está registrado" 
+        return res.status(409).json({
+          message: "Este email ya está registrado"
         });
       }
 
@@ -289,7 +289,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ sessionId: session.id });
     } catch (error) {
       console.error('Error creating payment session:', error);
-      res.status(500).json({ 
+      res.status(500).json({
         message: 'Error al crear la sesión de pago',
         details: error instanceof Error ? error.message : 'Error desconocido'
       });
@@ -301,8 +301,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const validatedData = quizResponsesInsertSchema.parse(req.body);
 
       if (Object.keys(validatedData).length === 0) {
-        return res.status(400).json({ 
-          message: "Debes responder al menos una pregunta" 
+        return res.status(400).json({
+          message: "Debes responder al menos una pregunta"
         });
       }
 
@@ -313,7 +313,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const aiService = new AIService();
       await quizResponse.generateRecommendation(aiService);
 
-      res.status(201).json({ 
+      res.status(201).json({
         message: "Respuestas guardadas exitosamente",
         score: quizResponse.score,
         categoryScores: quizResponse.categoryScores,
@@ -321,13 +321,90 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
-        return res.status(400).json({ 
-          message: "Datos de quiz inválidos", 
-          errors: error.errors 
+        return res.status(400).json({
+          message: "Datos de quiz inválidos",
+          errors: error.errors
         });
       }
       console.error("Error saving quiz responses:", error);
       res.status(500).json({ message: "Error al guardar las respuestas" });
+    }
+  });
+
+  // Verify Gumroad License
+  app.post(`${apiPrefix}/verify-license`, async (req, res) => {
+    try {
+      const { licenseKey, email, fullName } = req.body;
+      const GUMROAD_PRODUCT_ID = "XN2DDaLOWhon9S7B38sIrw=="; // User provided ID
+
+      if (!licenseKey || !email) {
+        return res.status(400).json({ message: "License key and email are required" });
+      }
+
+      // 1. Verify with Gumroad
+      const response = await fetch("https://api.gumroad.com/v2/licenses/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          product_id: GUMROAD_PRODUCT_ID,
+          license_key: licenseKey,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!data.success || data.purchase.refunded || data.purchase.chargebacked) {
+        return res.status(400).json({ message: "Licencia inválida, expirada o reembolsada." });
+      }
+
+      // 2. Check subscription status (if it's a subscription product)
+      const isSubscriptionActive = !data.purchase.subscription_cancelled_at;
+
+      if (!isSubscriptionActive) {
+        return res.status(400).json({ message: "La suscripción asociada a esta licencia ha sido cancelada." });
+      }
+
+      // 3. Update or Create User Profile
+      let profile = await storage.getProfileByEmail(email);
+
+      if (profile) {
+        profile = await storage.updateProfileLicense(profile.id, licenseKey, "active");
+      } else {
+        profile = await storage.createProfile({
+          email,
+          fullName: fullName || data.purchase.email,
+          gumroadLicenseKey: licenseKey,
+          subscriptionStatus: "active",
+          tier: "citizen",
+          lastLogin: new Date()
+        });
+      }
+
+      res.status(200).json({
+        success: true,
+        message: "¡Bienvenido a la comunidad!",
+        profile
+      });
+
+    } catch (error) {
+      console.error("Error verifying license:", error);
+      res.status(500).json({ message: "Error interno al verificar la licencia" });
+    }
+  });
+
+  // Get Profile Status
+  app.get(`${apiPrefix}/profile`, async (req, res) => {
+    try {
+      const email = req.query.email as string;
+      if (!email) {
+        return res.status(400).json({ message: "Email required" });
+      }
+
+      const profile = await storage.getProfileByEmail(email);
+      res.json(profile || null);
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+      res.status(500).json({ message: "Error fetching profile" });
     }
   });
 

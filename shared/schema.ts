@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, boolean, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, uuid } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 import { relations } from "drizzle-orm";
@@ -130,3 +130,19 @@ export const quizResponsesRelations = relations(quizResponses, ({ one }) => ({
     references: [leads.id],
   }),
 }));
+
+// Profiles table for recurring membership users
+export const profiles = pgTable("profiles", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  email: text("email").notNull().unique(),
+  fullName: text("full_name"),
+  gumroadLicenseKey: text("gumroad_license_key").unique(),
+  subscriptionStatus: text("subscription_status").notNull().default("inactive"), // 'active', 'cancelled', 'past_due', 'inactive'
+  tier: text("tier").notNull().default("citizen"), // 'admin', 'coach', 'citizen'
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  lastLogin: timestamp("last_login"),
+});
+
+export const profilesInsertSchema = createInsertSchema(profiles);
+export type ProfileInsert = z.infer<typeof profilesInsertSchema>;
+export type Profile = typeof profiles.$inferSelect;

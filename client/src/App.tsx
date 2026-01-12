@@ -14,12 +14,55 @@ import Success from "@/pages/Success";
 import SuccessStripe from "@/pages/SuccessStripe";
 import NotFound from "@/pages/not-found";
 import Login from "@/components/Login";
+import Activate from "@/pages/Activate";
 
 // Protected Route Component
 const ProtectedRoute = ({ component: Component, session }: { component: React.ComponentType, session: Session | null }) => {
+  const [isChecking, setIsChecking] = useState(true);
+  const [hasLicense, setHasLicense] = useState(false);
+
+  useEffect(() => {
+    const checkLicense = async () => {
+      if (!session?.user?.email) return;
+
+      try {
+        const res = await fetch(`/api/profile?email=${session.user.email}`);
+        const profile = await res.json();
+
+        if (profile && profile.subscriptionStatus === 'active') {
+          setHasLicense(true);
+        }
+      } catch (error) {
+        console.error("License check failed:", error);
+      } finally {
+        setIsChecking(false);
+      }
+    };
+
+    if (session) {
+      checkLicense();
+    } else {
+      setIsChecking(false);
+    }
+  }, [session]);
+
   if (!session) {
     return <Login />;
   }
+
+  if (isChecking) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
+      </div>
+    );
+  }
+
+  if (!hasLicense) {
+    // Redirect to activation if no active license found
+    return <Redirect to="/activate" />;
+  }
+
   return <Component />;
 };
 
@@ -47,6 +90,8 @@ function Router({ session }: { session: Session | null }) {
       </Route>
       <Route path="/privacy" component={Privacy} />
 
+      <Route path="/activate" component={Activate} />
+
       {/* Payment Callbacks */}
       <Route path="/success_stripe" component={SuccessStripe} />
       <Route path="/success" component={Success} />
@@ -54,6 +99,7 @@ function Router({ session }: { session: Session | null }) {
 
       {/* Protected Routes */}
       <Route path="/dashboard">
+        {/* TODO: Add License Guard here */}
         <ProtectedRoute component={Dashboard} session={session} />
       </Route>
 

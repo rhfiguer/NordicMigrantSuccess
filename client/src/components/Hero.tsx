@@ -1,5 +1,7 @@
 import { Button } from '@/components/ui/button';
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
+import { ArrowRight, Users, Play, Shield } from "lucide-react";
+import { Link } from "wouter";
 
 const Hero = () => {
   return (
@@ -24,17 +26,10 @@ const Hero = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href="https://somosmaas.lemonsqueezy.com/buy/9a84d545-268d-42da-b7b8-9b77bd47cf43"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button
-                  className="bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-6 text-xl rounded-lg shadow-lg transition-all transform hover:scale-105"
-                >
-                  Únete a la Tribu ($2.99/mes)
-                </Button>
-              </a>
+              <Link href="/activate" className="bg-[#D4AF37] hover:bg-[#C09F2F] text-white px-8 py-4 rounded-full font-bold text-lg shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_30px_rgba(212,175,55,0.5)] transition-all transform hover:scale-105 flex items-center gap-2">
+                <Users className="w-5 h-5" />
+                Unirme a la Tribu <span className="text-sm font-normal opacity-90 ml-1">($2.99/mes)</span>
+              </Link>
             </div>
           </motion.div>
 
