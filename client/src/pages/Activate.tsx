@@ -1,17 +1,37 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Sparkles, CheckCircle2, ChevronRight } from "lucide-react";
+import { Loader2, Sparkles, ChevronRight, LogIn } from "lucide-react";
 import { motion } from "framer-motion";
+import { Session } from "@supabase/supabase-js";
 
-export default function Activate() {
+export default function Activate({ session }: { session: Session | null }) {
     const [licenseKey, setLicenseKey] = useState("");
     const [loading, setLoading] = useState(false);
     const [, setLocation] = useLocation();
     const { toast } = useToast();
+
+    // Redirect to login if not authenticated
+    if (!session) {
+        return (
+            <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4">
+                <div className="text-center mb-8">
+                    <h1 className="text-3xl font-bold text-white font-poppins mb-4">Inicia Sesión Primero</h1>
+                    <p className="text-slate-400 mb-8">Necesitas una cuenta para activar tu membresía.</p>
+                    <Button
+                        onClick={() => setLocation("/login")}
+                        className="bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-bold py-3 px-8 rounded-full"
+                    >
+                        <LogIn className="mr-2 h-5 w-5" /> Ir al Login
+                    </Button>
+                </div>
+            </div>
+        );
+    }
 
     const handleActivate = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -33,7 +53,8 @@ export default function Activate() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     licenseKey: licenseKey.trim(),
-                    email: "user@example.com" // TODO: Get from Auth Context/Session
+                    email: session.user.email,
+                    fullName: session.user.user_metadata?.full_name
                 }),
             });
 

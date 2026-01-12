@@ -90,7 +90,9 @@ function Router({ session }: { session: Session | null }) {
       </Route>
       <Route path="/privacy" component={Privacy} />
 
-      <Route path="/activate" component={Activate} />
+      <Route path="/activate">
+        <Activate session={session} />
+      </Route>
 
       {/* Payment Callbacks */}
       <Route path="/success_stripe" component={SuccessStripe} />
