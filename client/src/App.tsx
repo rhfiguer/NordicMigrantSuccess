@@ -90,8 +90,9 @@ function Router({ session }: { session: Session | null }) {
       </Route>
       <Route path="/privacy" component={Privacy} />
 
+      {/* Transition Zone: Authenticated but ensuring license status */}
       <Route path="/activate">
-        <Activate session={session} />
+        <ActivateWrapper session={session} />
       </Route>
 
       {/* Payment Callbacks */}
@@ -99,17 +100,59 @@ function Router({ session }: { session: Session | null }) {
       <Route path="/success" component={Success} />
       <Route path="/cancel" component={Cancel} />
 
-      {/* Protected Routes */}
+      {/* Protected Routes (Golden Path: Login + Active License) */}
       <Route path="/dashboard">
-        {/* TODO: Add License Guard here */}
         <ProtectedRoute component={Dashboard} session={session} />
       </Route>
+
+      {/* TODO: Add CV Analyzer and other protected routes here once components are ready */}
+      {/* <Route path="/cv-analyzer">
+        <ProtectedRoute component={CVAnalyzer} session={session} />
+      </Route> */}
 
       {/* Fallback */}
       <Route component={NotFound} />
     </Switch>
   );
 }
+
+// Wrapper for /activate to handle redirect loop
+const ActivateWrapper = ({ session }: { session: Session | null }) => {
+  const [checking, setChecking] = useState(true);
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    if (!session) return;
+
+    const checkStatus = async () => {
+      try {
+        const res = await fetch(`/api/profile?email=${session.user.email}`);
+        const profile = await res.json();
+        if (profile?.subscriptionStatus === 'active') setIsActive(true);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setChecking(false);
+      }
+    };
+    checkStatus();
+  }, [session]);
+
+  if (!session) return <Redirect to="/login" />;
+
+  if (checking) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-blue-500 animate-spin" />
+      </div>
+    );
+  }
+
+  // Golden Path: If active, go to dashboard. Don't stay in activate.
+  if (isActive) return <Redirect to="/dashboard" />;
+
+  return <Activate session={session} />;
+};
 
 function App() {
   const [session, setSession] = useState<Session | null>(null);
