@@ -22,7 +22,7 @@ const Login = () => {
                 email,
                 options: {
                     // This should point to your production URL when deployed
-                    emailRedirectTo: window.location.origin + '/dashboard',
+                    emailRedirectTo: window.location.origin + '/activate',
                 },
             });
 
