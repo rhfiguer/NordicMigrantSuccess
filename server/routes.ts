@@ -332,16 +332,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Verify Gumroad License
+  // Verify Gumroad License
   app.post(`${apiPrefix}/verify-license`, async (req, res) => {
     try {
+      console.log("🔍 [LICENSE_VERIFY] Starting verification request...");
       const { licenseKey, email, fullName } = req.body;
-      const GUMROAD_PRODUCT_ID = "XN2DDaLOWhon9S7B38sIrw=="; // User provided ID
+      const GUMROAD_PRODUCT_ID = "XN2DDaLOWhon9S7B38sIrw==";
+
+      console.log("📥 [LICENSE_VERIFY] Input Data:", {
+        email,
+        licenseKey: licenseKey ? `${licenseKey.substring(0, 4)}...` : 'MISSING'
+      });
 
       if (!licenseKey || !email) {
-        return res.status(400).json({ message: "License key and email are required" });
+        console.warn("⚠️ [LICENSE_VERIFY] Missing required fields.");
+        return res.status(400).json({ success: false, message: "License key and email are required" });
       }
 
       // 1. Verify with Gumroad
+      console.log("🚀 [LICENSE_VERIFY] Calling Gumroad API...");
       const response = await fetch("https://api.gumroad.com/v2/licenses/verify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -352,43 +361,59 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       const data = await response.json();
+      console.log("📬 [LICENSE_VERIFY] Gumroad Response:", JSON.stringify(data, null, 2));
 
       if (!data.success || data.purchase.refunded || data.purchase.chargebacked) {
-        return res.status(400).json({ message: "Licencia inválida, expirada o reembolsada." });
+        console.warn("❌ [LICENSE_VERIFY] License invalid, refunded, or chargebacked.");
+        return res.status(400).json({ success: false, message: "Licencia inválida, expirada o reembolsada." });
       }
 
-      // 2. Check subscription status (if it's a subscription product)
+      // 2. Check subscription status
       const isSubscriptionActive = !data.purchase.subscription_cancelled_at;
-
       if (!isSubscriptionActive) {
-        return res.status(400).json({ message: "La suscripción asociada a esta licencia ha sido cancelada." });
+        console.warn("❌ [LICENSE_VERIFY] Subscription cancelled.");
+        return res.status(400).json({ success: false, message: "La suscripción asociada a esta licencia ha sido cancelada." });
       }
 
       // 3. Update or Create User Profile
+      console.log("💾 [LICENSE_VERIFY] checking DB for user:", email);
       let profile = await storage.getProfileByEmail(email);
 
+      // Extract definitive email from Gumroad if needed, though we prioritize the session email
+      // data.purchase.email or data.purchase.email could be used as fallback
+      const gumroadEmail = data.purchase.email;
+
       if (profile) {
+        console.log("🔄 [LICENSE_VERIFY] Updating existing profile:", profile.id);
         profile = await storage.updateProfileLicense(profile.id, licenseKey, "active");
       } else {
-        profile = await storage.createProfile({
-          email,
-          fullName: fullName || data.purchase.email,
+        const newProfileData = {
+          email, // Use session email as primary key
+          fullName: fullName || gumroadEmail, // Fallback to Gumroad name/email
           gumroadLicenseKey: licenseKey,
           subscriptionStatus: "active",
           tier: "citizen",
           lastLogin: new Date()
-        });
+        };
+        console.log("✨ [LICENSE_VERIFY] Creating new profile with:", newProfileData);
+
+        profile = await storage.createProfile(newProfileData);
       }
 
+      console.log("✅ [LICENSE_VERIFY] Success! Profile ready:", profile.id);
       res.status(200).json({
         success: true,
         message: "¡Bienvenido a la comunidad!",
         profile
       });
 
-    } catch (error) {
-      console.error("Error verifying license:", error);
-      res.status(500).json({ message: "Error interno al verificar la licencia" });
+    } catch (error: any) {
+      console.error("🔥 [LICENSE_VERIFY] CRITICAL ERROR:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error interno verificando licencia.",
+        error: error.message
+      });
     }
   });
 
