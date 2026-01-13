@@ -15,24 +15,52 @@ export default function Activate({ session }: { session: Session | null }) {
     const [, setLocation] = useLocation();
     const { toast } = useToast();
 
-    // Redirect to login if not authenticated
+    // 1. Strict Login Gate
     if (!session) {
         return (
             <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4">
-                <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold text-white font-poppins mb-4">Inicia Sesión Primero</h1>
-                    <p className="text-slate-400 mb-8">Necesitas una cuenta para activar tu membresía.</p>
-                    <Button
-                        onClick={() => setLocation("/login")}
-                        className="bg-[#D4AF37] hover:bg-[#C09F2F] text-white font-bold py-3 px-8 rounded-full"
+                <div className="max-w-md w-full text-center space-y-8">
+                    <motion.div
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        className="w-20 h-20 bg-slate-900 rounded-full flex items-center justify-center mx-auto border border-slate-800 shadow-xl"
                     >
-                        <LogIn className="mr-2 h-5 w-5" /> Ir al Login
-                    </Button>
+                        <LogIn className="w-8 h-8 text-blue-500" />
+                    </motion.div>
+
+                    <div>
+                        <h1 className="text-3xl font-bold text-white font-poppins mb-2">Paso 1: Identifícate</h1>
+                        <p className="text-slate-400">
+                            Para activar tu licencia, primero necesitamos saber quién eres.
+                            <br />
+                            <span className="text-sm text-slate-500 mt-2 block">
+                                Tu acceso quedará vinculado a tu cuenta para siempre.
+                            </span>
+                        </p>
+                    </div>
+
+                    <Card className="bg-slate-900/50 border-slate-800">
+                        <CardHeader>
+                            <CardTitle className="text-white">¿Ya tienes cuenta?</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <Button
+                                onClick={() => setLocation("/login")}
+                                className="w-full bg-blue-600 hover:bg-blue-700 h-12 text-lg"
+                            >
+                                Iniciar Sesión
+                            </Button>
+                            <p className="text-xs text-slate-500">
+                                Si eres nuevo, el enlace de login te permitirá registrarte.
+                            </p>
+                        </CardContent>
+                    </Card>
                 </div>
             </div>
         );
     }
 
+    // 2. Activation Logic
     const handleActivate = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -48,11 +76,15 @@ export default function Activate({ session }: { session: Session | null }) {
         setLoading(true);
 
         try {
+            // Using session.user.id is CRITICAL to link the license securely
             const response = await fetch("/api/verify-license", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify({
                     licenseKey: licenseKey.trim(),
+                    userId: session.user.id, // Explicit ID binding
                     email: session.user.email,
                     fullName: session.user.user_metadata?.full_name
                 }),
@@ -60,24 +92,26 @@ export default function Activate({ session }: { session: Session | null }) {
 
             const data = await response.json();
 
-            if (response.ok && data.success) {
+            if (!response.ok) {
+                throw new Error(data.message || "Error desconocido al activar.");
+            }
+
+            if (data.success) {
                 toast({
-                    title: "¡Cuenta Activada!",
-                    description: "Bienvenido a la tribu. Tu acceso está listo.",
+                    title: "¡Membresía Activada! 🚀",
+                    description: "Tu cuenta ha sido actualizada. Redirigiendo...",
                     className: "bg-green-600 text-white border-none",
                 });
 
-                // Small delay to show success state
                 setTimeout(() => {
-                    setLocation("/dashboard");
-                }, 1500);
-            } else {
-                throw new Error(data.message || "Error al activar");
+                    window.location.href = "/dashboard";
+                }, 2000);
             }
         } catch (error: any) {
+            console.error("Activation failed:", error);
             toast({
                 title: "Error de Activación",
-                description: error.message || "La licencia no es válida o ha expirado.",
+                description: error.message || "La licencia no es válida.",
                 variant: "destructive",
             });
         } finally {
@@ -87,7 +121,6 @@ export default function Activate({ session }: { session: Session | null }) {
 
     return (
         <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 relative overflow-hidden">
-            {/* Background Elements */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
                 <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse" />
                 <div className="absolute bottom-1/3 right-1/4 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl animate-pulse delay-700" />
@@ -103,8 +136,10 @@ export default function Activate({ session }: { session: Session | null }) {
                     <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 mb-4 shadow-lg shadow-blue-500/20">
                         <Sparkles className="w-8 h-8 text-white" />
                     </div>
-                    <h1 className="text-3xl font-bold text-white font-poppins">Activa tu Cuenta</h1>
-                    <p className="text-slate-400 mt-2">Ingresa tu llave de acceso para desbloquear el contenido.</p>
+                    <h1 className="text-3xl font-bold text-white font-poppins">Paso 2: Activa tu Acceso</h1>
+                    <p className="text-slate-400 mt-2">
+                        Vinculando licencia a: <span className="text-blue-400 font-mono">{session.user.email}</span>
+                    </p>
                 </div>
 
                 <Card className="bg-slate-900/50 border-slate-700 backdrop-blur-sm shadow-xl">
@@ -147,15 +182,15 @@ export default function Activate({ session }: { session: Session | null }) {
 
                 <div className="text-center mt-8">
                     <p className="text-slate-500 text-sm">
-                        ¿Aún no tienes membresía?{" "}
-                        <a
-                            href="https://rhythmix244.gumroad.com/l/lspgxy"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-400 hover:text-blue-300 font-medium hover:underline transition-colors"
+                        ¿Cuenta equivocada?{" "}
+                        <button
+                            onClick={() => {
+                                window.location.href = "/login";
+                            }}
+                            className="text-red-400 hover:text-red-300 font-medium hover:underline transition-colors"
                         >
-                            Obtén tu acceso aquí
-                        </a>
+                            Cerrar Sesión
+                        </button>
                     </p>
                 </div>
             </motion.div>
