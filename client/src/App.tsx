@@ -90,9 +90,9 @@ function Router({ session }: { session: Session | null }) {
       </Route>
       <Route path="/privacy" component={Privacy} />
 
-      {/* Transition Zone: Authenticated but ensuring license status */}
+      {/* Transition Zone: Activate handles both no-session (signup) and session (license input) */}
       <Route path="/activate">
-        <ActivateWrapper session={session} />
+        <Activate session={session} />
       </Route>
 
       {/* Payment Callbacks */}
