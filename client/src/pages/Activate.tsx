@@ -23,30 +23,43 @@ export default function Activate({ session }: { session: Session | null }) {
 
     // On mount: Check for pending license key if user just logged in
     useEffect(() => {
+        console.log("🔍 [ACTIVATE] useEffect triggered");
+        console.log("🔍 [ACTIVATE] Session:", session ? session.user.email : "NO SESSION");
+
         const pendingKey = localStorage.getItem(LICENSE_KEY_STORAGE);
+        console.log("🔍 [ACTIVATE] Pending Key in localStorage:", pendingKey ? `${pendingKey.substring(0, 8)}...` : "NONE");
 
         if (session && pendingKey) {
             // User has returned after clicking magic link - auto-activate
+            console.log("🚀 [ACTIVATE] Conditions met! Starting auto-activation...");
             setAutoActivating(true);
             handleAutoActivate(pendingKey);
+        } else {
+            console.log("⏸️ [ACTIVATE] Conditions NOT met. Session:", !!session, "PendingKey:", !!pendingKey);
         }
     }, [session]);
 
     // Auto-activate with stored license key
     const handleAutoActivate = async (storedKey: string) => {
+        console.log("🔥 [ACTIVATE] handleAutoActivate called with key:", storedKey.substring(0, 8) + "...");
         try {
+            const payload = {
+                licenseKey: storedKey.trim(),
+                userId: session!.user.id,
+                email: session!.user.email,
+                fullName: session!.user.user_metadata?.full_name
+            };
+            console.log("📤 [ACTIVATE] Sending to /api/verify-license:", JSON.stringify(payload, null, 2));
+
             const response = await fetch("/api/verify-license", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    licenseKey: storedKey.trim(),
-                    userId: session!.user.id,
-                    email: session!.user.email,
-                    fullName: session!.user.user_metadata?.full_name
-                }),
+                body: JSON.stringify(payload),
             });
 
+            console.log("📥 [ACTIVATE] Response status:", response.status);
             const data = await response.json();
+            console.log("📥 [ACTIVATE] Response data:", JSON.stringify(data, null, 2));
 
             if (!response.ok) {
                 throw new Error(data.message || "Error al activar licencia.");
