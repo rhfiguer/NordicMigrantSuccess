@@ -251,7 +251,7 @@ app.post("/api/activate", async (req, res) => {
             type: 'magiclink',
             email: normalizedEmail,
             options: {
-                redirectTo: `${req.headers.origin || 'https://somosmaas.org'}/dashboard`
+                redirectTo: 'https://somosmaas.org/dashboard'
             }
         });
 
