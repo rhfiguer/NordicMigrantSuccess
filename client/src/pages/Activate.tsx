@@ -12,14 +12,12 @@ export default function Activate({ session }: { session: Session | null }) {
     const [email, setEmail] = useState("");
     const [licenseKey, setLicenseKey] = useState("");
     const [loading, setLoading] = useState(false);
-    const [result, setResult] = useState<{ success: boolean; message: string; needsEmail?: boolean } | null>(null);
+    const [error, setError] = useState<string | null>(null);
     const { toast } = useToast();
-
-    // If user is already logged in with active profile, redirect
-    // This is handled by App.tsx ProtectedRoute
 
     const handleActivate = async (e: React.FormEvent) => {
         e.preventDefault();
+        setError(null);
 
         if (!email.trim() || !licenseKey.trim()) {
             toast({
@@ -31,7 +29,6 @@ export default function Activate({ session }: { session: Session | null }) {
         }
 
         setLoading(true);
-        setResult(null);
 
         try {
             console.log("🚀 [ACTIVATE] Calling /api/activate...");
@@ -53,34 +50,29 @@ export default function Activate({ session }: { session: Session | null }) {
             }
 
             // Success!
-            setResult({
-                success: true,
-                message: data.message,
-                needsEmail: data.needsEmailVerification
-            });
-
             toast({
-                title: data.needsEmailVerification ? "¡Revisa tu email!" : "¡Activado!",
-                description: data.message,
+                title: "¡Membresía Activada! 🚀",
+                description: "Accediendo a tu dashboard...",
                 className: "bg-green-600 text-white border-none",
             });
 
-            // If no email verification needed, redirect after delay
-            if (!data.needsEmailVerification) {
+            // If we got a login URL, redirect there for instant login
+            if (data.loginUrl) {
+                console.log("🔗 [ACTIVATE] Redirecting to login URL...");
+                window.location.href = data.loginUrl;
+            } else if (data.redirectTo) {
+                // Fallback to regular redirect
                 setTimeout(() => {
-                    window.location.href = "/login";
-                }, 2000);
+                    window.location.href = data.redirectTo;
+                }, 1000);
             }
 
-        } catch (error: any) {
-            console.error("❌ [ACTIVATE] Error:", error);
-            setResult({
-                success: false,
-                message: error.message
-            });
+        } catch (err: any) {
+            console.error("❌ [ACTIVATE] Error:", err);
+            setError(err.message);
             toast({
                 title: "Error",
-                description: error.message,
+                description: err.message,
                 variant: "destructive",
             });
         } finally {
@@ -88,53 +80,32 @@ export default function Activate({ session }: { session: Session | null }) {
         }
     };
 
-    // ========================================
-    // SUCCESS STATE: Show appropriate message
-    // ========================================
-    if (result?.success) {
+    // If user already has session, redirect to dashboard
+    if (session) {
         return (
             <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4">
                 <motion.div
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="max-w-md w-full text-center space-y-6"
+                    className="text-center space-y-6"
                 >
                     <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto">
                         <CheckCircle className="w-10 h-10 text-green-400" />
                     </div>
-                    <h2 className="text-2xl font-bold text-white">
-                        {result.needsEmail ? "¡Revisa tu Correo!" : "¡Activación Exitosa!"}
-                    </h2>
-                    <p className="text-slate-400">{result.message}</p>
-
-                    {result.needsEmail ? (
-                        <div className="bg-slate-900/50 border border-slate-700 rounded-lg p-4 text-left">
-                            <p className="text-sm text-slate-300 font-medium">Próximos pasos:</p>
-                            <ol className="text-sm text-slate-400 mt-2 list-decimal list-inside space-y-1">
-                                <li>Abre el email que te enviamos</li>
-                                <li>Haz clic en el enlace mágico</li>
-                                <li>¡Accede a tu dashboard!</li>
-                            </ol>
-                        </div>
-                    ) : (
-                        <p className="text-sm text-slate-500">Redirigiendo al login...</p>
-                    )}
-
+                    <h2 className="text-2xl font-bold text-white">¡Ya tienes sesión activa!</h2>
+                    <p className="text-slate-400">Sesión: {session.user.email}</p>
                     <Button
-                        variant="ghost"
-                        className="text-slate-400 hover:text-white"
-                        onClick={() => setResult(null)}
+                        onClick={() => window.location.href = "/dashboard"}
+                        className="bg-blue-600 hover:bg-blue-700"
                     >
-                        Activar otra cuenta
+                        Ir al Dashboard
                     </Button>
                 </motion.div>
             </div>
         );
     }
 
-    // ========================================
-    // MAIN FORM: Email + License Key
-    // ========================================
+    // Main activation form
     return (
         <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 relative overflow-hidden">
             {/* Background */}
@@ -155,28 +126,28 @@ export default function Activate({ session }: { session: Session | null }) {
                     </div>
                     <h1 className="text-3xl font-bold text-white font-poppins">Activa tu Membresía</h1>
                     <p className="text-slate-400 mt-2">
-                        Ingresa tu email y la licencia de Gumroad
+                        Un paso. Acceso inmediato.
                     </p>
                 </div>
 
-                {/* Error display */}
-                {result?.success === false && (
+                {/* Error */}
+                {error && (
                     <motion.div
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="mb-4 p-4 bg-red-500/10 border border-red-500/30 rounded-lg flex items-start gap-3"
                     >
                         <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
-                        <p className="text-sm text-red-300">{result.message}</p>
+                        <p className="text-sm text-red-300">{error}</p>
                     </motion.div>
                 )}
 
                 {/* Form */}
                 <Card className="bg-slate-900/50 border-slate-700 backdrop-blur-sm shadow-xl">
                     <CardHeader>
-                        <CardTitle className="text-white text-lg">Activar Acceso Premium</CardTitle>
+                        <CardTitle className="text-white text-lg">Acceso Premium</CardTitle>
                         <CardDescription className="text-slate-400">
-                            Un solo paso para desbloquear todo el contenido
+                            Ingresa tu email y la licencia de Gumroad
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -192,12 +163,13 @@ export default function Activate({ session }: { session: Session | null }) {
                                         onChange={(e) => setEmail(e.target.value)}
                                         className="pl-10 bg-slate-950 border-slate-800 text-white placeholder:text-slate-600"
                                         required
+                                        disabled={loading}
                                     />
                                 </div>
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-sm text-slate-400">License Key de Gumroad</label>
+                                <label className="text-sm text-slate-400">License Key</label>
                                 <div className="relative">
                                     <Key className="absolute left-3 top-3 h-5 w-5 text-slate-500" />
                                     <Input
@@ -206,6 +178,7 @@ export default function Activate({ session }: { session: Session | null }) {
                                         onChange={(e) => setLicenseKey(e.target.value)}
                                         className="pl-10 bg-slate-950 border-slate-800 text-white placeholder:text-slate-600 font-mono uppercase"
                                         required
+                                        disabled={loading}
                                     />
                                 </div>
                             </div>
@@ -218,11 +191,11 @@ export default function Activate({ session }: { session: Session | null }) {
                                 {loading ? (
                                     <>
                                         <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                                        Verificando...
+                                        Activando...
                                     </>
                                 ) : (
                                     <>
-                                        Activar Membresía <ChevronRight className="ml-2 h-5 w-5" />
+                                        Activar y Entrar <ChevronRight className="ml-2 h-5 w-5" />
                                     </>
                                 )}
                             </Button>

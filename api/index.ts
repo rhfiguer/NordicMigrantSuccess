@@ -1,7 +1,7 @@
 import express from "express";
 import { Pool, neonConfig } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-serverless';
-import { pgTable, text, serial, integer, boolean, timestamp, uuid } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, timestamp, uuid } from "drizzle-orm/pg-core";
 import { eq } from "drizzle-orm";
 import ws from "ws";
 import { createClient } from '@supabase/supabase-js';
@@ -15,11 +15,16 @@ if (!process.env.DATABASE_URL) {
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
-// Supabase Admin client for server-side user management
-const supabaseAdmin = createClient(
-    process.env.VITE_SUPABASE_URL || '',
-    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY || ''
-);
+// Supabase Admin client (needs service role key for user creation)
+const supabaseUrl = process.env.VITE_SUPABASE_URL || '';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+
+const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
+    auth: {
+        autoRefreshToken: false,
+        persistSession: false
+    }
+});
 
 // ===================== SCHEMA =====================
 const profiles = pgTable("profiles", {
@@ -66,20 +71,17 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Logging
 app.use((req, res, next) => {
     console.log(`[API] ${req.method} ${req.path}`);
     next();
 });
 
-// ===================== ROUTES =====================
+// ===================== BASIC ROUTES =====================
 
-// Health check
 app.get("/api/health", (req, res) => {
     res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-// Get FAQs
 app.get("/api/faqs", async (req, res) => {
     try {
         const result = await db.select().from(faqs).orderBy(faqs.order);
@@ -90,7 +92,6 @@ app.get("/api/faqs", async (req, res) => {
     }
 });
 
-// Get Quiz Questions
 app.get("/api/quiz-questions", async (req, res) => {
     try {
         const result = await db.select().from(quizQuestions).orderBy(quizQuestions.order);
@@ -101,7 +102,6 @@ app.get("/api/quiz-questions", async (req, res) => {
     }
 });
 
-// Get Testimonials
 app.get("/api/testimonials", async (req, res) => {
     try {
         const result = await db.select().from(testimonials);
@@ -112,7 +112,6 @@ app.get("/api/testimonials", async (req, res) => {
     }
 });
 
-// Get Profile
 app.get("/api/profile", async (req, res) => {
     try {
         const email = req.query.email as string;
@@ -127,18 +126,16 @@ app.get("/api/profile", async (req, res) => {
     }
 });
 
-// ===================== UNIFIED ACTIVATION =====================
-// This is the SINGLE endpoint for all activation logic
+// ===================== UNIFIED ACTIVATION (NO MAGIC LINK) =====================
 app.post("/api/activate", async (req, res) => {
     const GUMROAD_PRODUCT_ID = "XN2DDaLOWhon9S7B38sIrw==";
 
     try {
-        console.log("🚀 [ACTIVATE] Starting unified activation...");
+        console.log("🚀 [ACTIVATE] Starting activation...");
         const { email, licenseKey } = req.body;
 
         // Step 1: Validate inputs
         if (!email || !licenseKey) {
-            console.warn("⚠️ [ACTIVATE] Missing email or licenseKey");
             return res.status(400).json({
                 success: false,
                 error: "MISSING_FIELDS",
@@ -146,8 +143,8 @@ app.post("/api/activate", async (req, res) => {
             });
         }
 
-        console.log(`📧 [ACTIVATE] Email: ${email}`);
-        console.log(`🔑 [ACTIVATE] License: ${licenseKey.substring(0, 8)}...`);
+        const normalizedEmail = email.trim().toLowerCase();
+        console.log(`📧 [ACTIVATE] Email: ${normalizedEmail}`);
 
         // Step 2: Validate license with Gumroad FIRST
         console.log("🌍 [ACTIVATE] Validating with Gumroad...");
@@ -156,15 +153,14 @@ app.post("/api/activate", async (req, res) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 product_id: GUMROAD_PRODUCT_ID,
-                license_key: licenseKey,
+                license_key: licenseKey.trim(),
             }),
         });
 
         const gumroadData = await gumroadResponse.json();
-        console.log("📬 [ACTIVATE] Gumroad response:", JSON.stringify(gumroadData, null, 2));
+        console.log("📬 [ACTIVATE] Gumroad response success:", gumroadData.success);
 
         if (!gumroadData.success) {
-            console.warn("❌ [ACTIVATE] Invalid license");
             return res.status(400).json({
                 success: false,
                 error: "INVALID_LICENSE",
@@ -173,7 +169,6 @@ app.post("/api/activate", async (req, res) => {
         }
 
         if (gumroadData.purchase?.refunded || gumroadData.purchase?.chargebacked) {
-            console.warn("❌ [ACTIVATE] License refunded/chargebacked");
             return res.status(400).json({
                 success: false,
                 error: "LICENSE_REVOKED",
@@ -181,45 +176,65 @@ app.post("/api/activate", async (req, res) => {
             });
         }
 
-        if (gumroadData.purchase?.subscription_cancelled_at) {
-            console.warn("❌ [ACTIVATE] Subscription cancelled");
-            return res.status(400).json({
-                success: false,
-                error: "SUBSCRIPTION_CANCELLED",
-                message: "La suscripción fue cancelada"
+        console.log("✅ [ACTIVATE] License valid!");
+
+        // Step 3: Create or get Supabase Auth user
+        console.log("👤 [ACTIVATE] Setting up Supabase user...");
+
+        // Check if user exists
+        const { data: existingUsers } = await supabaseAdmin.auth.admin.listUsers();
+        let authUser = existingUsers?.users?.find(u => u.email === normalizedEmail);
+
+        if (!authUser) {
+            // Create new user with a random password (they'll use magic link to login)
+            console.log("✨ [ACTIVATE] Creating new Supabase user...");
+            const tempPassword = `temp_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+
+            const { data: newUser, error: createError } = await supabaseAdmin.auth.admin.createUser({
+                email: normalizedEmail,
+                password: tempPassword,
+                email_confirm: true, // Auto-confirm since license validates identity
+                user_metadata: {
+                    full_name: gumroadData.purchase?.full_name || normalizedEmail.split('@')[0],
+                    license_key: licenseKey.trim()
+                }
             });
+
+            if (createError) {
+                console.error("❌ [ACTIVATE] Failed to create user:", createError);
+                return res.status(500).json({
+                    success: false,
+                    error: "USER_CREATION_FAILED",
+                    message: "Error al crear usuario"
+                });
+            }
+
+            authUser = newUser.user;
         }
 
-        console.log("✅ [ACTIVATE] License is valid!");
+        console.log("👤 [ACTIVATE] Auth user ready:", authUser?.id);
 
-        // Step 3: Check if profile already exists
-        console.log("💾 [ACTIVATE] Checking database...");
-        const existingProfile = await db.select().from(profiles).where(eq(profiles.email, email));
+        // Step 4: Create/update profile in database
+        console.log("💾 [ACTIVATE] Updating profile...");
+        const existingProfile = await db.select().from(profiles).where(eq(profiles.email, normalizedEmail));
 
         let profile;
-        let isNewUser = false;
-
         if (existingProfile.length > 0) {
-            // Update existing profile
-            console.log("🔄 [ACTIVATE] Updating existing profile...");
             const updated = await db.update(profiles)
                 .set({
-                    gumroadLicenseKey: licenseKey,
+                    gumroadLicenseKey: licenseKey.trim(),
                     subscriptionStatus: 'active',
                     lastLogin: new Date()
                 })
-                .where(eq(profiles.email, email))
+                .where(eq(profiles.email, normalizedEmail))
                 .returning();
             profile = updated[0];
         } else {
-            // Create new profile
-            console.log("✨ [ACTIVATE] Creating new profile...");
-            isNewUser = true;
             const inserted = await db.insert(profiles)
                 .values({
-                    email,
-                    fullName: gumroadData.purchase?.full_name || email.split('@')[0],
-                    gumroadLicenseKey: licenseKey,
+                    email: normalizedEmail,
+                    fullName: gumroadData.purchase?.full_name || normalizedEmail.split('@')[0],
+                    gumroadLicenseKey: licenseKey.trim(),
                     subscriptionStatus: 'active',
                     tier: 'citizen',
                     lastLogin: new Date()
@@ -228,39 +243,38 @@ app.post("/api/activate", async (req, res) => {
             profile = inserted[0];
         }
 
-        console.log("🎉 [ACTIVATE] Profile ready:", profile?.id);
+        console.log("✅ [ACTIVATE] Profile ready:", profile?.id);
 
-        // Step 4: Send magic link for new users
-        if (isNewUser) {
-            console.log("📧 [ACTIVATE] Sending magic link to new user...");
-            const { error: authError } = await supabaseAdmin.auth.signInWithOtp({
-                email,
-                options: {
-                    emailRedirectTo: `${req.headers.origin || 'https://somosmaas.org'}/dashboard`,
-                },
-            });
-
-            if (authError) {
-                console.error("⚠️ [ACTIVATE] Magic link error:", authError);
-                // Don't fail - profile was created, user can try login later
+        // Step 5: Generate session for immediate login
+        console.log("🔐 [ACTIVATE] Generating session...");
+        const { data: sessionData, error: sessionError } = await supabaseAdmin.auth.admin.generateLink({
+            type: 'magiclink',
+            email: normalizedEmail,
+            options: {
+                redirectTo: `${req.headers.origin || 'https://somosmaas.org'}/dashboard`
             }
+        });
 
+        if (sessionError) {
+            console.error("⚠️ [ACTIVATE] Session generation failed:", sessionError);
+            // Still success - user can login manually
             return res.status(200).json({
                 success: true,
-                action: "created",
-                needsEmailVerification: true,
-                message: "¡Cuenta creada! Revisa tu email para acceder.",
-                profile
+                message: "¡Cuenta activada! Ahora puedes iniciar sesión.",
+                profile,
+                redirectTo: "/login"
             });
         }
 
-        // For existing users, they just need to login
+        console.log("🎉 [ACTIVATE] Complete! Returning magic link for immediate login.");
+
         return res.status(200).json({
             success: true,
-            action: "activated",
-            needsEmailVerification: false,
-            message: "¡Licencia activada! Inicia sesión para acceder.",
-            profile
+            message: "¡Membresía activada!",
+            profile,
+            // Return the magic link URL for the frontend to redirect
+            loginUrl: sessionData?.properties?.action_link,
+            redirectTo: "/dashboard"
         });
 
     } catch (error: any) {
@@ -272,27 +286,6 @@ app.post("/api/activate", async (req, res) => {
             message: "Error interno del servidor"
         });
     }
-});
-
-// Legacy endpoint (redirect to new one)
-app.post("/api/verify-license", async (req, res) => {
-    console.log("⚠️ [LEGACY] /api/verify-license called, redirecting to /api/activate");
-
-    // Transform request to match new format
-    const { licenseKey, email, userId, fullName } = req.body;
-
-    // Call the new activate logic
-    req.body = { email, licenseKey };
-
-    // Forward to activate endpoint
-    const response = await fetch(`${req.headers.origin || 'https://somosmaas.org'}/api/activate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, licenseKey }),
-    });
-
-    const data = await response.json();
-    res.status(response.status).json(data);
 });
 
 export default app;
