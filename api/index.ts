@@ -61,9 +61,24 @@ const testimonials = pgTable("testimonials", {
     imageUrl: text("image_url"),
 });
 
+const contentItems = pgTable("content_items", {
+    id: uuid("id").defaultRandom().primaryKey(),
+    slug: text("slug").notNull().unique(),
+    title: text("title").notNull(),
+    description: text("description"),
+    type: text("type").notNull(),
+    url: text("url"),
+    icon: text("icon"),
+    thumbnailUrl: text("thumbnail_url"),
+    requiredTier: text("required_tier").default("citizen"),
+    isActive: text("is_active").default("true"),
+    sortOrder: integer("sort_order").default(0),
+    createdAt: timestamp("created_at").defaultNow(),
+});
+
 const db = drizzle({
     client: pool,
-    schema: { profiles, faqs, quizQuestions, testimonials }
+    schema: { profiles, faqs, quizQuestions, testimonials, contentItems }
 });
 
 // ===================== EXPRESS APP =====================
@@ -123,6 +138,48 @@ app.get("/api/profile", async (req, res) => {
     } catch (error: any) {
         console.error("[API] Error fetching profile:", error);
         res.status(500).json({ message: "Error fetching profile" });
+    }
+});
+
+// ===================== CONTENT ITEMS =====================
+const TIER_HIERARCHY: Record<string, number> = {
+    'admin': 100,
+    'coach': 50,
+    'citizen': 10,
+    'none': 0
+};
+
+app.get("/api/content", async (req, res) => {
+    try {
+        const email = req.query.email as string;
+
+        // Get user's tier
+        let userTier = 'none';
+        if (email) {
+            const profileResult = await db.select().from(profiles).where(eq(profiles.email, email));
+            if (profileResult[0]?.subscriptionStatus === 'active') {
+                userTier = profileResult[0].tier || 'citizen';
+            }
+        }
+
+        const userTierLevel = TIER_HIERARCHY[userTier] || 0;
+
+        // Get all active content items
+        const items = await db.select().from(contentItems).orderBy(contentItems.sortOrder);
+
+        // Add hasAccess flag based on tier comparison
+        const itemsWithAccess = items.map(item => ({
+            ...item,
+            hasAccess: userTierLevel >= (TIER_HIERARCHY[item.requiredTier || 'citizen'] || 0)
+        }));
+
+        res.json({
+            userTier,
+            items: itemsWithAccess
+        });
+    } catch (error: any) {
+        console.error("[API] Error fetching content:", error);
+        res.status(500).json({ message: "Error al obtener contenido" });
     }
 });
 

@@ -15,6 +15,7 @@ import SuccessStripe from "@/pages/SuccessStripe";
 import NotFound from "@/pages/not-found";
 import Login from "@/components/Login";
 import Activate from "@/pages/Activate";
+import Dashboard from "@/pages/Dashboard";
 
 // Protected Route Component
 const ProtectedRoute = ({ component: Component, session }: { component: React.ComponentType, session: Session | null }) => {
@@ -66,19 +67,7 @@ const ProtectedRoute = ({ component: Component, session }: { component: React.Co
   return <Component />;
 };
 
-// Dummy Dashboard (Placeholder)
-const Dashboard = () => (
-  <div className="min-h-screen bg-slate-950 text-white p-8">
-    <div className="max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Command Center 🚀</h1>
-      <p className="text-slate-400">Bienvenido a tu área privada de Nordic Migrant Success.</p>
-      <div className="mt-8 p-6 bg-slate-900 rounded-xl border border-slate-700">
-        <h2 className="text-xl font-semibold mb-2">Estado de Membresía</h2>
-        <p className="text-green-400">Activa - Plan Ambición</p>
-      </div>
-    </div>
-  </div>
-);
+// Dashboard is now imported from @/pages/Dashboard
 
 function Router({ session }: { session: Session | null }) {
   return (
@@ -102,7 +91,7 @@ function Router({ session }: { session: Session | null }) {
 
       {/* Protected Routes (Golden Path: Login + Active License) */}
       <Route path="/dashboard">
-        <ProtectedRoute component={Dashboard} session={session} />
+        {session ? <Dashboard session={session} /> : <Redirect to="/login" />}
       </Route>
 
       {/* TODO: Add CV Analyzer and other protected routes here once components are ready */}
