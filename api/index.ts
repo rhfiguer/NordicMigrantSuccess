@@ -4,8 +4,9 @@ import { drizzle } from 'drizzle-orm/neon-serverless';
 import { pgTable, text, serial, integer, boolean, timestamp, uuid } from "drizzle-orm/pg-core";
 import { eq } from "drizzle-orm";
 import ws from "ws";
+import { createClient } from '@supabase/supabase-js';
 
-// ===================== DATABASE SETUP =====================
+// ===================== CONFIG =====================
 neonConfig.webSocketConstructor = ws;
 
 if (!process.env.DATABASE_URL) {
@@ -14,7 +15,13 @@ if (!process.env.DATABASE_URL) {
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
-// ===================== SCHEMA DEFINITIONS =====================
+// Supabase Admin client for server-side user management
+const supabaseAdmin = createClient(
+    process.env.VITE_SUPABASE_URL || '',
+    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY || ''
+);
+
+// ===================== SCHEMA =====================
 const profiles = pgTable("profiles", {
     id: uuid("id").defaultRandom().primaryKey(),
     email: text("email").notNull().unique(),
@@ -49,7 +56,6 @@ const testimonials = pgTable("testimonials", {
     imageUrl: text("image_url"),
 });
 
-// Create DB instance with schema
 const db = drizzle({
     client: pool,
     schema: { profiles, faqs, quizQuestions, testimonials }
@@ -60,13 +66,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Logging middleware
+// Logging
 app.use((req, res, next) => {
     console.log(`[API] ${req.method} ${req.path}`);
     next();
 });
 
-// ===================== API ROUTES =====================
+// ===================== ROUTES =====================
 
 // Health check
 app.get("/api/health", (req, res) => {
@@ -106,14 +112,13 @@ app.get("/api/testimonials", async (req, res) => {
     }
 });
 
-// Get Profile by Email
+// Get Profile
 app.get("/api/profile", async (req, res) => {
     try {
         const email = req.query.email as string;
         if (!email) {
             return res.status(400).json({ message: "Email required" });
         }
-
         const result = await db.select().from(profiles).where(eq(profiles.email, email));
         res.json(result[0] || null);
     } catch (error: any) {
@@ -122,25 +127,30 @@ app.get("/api/profile", async (req, res) => {
     }
 });
 
-// ===================== LICENSE VERIFICATION =====================
-app.post("/api/verify-license", async (req, res) => {
+// ===================== UNIFIED ACTIVATION =====================
+// This is the SINGLE endpoint for all activation logic
+app.post("/api/activate", async (req, res) => {
+    const GUMROAD_PRODUCT_ID = "XN2DDaLOWhon9S7B38sIrw==";
+
     try {
-        console.log("🔍 [API] Starting Verification Process...");
-        const { licenseKey, email, userId, fullName } = req.body;
-        const GUMROAD_PRODUCT_ID = "XN2DDaLOWhon9S7B38sIrw==";
+        console.log("🚀 [ACTIVATE] Starting unified activation...");
+        const { email, licenseKey } = req.body;
 
-        console.log(`🔍 [API] User ID: ${userId || 'N/A'} | Email: ${email || 'N/A'}`);
-
-        if (!userId || !email || !licenseKey) {
-            console.warn("⚠️ [API] Missing critical fields.");
+        // Step 1: Validate inputs
+        if (!email || !licenseKey) {
+            console.warn("⚠️ [ACTIVATE] Missing email or licenseKey");
             return res.status(400).json({
                 success: false,
-                message: "Datos incompletos. Se requiere inicio de sesión."
+                error: "MISSING_FIELDS",
+                message: "Email y license key son requeridos"
             });
         }
 
-        // Verify with Gumroad
-        console.log("🌍 [API] Calling Gumroad API...");
+        console.log(`📧 [ACTIVATE] Email: ${email}`);
+        console.log(`🔑 [ACTIVATE] License: ${licenseKey.substring(0, 8)}...`);
+
+        // Step 2: Validate license with Gumroad FIRST
+        console.log("🌍 [ACTIVATE] Validating with Gumroad...");
         const gumroadResponse = await fetch("https://api.gumroad.com/v2/licenses/verify", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -151,52 +161,64 @@ app.post("/api/verify-license", async (req, res) => {
         });
 
         const gumroadData = await gumroadResponse.json();
-        console.log("📬 [API] Gumroad Response:", JSON.stringify(gumroadData, null, 2));
+        console.log("📬 [ACTIVATE] Gumroad response:", JSON.stringify(gumroadData, null, 2));
 
-        if (!gumroadData.success || gumroadData.purchase?.refunded || gumroadData.purchase?.chargebacked) {
-            console.warn("❌ [API] License invalid/refunded");
+        if (!gumroadData.success) {
+            console.warn("❌ [ACTIVATE] Invalid license");
             return res.status(400).json({
                 success: false,
-                message: "Licencia inválida o expirada."
+                error: "INVALID_LICENSE",
+                message: "Esta licencia no es válida"
             });
         }
 
-        const isSubscriptionActive = !gumroadData.purchase?.subscription_cancelled_at;
-        if (!isSubscriptionActive) {
-            console.warn("❌ [API] Subscription cancelled");
+        if (gumroadData.purchase?.refunded || gumroadData.purchase?.chargebacked) {
+            console.warn("❌ [ACTIVATE] License refunded/chargebacked");
             return res.status(400).json({
                 success: false,
-                message: "Suscripción cancelada."
+                error: "LICENSE_REVOKED",
+                message: "Esta licencia fue reembolsada"
             });
         }
 
-        console.log(`✅ [API] Gumroad valid. Email: ${gumroadData.purchase?.email}`);
+        if (gumroadData.purchase?.subscription_cancelled_at) {
+            console.warn("❌ [ACTIVATE] Subscription cancelled");
+            return res.status(400).json({
+                success: false,
+                error: "SUBSCRIPTION_CANCELLED",
+                message: "La suscripción fue cancelada"
+            });
+        }
 
-        // UPSERT Profile
-        console.log("💾 [API] Checking/Creating profile...");
+        console.log("✅ [ACTIVATE] License is valid!");
 
+        // Step 3: Check if profile already exists
+        console.log("💾 [ACTIVATE] Checking database...");
         const existingProfile = await db.select().from(profiles).where(eq(profiles.email, email));
 
         let profile;
+        let isNewUser = false;
+
         if (existingProfile.length > 0) {
-            // UPDATE
-            console.log(`🔄 [API] Updating existing profile: ${existingProfile[0].id}`);
+            // Update existing profile
+            console.log("🔄 [ACTIVATE] Updating existing profile...");
             const updated = await db.update(profiles)
                 .set({
                     gumroadLicenseKey: licenseKey,
                     subscriptionStatus: 'active',
                     lastLogin: new Date()
                 })
-                .where(eq(profiles.id, existingProfile[0].id))
+                .where(eq(profiles.email, email))
                 .returning();
             profile = updated[0];
         } else {
-            // INSERT
-            console.log(`✨ [API] Creating new profile for: ${email}`);
+            // Create new profile
+            console.log("✨ [ACTIVATE] Creating new profile...");
+            isNewUser = true;
             const inserted = await db.insert(profiles)
                 .values({
                     email,
-                    fullName: fullName || gumroadData.purchase?.email,
+                    fullName: gumroadData.purchase?.full_name || email.split('@')[0],
                     gumroadLicenseKey: licenseKey,
                     subscriptionStatus: 'active',
                     tier: 'citizen',
@@ -206,23 +228,71 @@ app.post("/api/verify-license", async (req, res) => {
             profile = inserted[0];
         }
 
-        console.log("🚀 [API] Activation successful! Profile ID:", profile?.id);
-        res.status(200).json({
+        console.log("🎉 [ACTIVATE] Profile ready:", profile?.id);
+
+        // Step 4: Send magic link for new users
+        if (isNewUser) {
+            console.log("📧 [ACTIVATE] Sending magic link to new user...");
+            const { error: authError } = await supabaseAdmin.auth.signInWithOtp({
+                email,
+                options: {
+                    emailRedirectTo: `${req.headers.origin || 'https://somosmaas.org'}/dashboard`,
+                },
+            });
+
+            if (authError) {
+                console.error("⚠️ [ACTIVATE] Magic link error:", authError);
+                // Don't fail - profile was created, user can try login later
+            }
+
+            return res.status(200).json({
+                success: true,
+                action: "created",
+                needsEmailVerification: true,
+                message: "¡Cuenta creada! Revisa tu email para acceder.",
+                profile
+            });
+        }
+
+        // For existing users, they just need to login
+        return res.status(200).json({
             success: true,
-            message: "¡Activación completada!",
+            action: "activated",
+            needsEmailVerification: false,
+            message: "¡Licencia activada! Inicia sesión para acceder.",
             profile
         });
 
     } catch (error: any) {
-        console.error("🔥 [API ERROR]:", error.message);
+        console.error("🔥 [ACTIVATE] Error:", error.message);
         console.error(error);
         res.status(500).json({
             success: false,
-            message: "Error interno del servidor.",
-            error: error.message
+            error: "SERVER_ERROR",
+            message: "Error interno del servidor"
         });
     }
 });
 
-// Export for Vercel
+// Legacy endpoint (redirect to new one)
+app.post("/api/verify-license", async (req, res) => {
+    console.log("⚠️ [LEGACY] /api/verify-license called, redirecting to /api/activate");
+
+    // Transform request to match new format
+    const { licenseKey, email, userId, fullName } = req.body;
+
+    // Call the new activate logic
+    req.body = { email, licenseKey };
+
+    // Forward to activate endpoint
+    const response = await fetch(`${req.headers.origin || 'https://somosmaas.org'}/api/activate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, licenseKey }),
+    });
+
+    const data = await response.json();
+    res.status(response.status).json(data);
+});
+
 export default app;
