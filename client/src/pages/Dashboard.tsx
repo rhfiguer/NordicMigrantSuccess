@@ -95,16 +95,16 @@ export default function Dashboard({ session }: { session: Session }) {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-[#0a1628] flex items-center justify-center">
-                <Loader2 className="w-8 h-8 text-red-500 animate-spin" />
+            <div className="min-h-screen bg-[#0B1221] flex items-center justify-center">
+                <Loader2 className="w-8 h-8 text-[#FF5F1F] animate-spin" />
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-[#0a1628] text-white">
+        <div className="min-h-screen bg-[#0B1221] text-[#E0E0E0]">
             {/* Header - Red bar like somosmaas.org */}
-            <header className="bg-[#dc143c] py-4">
+            <header className="bg-[#FF5F1F] py-4">
                 <div className="max-w-6xl mx-auto px-4 flex items-center justify-between">
                     <h1 className="text-xl font-bold tracking-wide">Capital MAAS</h1>
                     <div className="flex items-center gap-4">
@@ -133,7 +133,7 @@ export default function Dashboard({ session }: { session: Session }) {
                     <div className="text-center mb-12">
                         <h2 className="text-4xl font-bold mb-4">
                             Tu Arsenal para la{" "}
-                            <span className="text-[#dc143c]">Conquista</span>
+                            <span className="text-[#FF5F1F]">Conquista</span>
                         </h2>
                         <p className="text-slate-400 text-lg max-w-2xl mx-auto">
                             Herramientas de élite diseñadas para desbloquear tu potencial en el mercado nórdico.
@@ -190,7 +190,7 @@ export default function Dashboard({ session }: { session: Session }) {
                                     </div>
 
                                     {/* Title */}
-                                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-slate-100">
+                                    <h3 className="text-lg font-bold text-[#E0E0E0] mb-2 group-hover:text-white">
                                         {item.title}
                                     </h3>
 

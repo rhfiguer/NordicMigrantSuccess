@@ -83,7 +83,7 @@ export default function Activate({ session }: { session: Session | null }) {
     // If user already has session, redirect to dashboard
     if (session) {
         return (
-            <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4">
+            <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
                 <motion.div
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
@@ -92,7 +92,7 @@ export default function Activate({ session }: { session: Session | null }) {
                     <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto">
                         <CheckCircle className="w-10 h-10 text-green-400" />
                     </div>
-                    <h2 className="text-2xl font-bold text-white">¡Ya tienes sesión activa!</h2>
+                    <h2 className="text-2xl font-bold text-foreground">¡Ya tienes sesión activa!</h2>
                     <p className="text-slate-400">Sesión: {session.user.email}</p>
                     <Button
                         onClick={() => window.location.href = "/dashboard"}
@@ -107,7 +107,7 @@ export default function Activate({ session }: { session: Session | null }) {
 
     // Main activation form
     return (
-        <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 relative overflow-hidden">
+        <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4 relative overflow-hidden">
             {/* Background */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
                 <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse" />
@@ -124,7 +124,7 @@ export default function Activate({ session }: { session: Session | null }) {
                     <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 mb-4 shadow-lg shadow-blue-500/20">
                         <Sparkles className="w-8 h-8 text-white" />
                     </div>
-                    <h1 className="text-3xl font-bold text-white font-poppins">Activa tu Membresía</h1>
+                    <h1 className="text-3xl font-bold text-foreground font-poppins">Activa tu Membresía</h1>
                     <p className="text-slate-400 mt-2">
                         Un paso. Acceso inmediato.
                     </p>
@@ -145,7 +145,7 @@ export default function Activate({ session }: { session: Session | null }) {
                 {/* Form */}
                 <Card className="bg-slate-900/50 border-slate-700 backdrop-blur-sm shadow-xl">
                     <CardHeader>
-                        <CardTitle className="text-white text-lg">Acceso Premium</CardTitle>
+                        <CardTitle className="text-foreground text-lg">Acceso Premium</CardTitle>
                         <CardDescription className="text-slate-400">
                             Ingresa tu email y la licencia de Gumroad
                         </CardDescription>
@@ -161,7 +161,7 @@ export default function Activate({ session }: { session: Session | null }) {
                                         placeholder="tu@email.com"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="pl-10 bg-slate-950 border-slate-800 text-white placeholder:text-slate-600"
+                                        className="pl-10 bg-background border-slate-800 text-foreground placeholder:text-slate-600"
                                         required
                                         disabled={loading}
                                     />
@@ -176,7 +176,7 @@ export default function Activate({ session }: { session: Session | null }) {
                                         placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
                                         value={licenseKey}
                                         onChange={(e) => setLicenseKey(e.target.value)}
-                                        className="pl-10 bg-slate-950 border-slate-800 text-white placeholder:text-slate-600 font-mono uppercase"
+                                        className="pl-10 bg-background border-slate-800 text-foreground placeholder:text-slate-600 font-mono uppercase"
                                         required
                                         disabled={loading}
                                     />

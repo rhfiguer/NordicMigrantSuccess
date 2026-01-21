@@ -91,7 +91,7 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-950 p-4 relative overflow-hidden">
+        <div className="min-h-screen flex items-center justify-center bg-background p-4 relative overflow-hidden">
             {/* Background */}
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
@@ -101,7 +101,7 @@ const Login = () => {
                     <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl mx-auto flex items-center justify-center mb-4 shadow-lg">
                         <Sparkles className="w-8 h-8 text-white" />
                     </div>
-                    <h2 className="text-3xl font-poppins font-bold text-white mb-2">Bienvenido</h2>
+                    <h2 className="text-3xl font-poppins font-bold text-foreground mb-2">Bienvenido</h2>
                     <p className="text-slate-400">Accede a tu Command Center</p>
                 </div>
 
@@ -110,7 +110,7 @@ const Login = () => {
                         <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
                             <CheckCircle className="w-10 h-10 text-green-400" />
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-2">¡Revisa tu Correo!</h3>
+                        <h3 className="text-xl font-bold text-foreground mb-2">¡Revisa tu Correo!</h3>
                         <p className="text-slate-400">Te enviamos un enlace de acceso.</p>
                         <Button
                             variant="ghost"
@@ -156,7 +156,7 @@ const Login = () => {
                                 <Input
                                     type="email"
                                     placeholder="tu@email.com"
-                                    className="pl-10 bg-slate-950/50 border-slate-700 text-white placeholder:text-slate-600 h-12"
+                                    className="pl-10 bg-background/50 border-slate-700 text-foreground placeholder:text-slate-600 h-12"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     disabled={loading}
