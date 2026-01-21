@@ -29,7 +29,7 @@ const Presenters = () => {
               <div className="bg-slate-900 rounded-2xl p-6 border border-slate-700 relative before:content-[''] before:absolute before:w-4 before:h-4 before:bg-slate-900 before:border-l before:border-b before:border-slate-700 before:-left-2 before:top-8 before:rotate-45">
                 <h3 className="font-poppins font-bold text-xl text-white mb-1">Rodrigo Figueroa</h3>
                 <p className="text-slate-300 font-medium mb-1">Chileno, Emprendedor, Podcaster y Desarrollador Autodidacta </p>
-                <p className="text-red-500 font-medium mb-4">STAVANGER</p>
+                <p className="text-[#FF5F1F] font-medium mb-4">STAVANGER</p>
                 <p className="text-slate-400 leading-relaxed">
                   Rodrigo vive en Stavanger. Padre de dos niños. Podcaster. Con experiencia en emprendimientos en Chile y ahora en Noruega. Tiene estudios en Ciencias Sociales, Ingeniería Comercial y un MSc en Administración en Noruega. Fanático del fútbol.
                 </p>
@@ -53,7 +53,7 @@ const Presenters = () => {
               <div className="bg-slate-900 rounded-2xl p-6 border border-slate-700 relative before:content-[''] before:absolute before:w-4 before:h-4 before:bg-slate-900 before:border-r before:border-b before:border-slate-700 before:-right-2 before:top-8 before:rotate-45">
                 <h3 className="font-poppins font-bold text-xl text-white mb-1">Marcela Nürnberg</h3>
                 <p className="text-slate-300 font-medium mb-1">Argentina, abogada, podcaster y activista cultural</p>
-                <p className="text-red-500 font-medium mb-4">KOPPANG</p>
+                <p className="text-[#FF5F1F] font-medium mb-4">KOPPANG</p>
                 <p className="text-slate-400 leading-relaxed">
                   Marcela vive junto a su familia en un pequeño pueblo a 200km de Oslo. Madre de un niño. Con experiencia en defensa de derechos humanos y comunicación intercultural. Apasionada por el arte, la cultura y la integración.
                 </p>

@@ -16,7 +16,7 @@ const Overview = () => {
           className="text-center mb-16"
         >
           <h2 className="font-poppins font-bold text-3xl md:text-5xl text-white mb-6">
-            Tu Arsenal para la <span className="text-red-500">Conquista</span>
+            Tu Arsenal para la <span className="text-[#FF5F1F]">Conquista</span>
           </h2>
           <p className="text-xl text-slate-400 max-w-2xl mx-auto">
             Herramientas de élite diseñadas para desbloquear tu potencial en el mercado nórdico.
@@ -33,7 +33,7 @@ const Overview = () => {
             className="md:col-span-2 relative group overflow-hidden rounded-3xl bg-slate-900/60 border border-slate-700 hover:border-red-500/50 transition-all duration-300 block"
           >
             <div className="absolute top-0 right-0 p-4 z-20">
-              <span className="bg-red-500/20 text-red-400 text-xs font-bold px-3 py-1 rounded-full border border-red-500/30 flex items-center gap-1">
+              <span className="bg-[#FF5F1F]/20 text-[#FF5F1F] text-xs font-bold px-3 py-1 rounded-full border border-[#FF5F1F]/30 flex items-center gap-1">
                 <Sparkles className="w-3 h-3" /> BETA • PRONTO EN INGLÉS
               </span>
             </div>

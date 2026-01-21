@@ -57,11 +57,11 @@ const Footer = () => {
             <h3 className="font-poppins font-semibold text-lg mb-4 text-white">Contacto</h3>
             <ul className="space-y-2 text-slate-400">
               <li className="flex items-start">
-                <i className="fas fa-envelope text-red-500 mt-1 mr-2"></i>
+                <i className="fas fa-envelope text-[#FF5F1F] mt-1 mr-2"></i>
                 <span>elpodcastdenoruega@gmail.com</span>
               </li>
               <li className="flex items-start">
-                <i className="fas fa-map-marker-alt text-red-500 mt-1 mr-2"></i>
+                <i className="fas fa-map-marker-alt text-[#FF5F1F] mt-1 mr-2"></i>
                 <span>Noruega</span>
               </li>
             </ul>

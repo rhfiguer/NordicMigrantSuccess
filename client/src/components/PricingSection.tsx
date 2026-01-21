@@ -19,7 +19,7 @@ const PricingSection = () => {
             viewport={{ once: true }}
             className="font-poppins font-bold text-3xl md:text-5xl mb-6 text-white"
           >
-            Invierte en tu futuro <span className="text-red-500">MAAS</span>
+            Invierte en tu futuro <span className="text-[#FF5F1F]">MAAS</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -39,10 +39,10 @@ const PricingSection = () => {
               transition={{ delay: 0.2 }}
               className="w-full max-w-md"
             >
-              <Card className="bg-gradient-to-b from-slate-800 to-slate-900 p-8 shadow-[0_0_40px_rgba(220,20,60,0.15)] border border-red-500/30 w-full relative overflow-hidden backdrop-blur-sm rounded-2xl hover:border-red-500/50 transition-colors duration-300">
+              <Card className="bg-gradient-to-b from-slate-800 to-slate-900 p-8 shadow-[0_0_40px_rgba(255,95,31,0.15)] border border-[#FF5F1F]/30 w-full relative overflow-hidden backdrop-blur-sm rounded-2xl hover:border-[#FF5F1F]/50 transition-colors duration-300">
 
                 {/* Shine Effect */}
-                <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-red-500/10 rotate-45 blur-3xl transform" />
+                <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-[#FF5F1F]/10 rotate-45 blur-3xl transform" />
 
                 <div className="mb-8 relative z-10">
                   <h3 className="text-2xl font-bold text-slate-100 mb-2">Membresía Somos MAAS</h3>
@@ -56,37 +56,37 @@ const PricingSection = () => {
                 <div className="space-y-4 mb-8 text-left relative z-10">
                   <div className="flex items-start">
                     <div className="bg-slate-800 p-1 rounded-full mr-3 mt-1 border border-slate-700">
-                      <Check className="text-red-400 h-4 w-4 flex-shrink-0" />
+                      <Check className="text-[#FF5F1F] h-4 w-4 flex-shrink-0" />
                     </div>
                     <span className="text-slate-300 font-medium">Acceso a la Comunidad Privada</span>
                   </div>
                   <div className="flex items-start">
                     <div className="bg-slate-800 p-1 rounded-full mr-3 mt-1 border border-slate-700">
-                      <Check className="text-red-400 h-4 w-4 flex-shrink-0" />
+                      <Check className="text-[#FF5F1F] h-4 w-4 flex-shrink-0" />
                     </div>
                     <span className="text-slate-300 font-medium">Nordy: Entrenador de Idioma (IA)</span>
                   </div>
                   <div className="flex items-start">
                     <div className="bg-slate-800 p-1 rounded-full mr-3 mt-1 border border-slate-700">
-                      <Check className="text-red-400 h-4 w-4 flex-shrink-0" />
+                      <Check className="text-[#FF5F1F] h-4 w-4 flex-shrink-0" />
                     </div>
                     <span className="text-slate-300 font-medium">Herramienta Analizador de CV</span>
                   </div>
                   <div className="flex items-start">
                     <div className="bg-slate-800 p-1 rounded-full mr-3 mt-1 border border-slate-700">
-                      <Check className="text-red-400 h-4 w-4 flex-shrink-0" />
+                      <Check className="text-[#FF5F1F] h-4 w-4 flex-shrink-0" />
                     </div>
                     <span className="text-slate-300 font-medium">Mindset Groups & Networking</span>
                   </div>
                   <div className="flex items-start">
                     <div className="bg-slate-800 p-1 rounded-full mr-3 mt-1 border border-slate-700">
-                      <Check className="text-red-400 h-4 w-4 flex-shrink-0" />
+                      <Check className="text-[#FF5F1F] h-4 w-4 flex-shrink-0" />
                     </div>
                     <span className="text-slate-300 font-medium">Masterclasses & Webinars Expertos</span>
                   </div>
                   <div className="flex items-start">
                     <div className="bg-slate-800 p-1 rounded-full mr-3 mt-1 border border-slate-700">
-                      <Check className="text-red-400 h-4 w-4 flex-shrink-0" />
+                      <Check className="text-[#FF5F1F] h-4 w-4 flex-shrink-0" />
                     </div>
                     <span className="text-slate-300 font-medium">Contenido Exclusivo y mucho más</span>
                   </div>
