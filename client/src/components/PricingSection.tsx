@@ -28,7 +28,7 @@ const PricingSection = () => {
             transition={{ delay: 0.1 }}
             className="text-slate-400 mb-12 text-lg"
           >
-            Una inversión única para maximizar tu potencial de integración y éxito profesional en Noruega.
+            Una inversión única para maximizar tu potencial de integración y éxito profesional en cualquier país del mundo.
           </motion.p>
 
           <div className="flex justify-center">
